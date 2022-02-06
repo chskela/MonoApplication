@@ -16,7 +16,6 @@ private val Poppins = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-
     h1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
@@ -57,6 +56,5 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 10.sp
     )
-
 )
 
