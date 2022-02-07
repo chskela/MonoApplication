@@ -5,6 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
 
@@ -24,7 +25,9 @@ val Typography = Typography(
     h2 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp
+        fontSize = 24.sp,
+        lineHeight = 36.sp,
+        textAlign = TextAlign.Center,
     ),
     subtitle1 = TextStyle(
         fontFamily = Poppins,
@@ -40,7 +43,8 @@ val Typography = Typography(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp
+        lineHeight = 24.sp,
+        textAlign = TextAlign.Center
     ),
     body2 = TextStyle(
         fontFamily = Poppins,
