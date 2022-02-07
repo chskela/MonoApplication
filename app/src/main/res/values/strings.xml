@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Mono Application</string>
+    <string name="app_name">Mono</string>
+
+    <!--OnBoarding-->
+    <string name="on_boarding_continue">Continue</string>
+    <string name="on_boarding_get_started">Get started</string>
+    <string name="on_boarding_skip">Skip</string>
+
+    <string name="on_boarding_title_step1">Easy to add new transaction</string>
+    <string name="on_boarding_title_step2">Track income and expenses</string>
+    <string name="on_boarding_title_step3">Comprehensive Report</string>
+
+    <string name="on_boarding_body_step1">We always try to bring the best experience to users. Your transactions are recorded as quickly as possible. You will not have any difficulties when you first use MoNo.</string>
+    <string name="on_boarding_body_step2">details tracking transactions visually with the adding images features bills</string>
+    <string name="on_boarding_body_step3">Supports viewing your balance for monthly, income and expenses, debts, loans as well as reports with category.</string>
+
 </resources>

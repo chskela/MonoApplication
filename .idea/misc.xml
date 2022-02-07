@@ -7,6 +7,10 @@
         <entry key="../../../../layout/compose-model-1644243641150.xml" value="1.4754098360655739" />
         <entry key="../../../../layout/compose-model-1644245938907.xml" value="1.0" />
         <entry key="../../../../layout/compose-model-1644247334476.xml" value="0.4666666666666667" />
+        <entry key="app/src/main/res/drawable-v24/divider.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/ic__on_boarding_step1.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/on_boarding_step2.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/on_boarding_step3.xml" value="0.2" />
       </map>
     </option>
   </component>
