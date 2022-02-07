@@ -7,37 +7,34 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = PrimaryDark,
+    primary = Branding,
+    onPrimary = White,
     secondary = SecondaryDark,
     background = BackgroundDark,
     error = Red,
     onError = White,
     surface = BlackDark,
-    onSurface = SecondaryDark
+    onSurface = SecondaryDark,
+    secondaryVariant = PrimaryDark,
+
 )
 
 private val LightColorPalette = lightColors(
-    primary = Primary,
+    primary = Branding,
+    onPrimary = White,
     secondary = Secondary,
     background = Background,
     error = Red,
     onError = White,
     surface = White,
     onSurface = Secondary,
-    /* Other default colors to override
-
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    secondaryVariant = Primary,
 )
 
 @Composable
 fun MonoApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
