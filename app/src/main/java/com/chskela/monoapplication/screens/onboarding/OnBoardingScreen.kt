@@ -15,12 +15,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.ui.components.MonoButton
 import com.chskela.monoapplication.ui.theme.MonoApplicationTheme
 
+
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingActivityScreen(onBoardingViewModel: OnBoardingViewModel = viewModel()) {
+        OnBoardingScreen(uiState = onBoardingViewModel.uiState.value)
+}
+
+@Composable
+fun OnBoardingScreen(
+    uiState: OnBoardingUiState,
+    onSkip: () -> Unit = {},
+    onClickButton: () -> Unit = {},
+) {
     Surface {
         Column(modifier = Modifier
             .fillMaxSize()
@@ -34,14 +45,17 @@ fun OnBoardingScreen() {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "1/3",
+                    Text(text = "${uiState.page}/3",
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.secondaryVariant)
-                    OutlinedButton(onClick = { /*TODO*/ },
-                        contentPadding = PaddingValues(horizontal = 24.dp)) {
-                        Text(text = "Skip",
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.secondaryVariant)
+
+                    if (uiState.skip) {
+                        OutlinedButton(onClick = onSkip,
+                            contentPadding = PaddingValues(horizontal = 24.dp)) {
+                            Text(text = "Skip",
+                                style = MaterialTheme.typography.body1,
+                                color = MaterialTheme.colors.secondaryVariant)
+                        }
                     }
                 }
                 Image(
@@ -49,18 +63,18 @@ fun OnBoardingScreen() {
                         .fillMaxWidth()
                         .fillMaxHeight(0.475f)
                         .padding(bottom = 24.dp),
-                    imageVector = ImageVector.vectorResource(id = R.drawable.on_boarding_step1),
+                    imageVector = ImageVector.vectorResource(id = uiState.image),
                     contentDescription = "",
                 )
                 Text(
-                    text = stringResource(R.string.on_boarding_title_step1),
+                    text = stringResource(uiState.title),
                     style = MaterialTheme.typography.h2,
                     color = MaterialTheme.colors.secondaryVariant
                 )
-                Text(text = stringResource(id = R.string.on_boarding_body_step1),
+                Text(text = stringResource(id = uiState.body),
                     style = MaterialTheme.typography.body1)
             }
-            MonoButton(text = stringResource(id = R.string.on_boarding_continue))
+            MonoButton(text = stringResource(id = uiState.buttonTitle), onClick = onClickButton)
         }
     }
 }
@@ -70,6 +84,13 @@ fun OnBoardingScreen() {
 @Composable
 fun PreviewOnBoardingScreen() {
     MonoApplicationTheme {
-        OnBoardingScreen()
+        OnBoardingScreen(uiState = OnBoardingUiState(
+            page = 1,
+            image = R.drawable.on_boarding_step1,
+            title = R.string.on_boarding_title_step1,
+            body = R.string.on_boarding_body_step1,
+            buttonTitle = R.string.on_boarding_continue,
+            skip = true
+        ))
     }
 }
