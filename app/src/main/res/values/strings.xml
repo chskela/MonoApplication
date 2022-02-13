@@ -18,11 +18,11 @@
     <string name="on_boarding_body_step2">details tracking transactions visually with the adding images features bills</string>
     <string name="on_boarding_body_step3">Supports viewing your balance for monthly, income and expenses, debts, loans as well as reports with category.</string>
 
-    <!--Bottom Bar-->
-    <string name="bottom_bar_input">Input</string>
-    <string name="bottom_bar_Calculator">Calculator</string>
-    <string name="bottom_bar_report">Report</string>
-    <string name="bottom_bar_settings">Settings</string>
+    <!--Bottom Navigation-->
+    <string name="bottom_navigation_input">Input</string>
+    <string name="bottom_navigation_calculator">Calculator</string>
+    <string name="bottom_navigation_report">Report</string>
+    <string name="bottom_navigation_settings">Settings</string>
     
     <!--Category-->
     <string name="category_baby">Baby</string>
