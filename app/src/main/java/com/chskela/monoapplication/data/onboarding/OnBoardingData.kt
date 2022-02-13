@@ -2,9 +2,11 @@ package com.chskela.monoapplication.data.onboarding
 
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.screens.onboarding.OnBoardingUiState
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object OnBoardingData {
-
+@Singleton
+class OnBoardingData @Inject constructor(){
     fun getData() = listOf(
             OnBoardingUiState(
                 page = 1,
@@ -31,7 +33,5 @@ object OnBoardingData {
                 skip = false
             ),
     )
-
-
 }
 
