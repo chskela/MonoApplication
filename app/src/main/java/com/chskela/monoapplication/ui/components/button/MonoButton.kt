@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.ui.components
+package com.chskela.monoapplication.ui.components.button
 
 import android.content.res.Configuration
 import androidx.compose.foundation.isSystemInDarkTheme
