@@ -33,7 +33,9 @@ fun MonoTopAppBar(
         navigationIcon = {
             if (isBack) {
                 IconButton(onClick = onNavigation) {
-                    Text(text = "Back", style = MaterialTheme.typography.body1)
+                    Text(text = "Back",
+                        style = MaterialTheme.typography.body1,
+                        color = MaterialTheme.colors.secondary)
 //                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Back")
                 }
             } else {
