@@ -4,6 +4,7 @@
     <!--Common-->
     <string name="expense">Expense</string>
     <string name="income">Income</string>
+    <string name="currency">Currency</string>
 
     <!--OnBoarding-->
     <string name="on_boarding_continue">Continue</string>
