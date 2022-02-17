@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.domain.usecase
+package com.chskela.monoapplication.domain.currency.usecase
 
 data class CurrencyUseCase(
     val addCurrencyUseCase: AddCurrencyUseCase,

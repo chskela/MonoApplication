@@ -1,7 +1,7 @@
-package com.chskela.monoapplication.domain.usecase
+package com.chskela.monoapplication.domain.currency.usecase
 
-import com.chskela.monoapplication.domain.models.Currency
-import com.chskela.monoapplication.domain.repository.CurrencyRepository
+import com.chskela.monoapplication.domain.currency.models.Currency
+import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetDefaultCurrencyUseCase(private val currencyRepository: CurrencyRepository) {

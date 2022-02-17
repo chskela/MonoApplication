@@ -1,6 +1,6 @@
-package com.chskela.monoapplication.domain.repository
+package com.chskela.monoapplication.domain.currency.repository
 
-import com.chskela.monoapplication.domain.models.Currency
+import com.chskela.monoapplication.domain.currency.models.Currency
 import kotlinx.coroutines.flow.Flow
 
 interface CurrencyRepository {
