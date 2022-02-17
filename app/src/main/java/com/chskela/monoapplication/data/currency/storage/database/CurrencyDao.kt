@@ -7,14 +7,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CurrencyDao {
 
-    @Query("SELECT * FROM currencyData")
-    fun getListCurrency() : Flow<List<CurrencyData>>
+    @Query("SELECT * FROM currency")
+    fun getListCurrency(): Flow<List<CurrencyData>>
 
-    @Query("SELECT * FROM currencyData WHERE id = :id")
-    suspend fun getCurrencyById(id: Long) : CurrencyData?
+    @Query("SELECT * FROM currency WHERE id = :id")
+    suspend fun getCurrencyById(id: Long): CurrencyData?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrency(currencyData: CurrencyData)
+
+    @Update
+    suspend fun updateCurrency(currencyData: CurrencyData)
 
     @Delete
     suspend fun deleteCurrency(currencyData: CurrencyData)

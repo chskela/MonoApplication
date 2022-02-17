@@ -4,18 +4,18 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "currency")
 data class CurrencyData(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long? = null,
 
     @ColumnInfo
     val name: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "letter_code")
     val letterCode: String,
 
     @ColumnInfo
-    val symbol: String
+    val symbol: String,
 )
