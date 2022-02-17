@@ -8,8 +8,6 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,39 +17,46 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = viewModel()) {
-    CurrencyScreen(uiState = currencyViewModel.uiState.value)
+    CurrencyScreen(
+        uiState = currencyViewModel.uiState.value,
+        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
+    )
 }
 
 @Composable
-fun CurrencyScreen(uiState: CurrencyUiState) {
+fun CurrencyScreen(
+    uiState: CurrencyUiState,
+    onSelectedCurrency: (Long) -> Unit = {},
+) {
+    val radioOptions = uiState.currencyList
+
     Scaffold(topBar = {
         MonoTopAppBar(title = stringResource(id = R.string.currency))
     },
         backgroundColor = MaterialTheme.colors.surface
     ) {
-        val radioOptions = listOf("Calls", "Missed", "Friends")
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
         Column(Modifier.selectableGroup()) {
-            radioOptions.forEach { text ->
+            radioOptions.forEach { currency ->
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .height(56.dp)
                         .selectable(
-                            selected = (text == selectedOption),
-                            onClick = { onOptionSelected(text) },
+                            selected = (currency.id == uiState.selectedCurrency),
+                            onClick = { onSelectedCurrency(currency.id) },
                             role = Role.RadioButton
                         )
                         .padding(horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (text == selectedOption),
+                        selected = (currency.id == uiState.selectedCurrency),
                         onClick = null,// null recommended for accessibility with screenreaders
                         colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary)
                     )
@@ -67,20 +72,20 @@ fun CurrencyScreen(uiState: CurrencyUiState) {
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "\$",
+                            text = currency.symbol,
                             style = MaterialTheme.typography.body1,
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(
-                            text = "\$100.00",
+                            text = "${currency.symbol}100.00",
                             style = MaterialTheme.typography.body1,
                             modifier = Modifier.padding(start = 16.dp)
                         )
 
                         Text(
-                            text = "USD",
+                            text = currency.letterCode,
                             style = MaterialTheme.typography.body1,
                             modifier = Modifier.padding(start = 16.dp)
                         )
@@ -92,12 +97,16 @@ fun CurrencyScreen(uiState: CurrencyUiState) {
     }
 }
 
-
 @Preview(showBackground = true, name = "Light CurrencyScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCurrencyScreen() {
     MonoApplicationTheme {
-        CurrencyActivityScreen()
+        CurrencyScreen(uiState = CurrencyUiState(
+            currencyList = listOf(Currency(1, "Dollar", "USD", "$"),
+                Currency(2, "Dollar", "USD", "$"),
+                Currency(3, "Dollar", "USD", "$")),
+            selectedCurrency = 3
+        ))
     }
 }

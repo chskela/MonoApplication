@@ -4,5 +4,5 @@ data class Currency(
     val id: Long,
     val name: String,
     val letterCode: String,
-    val symbol: String
+    val symbol: String,
 )

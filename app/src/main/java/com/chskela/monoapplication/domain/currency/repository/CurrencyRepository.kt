@@ -9,7 +9,9 @@ interface CurrencyRepository {
 
     fun getDefaultCurrency() : Flow<Currency>
 
-    suspend fun addCurrency(currency: Currency)
+    suspend fun insertCurrency(currency: Currency)
+
+    suspend fun updateCurrency(currency: Currency)
 
     suspend fun  deleteCurrency(currency: Currency)
 
