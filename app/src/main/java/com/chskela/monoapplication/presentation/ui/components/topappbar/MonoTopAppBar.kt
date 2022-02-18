@@ -3,6 +3,7 @@ package com.chskela.monoapplication.presentation.ui.components.topappbar
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -35,7 +36,8 @@ fun MonoTopAppBar(
                 IconButton(onClick = onNavigation) {
                     Text(text = "Back",
                         style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.secondary)
+                        color = MaterialTheme.colors.secondary,
+                        modifier = Modifier.padding(start = 12.dp))
 //                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Back")
                 }
             } else {

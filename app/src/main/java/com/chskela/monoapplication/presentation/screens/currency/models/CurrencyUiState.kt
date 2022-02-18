@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.currency
+package com.chskela.monoapplication.presentation.screens.currency.models
 
 import com.chskela.monoapplication.domain.currency.models.Currency
 

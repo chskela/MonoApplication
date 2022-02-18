@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
+import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
@@ -34,15 +34,13 @@ fun CurrencyScreen(
     uiState: CurrencyUiState,
     onSelectedCurrency: (Long) -> Unit = {},
 ) {
-    val radioOptions = uiState.currencyList
-
     Scaffold(topBar = {
         MonoTopAppBar(title = stringResource(id = R.string.currency))
     },
         backgroundColor = MaterialTheme.colors.surface
     ) {
         Column(Modifier.selectableGroup()) {
-            radioOptions.forEach { currency ->
+            uiState.currencyList.forEach { currency ->
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -65,9 +63,9 @@ fun CurrencyScreen(
                         modifier = Modifier
                             .padding(start = 16.dp)
                             .size(32.dp)
-                            .clip(shape = RoundedCornerShape(4.dp))
                             .border(
-                                width = 2.dp, color = MaterialTheme.colors.secondaryVariant
+                                width = 1.dp, color = MaterialTheme.colors.secondaryVariant,
+                                shape = RoundedCornerShape(4.dp)
                             ),
                         contentAlignment = Alignment.Center
                     ) {
