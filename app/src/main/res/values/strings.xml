@@ -5,6 +5,7 @@
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="currency">Currency</string>
+    <string name="category">Category</string>
 
     <!--OnBoarding-->
     <string name="on_boarding_continue">Continue</string>
