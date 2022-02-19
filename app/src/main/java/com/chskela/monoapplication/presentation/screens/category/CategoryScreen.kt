@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,30 +10,30 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryGrid
+import com.chskela.monoapplication.presentation.screens.category.components.CategoryItem
+import com.chskela.monoapplication.presentation.screens.category.components.CategoryGrid
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
-
-//@Composable
-//fun CategoryActivityScreen(
-////    currencyViewModel: CurrencyViewModel = viewModel()
-//) {
-//    CategoryScreen(
-////        uiState = currencyViewModel.uiState.value,
-////        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
-//    )
-//}
+@Composable
+fun CategoryActivityScreen(
+    categoryViewModel: CategoryViewModel = viewModel()
+) {
+    CategoryScreen(
+        uiState = categoryViewModel.uiState.value,
+//        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
+    )
+}
 
 @Composable
 fun CategoryScreen(uiState: CategoryUiState) {
@@ -76,7 +75,6 @@ fun ExpenseIncomeSurface(listCategoryUi: List<CategoryUi>, title: String) {
                     }
                 }
             }
-
         }
     }
 }

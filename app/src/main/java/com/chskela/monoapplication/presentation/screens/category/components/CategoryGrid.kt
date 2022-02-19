@@ -1,17 +1,15 @@
-package com.chskela.monoapplication.presentation.screens.category.models
+package com.chskela.monoapplication.presentation.screens.category.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.category.CategoryItem
+import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
