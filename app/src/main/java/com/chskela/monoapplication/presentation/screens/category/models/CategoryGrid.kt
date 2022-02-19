@@ -1,16 +1,15 @@
 package com.chskela.monoapplication.presentation.screens.category.models
 
 import android.content.res.Configuration
-import android.util.Log
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.category.CategoryItem
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -24,10 +23,14 @@ fun CategoryGrid(
         modifier = modifier,
         content = content
     ) { measurables, constraints ->
-        val placeables = measurables.map { it.measure(constraints) }
+        val placeables = measurables.map { it.measure(constraints)}
+        val ratio = constraints.maxWidth / (placeables[0].width)
+        val padding = (constraints.maxWidth - placeables[0].width * ratio) / ratio
 
-        val ratio = constraints.maxWidth / (placeables[0].width + 4)
-        layout(constraints.maxWidth, (placeables[0].width + 4) * (placeables.size / ratio) + 160) {
+        layout(
+            width = placeables[0].width * ratio + padding * (ratio - 1),
+            height = (placeables[0].height + padding) * (placeables.size / ratio + 1)
+        ) {
             var xPosition = 0
             var yPosition = 0
             placeables.forEach { placeable ->
@@ -36,8 +39,8 @@ fun CategoryGrid(
                     y = yPosition
                 )
                 val isNextRow = xPosition + placeable.width * 2 > constraints.maxWidth
-                xPosition = if (!isNextRow) xPosition + placeable.width + 4 else 0
-                yPosition = if (isNextRow) yPosition + placeable.height + 4 else yPosition
+                xPosition = if (!isNextRow) xPosition + placeable.width + padding else 0
+                yPosition = if (isNextRow) yPosition + placeable.height + padding else yPosition
             }
         }
     }
@@ -50,6 +53,22 @@ fun PreviewCategoryGrid() {
     MonoApplicationTheme {
         CategoryGrid {
             listOf(
+                CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)
+                ),
                 CategoryUi(
                     icon = ImageVector.vectorResource(id = R.drawable.category_bank),
                     title = stringResource(id = R.string.category_bank)

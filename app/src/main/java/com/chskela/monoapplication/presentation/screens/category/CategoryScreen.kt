@@ -2,10 +2,9 @@ package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -39,13 +38,16 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun CategoryScreen(uiState: CategoryUiState) {
+    val scrollState = rememberScrollState()
     Scaffold(topBar = {
         MonoTopAppBar(title = stringResource(id = R.string.category))
     },
         backgroundColor = MaterialTheme.colors.surface
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -67,11 +69,14 @@ fun ExpenseIncomeSurface(listCategoryUi: List<CategoryUi>, title: String) {
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            CategoryGrid {
-                listCategoryUi.map {
-                    CategoryItem(categoryUi = it)
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                CategoryGrid {
+                    listCategoryUi.map {
+                        CategoryItem(categoryUi = it)
+                    }
                 }
             }
+
         }
     }
 }
@@ -99,6 +104,16 @@ fun PreviewCategoryScreen() {
                     icon = ImageVector.vectorResource(id = R.drawable.category_bank),
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)), CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)), CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)), CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)), CategoryUi(
+                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    title = stringResource(id = R.string.category_bank)), CategoryUi(
                     icon = ImageVector.vectorResource(id = R.drawable.category_bank),
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
