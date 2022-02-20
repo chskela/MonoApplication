@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.data.currency.repository
 
-import com.chskela.monoapplication.data.currency.storage.database.CurrencyDao
-import com.chskela.monoapplication.data.currency.storage.models.CurrencyData
+import com.chskela.monoapplication.data.currency.storage.dao.CurrencyDao
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import kotlinx.coroutines.flow.Flow
