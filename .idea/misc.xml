@@ -78,11 +78,56 @@
         <entry key="../../../../layout/compose-model-1645272554285.xml" value="0.12604515050167225" />
         <entry key="../../../../layout/compose-model-1645273046631.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1645273087214.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1645353768919.xml" value="0.14443979933110368" />
+        <entry key="../../../../layout/compose-model-1645354354746.xml" value="0.14381270903010032" />
+        <entry key="../../../../layout/compose-model-1645356465334.xml" value="0.13733277591973245" />
+        <entry key="../../../../layout/compose-model-1645356465342.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1645356466274.xml" value="0.5663793103448276" />
+        <entry key="../../../../layout/compose-model-1645364269589.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/divider.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bottom_bar_input_fill.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/category_baby.xml" value="0.2545" />
+        <entry key="app/src/main/res/drawable/category_bank.xml" value="0.2175" />
+        <entry key="app/src/main/res/drawable/category_coin.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_cup.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_currency.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_cycles.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_dinner.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_dog.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_face_mask.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_fix.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_flower.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_food.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_football.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_fun.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_gas.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_gift.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_glass.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_gym.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_house.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_icons.xml" value="0.2175" />
+        <entry key="app/src/main/res/drawable/category_lawyer.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_map.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_market.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_medicine.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_money.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_music.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_package.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_party.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_pie.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_pill.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/category_plane.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/category_receipt.xml" value="0.2545" />
+        <entry key="app/src/main/res/drawable/category_run.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_sea.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_shower.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_store.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_study.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_tennis_ball.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_train.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_user.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_wallet.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/category_wc.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic__on_boarding_step1.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/on_boarding_step2.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/on_boarding_step3.xml" value="0.2" />

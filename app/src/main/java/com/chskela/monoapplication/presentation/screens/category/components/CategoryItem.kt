@@ -36,7 +36,7 @@ fun CategoryItem(modifier: Modifier = Modifier, categoryUi: CategoryUi) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             categoryUi.icon?.let {
-                Icon(imageVector = it,
+                Icon(imageVector = ImageVector.vectorResource(it),
                     contentDescription = categoryUi.title,
                     tint = MaterialTheme.colors.onSurface,
                     modifier = Modifier.padding(bottom = 8.dp))
@@ -54,7 +54,8 @@ fun CategoryItem(modifier: Modifier = Modifier, categoryUi: CategoryUi) {
 fun PreviewCategoryItem() {
     MonoApplicationTheme {
         CategoryItem(categoryUi = CategoryUi(
-            icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+            id = 0,
+            icon = R.drawable.category_bank,
             title = stringResource(id = R.string.category_bank)
         )
         )
@@ -66,6 +67,6 @@ fun PreviewCategoryItem() {
 @Composable
 fun PreviewCategoryItemNoIcon() {
     MonoApplicationTheme {
-        CategoryItem(categoryUi = CategoryUi(title = "Add more"))
+        CategoryItem(categoryUi = CategoryUi(id = 0, title = "Add more"))
     }
 }

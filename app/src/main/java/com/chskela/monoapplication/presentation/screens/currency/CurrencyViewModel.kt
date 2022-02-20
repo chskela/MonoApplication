@@ -34,7 +34,7 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
 
     private fun getCurrency() {
        currencyUseCases.getListCurrencyUseCase().onEach {
-           uiState.value = uiState.value.copy(currencyList = it, selectedCurrency = it.first().id)
+           uiState.value = uiState.value.copy(currencyList = it, selectedCurrency = it.firstOrNull()?.id ?: 0)
        }
            .launchIn(viewModelScope)
     }

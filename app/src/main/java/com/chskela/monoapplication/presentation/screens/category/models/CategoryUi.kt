@@ -1,8 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.category.models
 
-import androidx.compose.ui.graphics.vector.ImageVector
-
 data class CategoryUi(
-    val icon: ImageVector? = null,
+    val id: Long,
+    val icon: Int? = null,
     val title: String
 )

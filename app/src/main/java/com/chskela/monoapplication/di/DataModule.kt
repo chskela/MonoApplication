@@ -26,7 +26,7 @@ object DataModule {
             AppDatabase.DATABASE_NAME
         )
             .fallbackToDestructiveMigration()
-            .createFromAsset("database/currency_db.db")
+            .createFromAsset("database/mono.db")
             .build()
     }
 

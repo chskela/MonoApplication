@@ -52,70 +52,43 @@ fun PreviewCategoryGrid() {
         CategoryGrid {
             listOf(
                 CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = R.drawable.category_bank,
                     title = stringResource(id = R.string.category_bank)
                 ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(
-                    icon = ImageVector.vectorResource(id = R.drawable.category_bank),
-                    title = stringResource(id = R.string.category_bank)
-                ),
-                CategoryUi(title = "Add more")).map { CategoryItem(categoryUi = it) }
+                CategoryUi(id = 0, title = "Add more")).map { CategoryItem(categoryUi = it) }
         }
     }
 }
