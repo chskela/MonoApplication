@@ -1,10 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.topappbar
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +15,11 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 fun MonoTopAppBar(
     title: String,
     modifier: Modifier = Modifier,
-    actions: @Composable RowScope.() -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {
+        Spacer(modifier = Modifier
+            .padding(start = 16.dp, end = 12.dp)
+            .size(48.dp))
+    },
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 0.dp,
@@ -28,7 +29,9 @@ fun MonoTopAppBar(
     TopAppBar(
         title = {
             Text(text = title,
-                style = MaterialTheme.typography.body1)
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier.fillMaxWidth()
+            )
         },
         modifier = modifier,
         navigationIcon = {
@@ -43,9 +46,7 @@ fun MonoTopAppBar(
             } else {
                 Spacer(modifier = Modifier.size(48.dp))
             }
-
         },
-
         actions = actions,
         backgroundColor = backgroundColor,
         contentColor = contentColor,
