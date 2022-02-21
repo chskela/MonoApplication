@@ -84,6 +84,23 @@
         <entry key="../../../../layout/compose-model-1645356465342.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1645356466274.xml" value="0.5663793103448276" />
         <entry key="../../../../layout/compose-model-1645364269589.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1645376073074.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1645376267934.xml" value="0.5948275862068966" />
+        <entry key="../../../../layout/compose-model-1645376458105.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1645376458115.xml" value="0.14423076923076922" />
+        <entry key="../../../../layout/compose-model-1645378936177.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1645451180906.xml" value="0.47129629629629627" />
+        <entry key="../../../../layout/compose-model-1645451222251.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1645452126366.xml" value="0.14381270903010032" />
+        <entry key="../../../../layout/compose-model-1645452249114.xml" value="0.14381270903010032" />
+        <entry key="../../../../layout/compose-model-1645452575223.xml" value="0.14381270903010032" />
+        <entry key="../../../../layout/compose-model-1645452587325.xml" value="0.14381270903010032" />
+        <entry key="../../../../layout/compose-model-1645452604432.xml" value="0.47129629629629627" />
+        <entry key="../../../../layout/compose-model-1645452644879.xml" value="0.47129629629629627" />
+        <entry key="../../../../layout/compose-model-1645452800712.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1645452800714.xml" value="0.47129629629629627" />
+        <entry key="../../../../layout/compose-model-1645453495104.xml" value="0.593103448275862" />
+        <entry key="../../../../layout/compose-model-1645453672594.xml" value="0.47129629629629627" />
         <entry key="app/src/main/res/drawable-v24/divider.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bottom_bar_input_fill.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/category_baby.xml" value="0.2545" />
@@ -131,6 +148,7 @@
         <entry key="app/src/main/res/drawable/ic__on_boarding_step1.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/on_boarding_step2.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/on_boarding_step3.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/settings_squares_four.xml" value="0.2175" />
       </map>
     </option>
   </component>
