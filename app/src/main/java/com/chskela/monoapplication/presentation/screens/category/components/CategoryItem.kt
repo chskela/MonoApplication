@@ -30,8 +30,8 @@ fun CategoryItem(modifier: Modifier = Modifier, categoryUi: CategoryUi) {
             .size(width = 92.dp, height = 82.dp)
             .border(width = 1.dp,
                 color = MaterialTheme.colors.secondaryVariant,
-                shape = RoundedCornerShape(4.dp))
-            .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(4.dp)),
+                shape = MaterialTheme.shapes.large)
+            .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
