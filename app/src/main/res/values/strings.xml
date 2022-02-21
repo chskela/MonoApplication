@@ -6,6 +6,7 @@
     <string name="income">Income</string>
     <string name="currency">Currency</string>
     <string name="category">Category</string>
+    <string name="delete_all_data">Delete All Data</string>
 
     <!--OnBoarding-->
     <string name="on_boarding_continue">Continue</string>
@@ -82,4 +83,5 @@
     <string name="category_user">User</string>
     <string name="category_wallet">Wallet</string>
     <string name="category_wc">WC</string>
+    <string name="settings">Settings</string>
 </resources>
