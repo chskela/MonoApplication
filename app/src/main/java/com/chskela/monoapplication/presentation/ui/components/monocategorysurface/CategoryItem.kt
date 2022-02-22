@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.category.components
+package com.chskela.monoapplication.presentation.ui.components.monocategorysurface
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
