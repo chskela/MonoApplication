@@ -6,8 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun TransitionTabs(state: Int, titles: List<String>, onSelect: (Int) -> Unit) {
-    TabRow(
+fun TransitionTabs(
+    modifier: Modifier = Modifier,
+    state: Int,
+    titles: List<String>,
+    onSelect: (Int) -> Unit,
+) {
+    TabRow(modifier = modifier,
         selectedTabIndex = state,
         indicator = @Composable { tabPositions ->
             TabRowDefaults.Indicator(
