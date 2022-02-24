@@ -33,7 +33,7 @@ fun MonoTextField(
         modifier = Modifier.fillMaxWidth(),
         trailingIcon = trailingIcon,
         leadingIcon = leadingIcon,
-        textStyle = textStyle,
+        textStyle = textStyle.copy(color = MaterialTheme.colors.onSurface),
         shape = MaterialTheme.shapes.medium,
         placeholder = placeholder,
         singleLine = singleLine,
