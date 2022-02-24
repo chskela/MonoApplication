@@ -1,16 +1,25 @@
 package com.chskela.monoapplication.presentation.ui.components.monocategorysurface
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun MonoCategorySurface(modifier:Modifier = Modifier, listCategoryUi: List<CategoryUi>, title: String) {
+fun MonoCategorySurface(
+    modifier: Modifier = Modifier,
+    listCategoryUi: List<CategoryUi>,
+    title: String,
+) {
     Row(modifier = modifier) {
         Column {
             Text(
@@ -19,15 +28,60 @@ fun MonoCategorySurface(modifier:Modifier = Modifier, listCategoryUi: List<Categ
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                if (listCategoryUi.isNotEmpty()) {
-                    CategoryGrid {
-                        listCategoryUi.map {
-                            CategoryItem(categoryUi = it)
-                        }
+            if (listCategoryUi.isNotEmpty()) {
+                CategoryGrid {
+                    listCategoryUi.map {
+                        CategoryItem(categoryUi = it)
                     }
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light MonoCategorySurface", showSystemUi = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
+@Composable
+fun PreviewMonoCategorySurface() {
+    MonoApplicationTheme {
+        MonoCategorySurface(listCategoryUi = listOf(
+            CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ), CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            ),
+            CategoryUi(id = 0, title = "Add more")), title = "Category")
     }
 }
