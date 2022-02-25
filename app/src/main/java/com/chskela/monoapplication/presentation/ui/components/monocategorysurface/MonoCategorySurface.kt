@@ -11,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable

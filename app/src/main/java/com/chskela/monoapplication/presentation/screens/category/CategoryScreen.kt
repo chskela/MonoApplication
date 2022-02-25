@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar

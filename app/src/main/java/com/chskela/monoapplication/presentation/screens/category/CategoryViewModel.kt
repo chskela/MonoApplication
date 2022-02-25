@@ -1,16 +1,13 @@
 package com.chskela.monoapplication.presentation.screens.category
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn

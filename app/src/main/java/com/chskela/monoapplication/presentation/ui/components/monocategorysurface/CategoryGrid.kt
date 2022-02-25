@@ -7,7 +7,6 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlin.math.ceil
 
