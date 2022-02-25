@@ -1,6 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.transaction.models
 
-import com.chskela.monoapplication.presentation.screens.category.models.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
 
 data class TransitionUiState(
     val currentTab: Int = 0,
