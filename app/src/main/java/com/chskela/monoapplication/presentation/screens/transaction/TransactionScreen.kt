@@ -69,7 +69,7 @@ fun TransactionScreen(
                     titles,
                     onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
                 )
-//
+
                 Column(modifier = Modifier
                     .height(height = heightScrollableColumn)
                     .padding(horizontal = 16.dp)
@@ -136,6 +136,8 @@ fun TransactionScreen(
                         title = stringResource(id = R.string.category),
                         onClickItem = { onEvent(TransitionEvent.SelectCategory(it)) }
                     )
+
+                    Spacer(modifier = Modifier.height(84.dp))
                 }
 
                 MonoButton(modifier = Modifier

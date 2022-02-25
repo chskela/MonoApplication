@@ -18,6 +18,7 @@ fun MonoCategorySurface(
     modifier: Modifier = Modifier,
     listCategoryUi: List<CategoryUi>,
     title: String,
+    selectedCategory: Long = 0,
     onClickItem: (Long) -> Unit = {}
 ) {
     Row(modifier = modifier) {
@@ -31,7 +32,8 @@ fun MonoCategorySurface(
             if (listCategoryUi.isNotEmpty()) {
                 CategoryGrid {
                     listCategoryUi.map {
-                        CategoryItem(categoryUi = it, onClick = onClickItem)
+                        val selected = selectedCategory == it.id
+                        CategoryItem(categoryUi = it, onClick = onClickItem, selected = selected)
                     }
                 }
             }

@@ -26,13 +26,17 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 fun CategoryItem(
     modifier: Modifier = Modifier,
     categoryUi: CategoryUi,
+    selected: Boolean = false,
     onClick: (Long) -> Unit = {},
 ) {
+    val borderColor = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
+    val contentColor = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
+
     Box(
         modifier = modifier
             .size(width = 92.dp, height = 82.dp)
             .border(width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = borderColor,
                 shape = MaterialTheme.shapes.large)
             .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large)
             .clickable { onClick(categoryUi.id) },
@@ -42,12 +46,12 @@ fun CategoryItem(
             categoryUi.icon?.let {
                 Icon(imageVector = ImageVector.vectorResource(it),
                     contentDescription = categoryUi.title,
-                    tint = MaterialTheme.colors.onSurface,
+                    tint = contentColor,
                     modifier = Modifier.padding(bottom = 8.dp))
             }
             Text(text = categoryUi.title,
                 style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onSurface)
+                color = contentColor)
         }
     }
 }
