@@ -18,6 +18,7 @@ fun MonoCategorySurface(
     modifier: Modifier = Modifier,
     listCategoryUi: List<CategoryUi>,
     title: String,
+    onClickItem: (Long) -> Unit = {}
 ) {
     Row(modifier = modifier) {
         Column {
@@ -30,7 +31,7 @@ fun MonoCategorySurface(
             if (listCategoryUi.isNotEmpty()) {
                 CategoryGrid {
                     listCategoryUi.map {
-                        CategoryItem(categoryUi = it)
+                        CategoryItem(categoryUi = it, onClick = onClickItem)
                     }
                 }
             }
