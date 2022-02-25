@@ -134,6 +134,7 @@ fun TransactionScreen(
                     MonoCategorySurface(
                         listCategoryUi = uiState.listCategory,
                         title = stringResource(id = R.string.category),
+                        selectedCategory = uiState.currentCategory,
                         onClickItem = { onEvent(TransitionEvent.SelectCategory(it)) }
                     )
 
