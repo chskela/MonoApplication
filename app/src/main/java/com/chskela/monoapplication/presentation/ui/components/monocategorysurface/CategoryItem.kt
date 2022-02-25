@@ -3,6 +3,7 @@ package com.chskela.monoapplication.presentation.ui.components.monocategorysurfa
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -22,14 +23,19 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun CategoryItem(modifier: Modifier = Modifier, categoryUi: CategoryUi) {
+fun CategoryItem(
+    modifier: Modifier = Modifier,
+    categoryUi: CategoryUi,
+    onClick: (Long) -> Unit = {},
+) {
     Box(
         modifier = modifier
             .size(width = 92.dp, height = 82.dp)
             .border(width = 1.dp,
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = MaterialTheme.shapes.large)
-            .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large),
+            .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large)
+            .clickable { onClick(categoryUi.id) },
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
