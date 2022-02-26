@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface TransactionDao {
 
     @Query("SELECT * FROM 'transaction'")
-    fun getAllTransaction(): Flow<List<TransactionEntity>>
+    fun getAllTransactions(): Flow<List<TransactionEntity>>
 
     @Query("SELECT * FROM 'transaction' WHERE id = :id")
     suspend fun getTransactionById(id: Long): TransactionEntity
