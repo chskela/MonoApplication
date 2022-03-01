@@ -23,7 +23,8 @@ object DomainModule {
             deleteCurrencyUseCase = DeleteCurrencyUseCase(repository),
             getDefaultCurrencyUseCase = GetDefaultCurrencyUseCase(repository),
             getListCurrencyUseCase = GetListCurrencyUseCase(repository),
-            setDefaultCurrencyUseCase = SetDefaultCurrencyUseCase(repository)
+            setDefaultCurrencyUseCase = SetDefaultCurrencyUseCase(repository),
+            getCurrencyByIdUseCase = GetCurrencyByIdUseCase(repository)
         )
     }
 
