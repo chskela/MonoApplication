@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.transaction.models
 
+import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
 
 data class TransitionUiState(
@@ -10,4 +11,5 @@ data class TransitionUiState(
     val enabledButton: Boolean = false,
     val listCategory: List<CategoryUi> = emptyList(),
     val currentCategory: Long = 0,
+    val currentCurrency: Currency,
 )
