@@ -7,4 +7,5 @@ data class CurrencyUseCases(
     val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     val getListCurrencyUseCase: GetListCurrencyUseCase,
     val setDefaultCurrencyUseCase: SetDefaultCurrencyUseCase,
+    val getCurrencyByIdUseCase: GetCurrencyByIdUseCase
 )
