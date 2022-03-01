@@ -5,7 +5,7 @@ import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 
 class SetDefaultCurrencyUseCase(private val currencyRepository: CurrencyRepository) {
 
-    suspend operator fun invoke(currency: Currency) {
-        currencyRepository.setDefaultCurrency(currency = currency)
+    suspend operator fun invoke(id: Long) {
+        currencyRepository.setDefaultCurrency(id)
     }
 }

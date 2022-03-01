@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetDefaultCurrencyUseCase(private val currencyRepository: CurrencyRepository) {
 
-    operator fun invoke() : Flow<Currency> {
+    operator fun invoke() : Flow<Long> {
         return currencyRepository.getDefaultCurrency()
     }
 }
