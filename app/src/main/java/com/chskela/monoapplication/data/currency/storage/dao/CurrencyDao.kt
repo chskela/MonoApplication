@@ -11,7 +11,7 @@ interface CurrencyDao {
     fun getListCurrency(): Flow<List<CurrencyEntity>>
 
     @Query("SELECT * FROM currency WHERE id = :id")
-    suspend fun getCurrencyById(id: Long): CurrencyEntity?
+    suspend fun getCurrencyById(id: Long): CurrencyEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrency(currencyEntity: CurrencyEntity)
