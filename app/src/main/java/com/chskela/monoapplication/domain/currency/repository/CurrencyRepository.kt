@@ -7,7 +7,9 @@ interface CurrencyRepository {
 
     fun getListCurrency() : Flow<List<Currency>>
 
-    fun getDefaultCurrency() : Flow<Currency>
+    suspend fun getCurrencyById(id: Long) : Currency
+
+    fun getDefaultCurrency() : Flow<Long>
 
     suspend fun insertCurrency(currency: Currency)
 
@@ -15,5 +17,5 @@ interface CurrencyRepository {
 
     suspend fun  deleteCurrency(currency: Currency)
 
-    suspend fun setDefaultCurrency(currency: Currency)
+    suspend fun setDefaultCurrency(id: Long)
 }
