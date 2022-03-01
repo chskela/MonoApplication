@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CurrencyViewModel @Inject constructor(private val currencyUseCases: CurrencyUseCases) : ViewModel() {
+class CurrencyViewModel @Inject constructor(private val currencyUseCases: CurrencyUseCases) :
+    ViewModel() {
     var uiState: MutableState<CurrencyUiState> = mutableStateOf(CurrencyUiState())
         private set
 
@@ -33,10 +34,11 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
     }
 
     private fun getCurrency() {
-       currencyUseCases.getListCurrencyUseCase().onEach {
-           uiState.value = uiState.value.copy(currencyList = it, selectedCurrency = it.firstOrNull()?.id ?: 0)
-       }
-           .launchIn(viewModelScope)
+        currencyUseCases.getListCurrencyUseCase().onEach {
+            uiState.value =
+                uiState.value.copy(currencyList = it, selectedCurrency = it.firstOrNull()?.id ?: 0)
+        }
+            .launchIn(viewModelScope)
     }
 
 }

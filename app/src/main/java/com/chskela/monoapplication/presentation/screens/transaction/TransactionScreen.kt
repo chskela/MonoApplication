@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.transaction.components.DateRange
 import com.chskela.monoapplication.presentation.screens.transaction.components.TransitionTabs
@@ -45,8 +46,9 @@ fun TransactionScreen(
     val scrollState = rememberScrollState()
 
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
-    Scaffold(modifier = Modifier
-        .fillMaxHeight(),
+    Scaffold(
+        modifier = Modifier
+            .fillMaxHeight(),
         bottomBar = { MonoBottomNavigation(selectedItem = 3, onClick = { TODO() }) },
         backgroundColor = MaterialTheme.colors.surface
     ) {
@@ -103,12 +105,15 @@ fun TransactionScreen(
                             Text(
                                 text = "$",
                                 style = MaterialTheme.typography.h1,
-                                color = MaterialTheme.colors.onSurface)
+                                color = MaterialTheme.colors.onSurface
+                            )
                         },
                         placeholder = {
-                            Text(text = "0.00",
+                            Text(
+                                text = "0.00",
                                 style = MaterialTheme.typography.h1,
-                                color = MaterialTheme.colors.secondaryVariant)
+                                color = MaterialTheme.colors.secondaryVariant
+                            )
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
@@ -120,9 +125,11 @@ fun TransactionScreen(
                         label = stringResource(id = R.string.note),
                         value = uiState.note,
                         placeholder = {
-                            Text(text = stringResource(id = R.string.please_input),
+                            Text(
+                                text = stringResource(id = R.string.please_input),
                                 style = MaterialTheme.typography.subtitle2,
-                                color = MaterialTheme.colors.secondaryVariant)
+                                color = MaterialTheme.colors.secondaryVariant
+                            )
                         },
                         singleLine = false,
                         maxLines = 5,
@@ -141,15 +148,18 @@ fun TransactionScreen(
                     Spacer(modifier = Modifier.height(84.dp))
                 }
 
-                MonoButton(modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .constrainAs(button) {
-                        bottom.linkTo(parent.bottom, margin = 18.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
+                MonoButton(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .constrainAs(button) {
+                            bottom.linkTo(parent.bottom, margin = 18.dp)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        },
+                    onClick = { onEvent(TransitionEvent.Submit) },
                     text = stringResource(id = R.string.submit),
-                    enabled = uiState.enabledButton)
+                    enabled = uiState.enabledButton
+                )
             }
         }
     }
@@ -160,51 +170,62 @@ fun TransactionScreen(
 @Composable
 fun PreviewTransactionScreen() {
     MonoApplicationTheme {
-        TransactionScreen(uiState = TransitionUiState(listCategory = listOf(
-            CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 1,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 2,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 3,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 4,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 5,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 6,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 7,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 8,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 9,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 10,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ))))
+        TransactionScreen(
+            uiState = TransitionUiState(
+                listCategory = listOf(
+                    CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 1,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 2,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 3,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 4,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 5,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 6,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 7,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 8,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 9,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 10,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    )
+                ),
+                currentCurrency = Currency(
+                    id = 1,
+                    name = "Ruble",
+                    letterCode = "RUB",
+                    symbol = "$",
+                )
+            )
+        )
     }
 }
