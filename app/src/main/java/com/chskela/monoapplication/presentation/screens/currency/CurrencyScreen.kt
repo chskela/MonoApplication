@@ -3,6 +3,8 @@ package com.chskela.monoapplication.presentation.screens.currency
 import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,8 +41,8 @@ fun CurrencyScreen(
     },
         backgroundColor = MaterialTheme.colors.surface
     ) {
-        Column(Modifier.selectableGroup()) {
-            uiState.currencyList.forEach { currency ->
+        LazyColumn(Modifier.selectableGroup()) {
+            items(uiState.currencyList) { currency ->
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -77,7 +79,7 @@ fun CurrencyScreen(
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(
-                            text = "${currency.symbol}100.00",
+                            text = "${currency.symbol} 100.00",
                             style = MaterialTheme.typography.body1,
                             modifier = Modifier.padding(start = 16.dp)
                         )
