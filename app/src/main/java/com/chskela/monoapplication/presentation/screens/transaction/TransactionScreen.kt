@@ -103,7 +103,7 @@ fun TransactionScreen(
                         textStyle = MaterialTheme.typography.h1,
                         trailingIcon = {
                             Text(
-                                text = "$",
+                                text = uiState.currentCurrency.symbol,
                                 style = MaterialTheme.typography.h1,
                                 color = MaterialTheme.colors.onSurface
                             )
@@ -223,7 +223,7 @@ fun PreviewTransactionScreen() {
                     id = 1,
                     name = "Ruble",
                     letterCode = "RUB",
-                    symbol = "$",
+                    symbol = "₽",
                 )
             )
         )
