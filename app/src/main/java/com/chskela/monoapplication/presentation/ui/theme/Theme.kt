@@ -43,7 +43,7 @@ fun MonoApplicationTheme(
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = TypographyRoboto,
         shapes = Shapes,
         content = content
     )
