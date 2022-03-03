@@ -16,37 +16,37 @@ fun MonoTopAppBar(
     title: String,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {
-        Spacer(modifier = Modifier
-            .padding(start = 16.dp, end = 12.dp)
-            .size(48.dp))
+        Spacer(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 12.dp)
+                .size(48.dp)
+        )
+    },
+    onNavigation: () -> Unit = {},
+    navigationIcon: @Composable () -> Unit = {
+        IconButton(onClick = onNavigation) {
+            Text(
+                text = "Back",
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.secondary,
+                modifier = Modifier.padding(start = 12.dp)
+            )
+        }
     },
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 0.dp,
-    onNavigation: () -> Unit = {},
-    isBack: Boolean = true,
 ) {
     TopAppBar(
         title = {
-            Text(text = title,
+            Text(
+                text = title,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.fillMaxWidth()
             )
         },
         modifier = modifier,
-        navigationIcon = {
-            if (isBack) {
-                IconButton(onClick = onNavigation) {
-                    Text(text = "Back",
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.secondary,
-                        modifier = Modifier.padding(start = 12.dp))
-//                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Back")
-                }
-            } else {
-                Spacer(modifier = Modifier.size(48.dp))
-            }
-        },
+        navigationIcon = navigationIcon,
         actions = actions,
         backgroundColor = backgroundColor,
         contentColor = contentColor,
@@ -68,6 +68,8 @@ fun PreviewMonoTopAppBar() {
 @Composable
 fun PreviewMonoTopAppBarNoBack() {
     MonoApplicationTheme {
-        MonoTopAppBar(title = "Currency", isBack = false)
+        MonoTopAppBar(title = "Currency", navigationIcon = {
+            Spacer(modifier = Modifier.size(48.dp))
+        })
     }
 }
