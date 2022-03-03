@@ -5,14 +5,18 @@ import com.chskela.monoapplication.data.transaction.storage.models.TransactionEn
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class TransactionRepositoryImpl(private val transactionDao: TransactionDao) : TransactionRepository {
+class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
+    TransactionRepository {
     override fun getAllTransactions(): Flow<List<Transaction>> {
-        TODO("Not yet implemented")
+        return transactionDao.getAllTransactions().map { list ->
+            list.map { mapTransactionToDomain(it) }
+        }
     }
 
     override suspend fun getTransactionById(id: Long): Transaction {
-        TODO("Not yet implemented")
+        return mapTransactionToDomain(transactionDao.getTransactionById(id))
     }
 
     override suspend fun insertTransaction(transaction: Transaction) {
@@ -20,20 +24,29 @@ class TransactionRepositoryImpl(private val transactionDao: TransactionDao) : Tr
     }
 
     override suspend fun updateTransaction(transaction: Transaction) {
-        TODO("Not yet implemented")
+        transactionDao.updateTransaction(mapCategoryToStorage(transaction))
     }
 
     override suspend fun deleteTransaction(transaction: Transaction) {
-        TODO("Not yet implemented")
+        transactionDao.deleteTransaction(mapCategoryToStorage(transaction))
     }
 
-    private fun mapTransactionToDomain(transactionEntity: TransactionEntity): Transaction = TODO()
+    private fun mapTransactionToDomain(transactionEntity: TransactionEntity): Transaction =
+        Transaction(
+            id = transactionEntity.id ?: 0,
+            timestamp = transactionEntity.timestamp,
+            amount = transactionEntity.amount,
+            note = transactionEntity.note,
+            categoryId = transactionEntity.categoryId,
+            currencyId = transactionEntity.currencyId
+        )
 
-    private fun mapCategoryToStorage(transaction: Transaction): TransactionEntity = TransactionEntity(
-        timestamp = transaction.timestamp,
-        amount = transaction.amount,
-        note = transaction.note,
-        categoryId = transaction.categoryId,
-        currencyId = transaction.currencyId
-    )
+    private fun mapCategoryToStorage(transaction: Transaction): TransactionEntity =
+        TransactionEntity(
+            timestamp = transaction.timestamp,
+            amount = transaction.amount,
+            note = transaction.note,
+            categoryId = transaction.categoryId,
+            currencyId = transaction.currencyId
+        )
 }
