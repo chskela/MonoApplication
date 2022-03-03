@@ -1,10 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.settings
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -31,27 +28,36 @@ fun SettingsActivityScreen(
 
 @Composable
 fun SettingsScreen() {
-    Scaffold(topBar = {
-        MonoTopAppBar(title = stringResource(id = R.string.settings), isBack = false)
-    },
-        bottomBar = { MonoBottomNavigation(selectedItem = 3, onClick = { TODO()})},
+    Scaffold(
+        topBar = {
+            MonoTopAppBar(title = stringResource(id = R.string.settings), navigationIcon = {
+                Spacer(modifier = Modifier.size(48.dp))
+            })
+        },
+        bottomBar = { MonoBottomNavigation(selectedItem = 3, onClick = { TODO() }) },
         backgroundColor = MaterialTheme.colors.surface
     ) {
-        Column(modifier = Modifier
-            .padding(top = 24.dp)
-            .padding(horizontal = 16.dp)) {
-            SettingItem(settingUiItem = SettingUiItem(
-                title = stringResource(id = R.string.category),
-                leftIcon = R.drawable.settings_squares_four,
-                rightIcon = R.drawable.settings_caret_circle_right,
-                color = MaterialTheme.colors.onSurface),
+        Column(
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .padding(horizontal = 16.dp)
+        ) {
+            SettingItem(
+                settingUiItem = SettingUiItem(
+                    title = stringResource(id = R.string.category),
+                    leftIcon = R.drawable.settings_squares_four,
+                    rightIcon = R.drawable.settings_caret_circle_right,
+                    color = MaterialTheme.colors.onSurface
+                ),
             )
             Spacer(modifier = Modifier.height(8.dp))
-            SettingItem(settingUiItem = SettingUiItem(
-                title = stringResource(id = R.string.currency),
-                leftIcon = R.drawable.settings_currency_circle_dollar,
-                rightIcon = R.drawable.settings_caret_circle_right,
-                color = MaterialTheme.colors.onSurface),
+            SettingItem(
+                settingUiItem = SettingUiItem(
+                    title = stringResource(id = R.string.currency),
+                    leftIcon = R.drawable.settings_currency_circle_dollar,
+                    rightIcon = R.drawable.settings_caret_circle_right,
+                    color = MaterialTheme.colors.onSurface
+                ),
             )
             Spacer(modifier = Modifier.height(24.dp))
             SettingItem(
