@@ -12,17 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
-import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.MonoCategorySurface
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun CategoryActivityScreen(
-    categoryViewModel: CategoryViewModel = viewModel(),
+    categoryViewModel: CategoryViewModel = hiltViewModel(),
 ) {
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,

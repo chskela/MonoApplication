@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.ui.components.monocategorysurface
+package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 data class CategoryUi(
     val id: Long,

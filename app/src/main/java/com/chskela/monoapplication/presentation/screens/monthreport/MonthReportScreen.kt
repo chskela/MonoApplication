@@ -13,18 +13,32 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.monthreport.components.BorderRow
+import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
-import com.chskela.monoapplication.presentation.ui.components.DateRange
+import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+
 @Composable
-fun MonthReportScreen() {
-    Scaffold(
+fun MonthReportActivityScreen(
+    monthReportViewModels: MonthReportViewModels = hiltViewModel(),
+) {
+    MonthReportScreen(
+        uiState = monthReportViewModels.uiState.value
+    )
+}
+
+@Composable
+fun MonthReportScreen(
+    uiState: MonthReportUiState
+) {
+   Scaffold(
         topBar = {
             MonoTopAppBar(
                 title = stringResource(id = R.string.month_report),
@@ -51,8 +65,8 @@ fun MonthReportScreen() {
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column {
                     Spacer(modifier = Modifier.size(24.dp))
-                    DateRange(
-                        currentDate = "February, 2022",
+                    MonoDateRange(
+                        currentDate = uiState.currentData,
                         onPrevious = { /*TODO*/ },
                         onNext = {/*TODO*/ })
                     Spacer(modifier = Modifier.size(24.dp))
@@ -85,7 +99,7 @@ fun MonthReportScreen() {
                         },
                         { Spacer(modifier = Modifier.size(12.dp)) },
                         {
-                            Text(text = "Current balance")
+                            Text(text = stringResource(id = R.string.previous_balance))
                             Text(text = "\$40,710.00")
                         }
                     ))
@@ -146,7 +160,7 @@ fun MonthReportScreen() {
 fun PreviewMonthReportScreen() {
     MonoApplicationTheme {
         MonthReportScreen(
-
+            uiState = MonthReportUiState()
         )
     }
 }

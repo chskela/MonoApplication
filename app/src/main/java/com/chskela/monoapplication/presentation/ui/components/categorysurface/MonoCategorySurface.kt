@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.ui.components.monocategorysurface
+package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*

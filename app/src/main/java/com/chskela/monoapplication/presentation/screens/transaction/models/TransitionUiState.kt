@@ -1,7 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.transaction.models
 
 import com.chskela.monoapplication.domain.currency.models.Currency
-import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 
 data class TransitionUiState(
     val currentTab: Int = 0,

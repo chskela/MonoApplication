@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingPage
@@ -26,7 +27,7 @@ import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun OnBoardingActivityScreen(onBoardingViewModel: OnBoardingViewModel = viewModel()) {
+fun OnBoardingActivityScreen(onBoardingViewModel: OnBoardingViewModel = hiltViewModel()) {
         val uiState = onBoardingViewModel.uiState.value
         val page = uiState.onBoardingPage.page
         OnBoardingScreen(

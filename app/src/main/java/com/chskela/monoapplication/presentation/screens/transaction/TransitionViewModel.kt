@@ -12,7 +12,7 @@ import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.usercase.TransactionUseCases
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
-import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

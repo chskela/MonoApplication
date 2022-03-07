@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.ui.components
+package com.chskela.monoapplication.presentation.ui.components.datarange
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 
 @Composable
-fun DateRange(currentDate: String, onPrevious: () -> Unit, onNext: () -> Unit) {
+fun MonoDateRange(currentDate: String, onPrevious: () -> Unit, onNext: () -> Unit) {
     Row(modifier = Modifier
         .height(48.dp)
         .fillMaxWidth()

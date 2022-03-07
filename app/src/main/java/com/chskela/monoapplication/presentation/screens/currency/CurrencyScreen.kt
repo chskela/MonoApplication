@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
@@ -24,7 +25,7 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = viewModel()) {
+fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = hiltViewModel()) {
     CurrencyScreen(
         uiState = currencyViewModel.uiState.value,
         onSelectedCurrency = currencyViewModel::selectDefaultCurrency
