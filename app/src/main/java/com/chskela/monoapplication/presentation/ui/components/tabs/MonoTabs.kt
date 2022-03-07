@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.transaction.components
+package com.chskela.monoapplication.presentation.ui.components.tabs
 
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun TransitionTabs(
+fun MonoTabs(
     modifier: Modifier = Modifier,
     state: Int,
     titles: List<String>,

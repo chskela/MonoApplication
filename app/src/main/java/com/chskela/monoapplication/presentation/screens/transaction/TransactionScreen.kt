@@ -19,8 +19,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.ui.components.monocategorysurface.CategoryUi
-import com.chskela.monoapplication.presentation.screens.transaction.components.DateRange
-import com.chskela.monoapplication.presentation.screens.transaction.components.TransitionTabs
+import com.chskela.monoapplication.presentation.ui.components.DateRange
+import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
@@ -60,7 +60,7 @@ fun TransactionScreen(
             ConstraintLayout {
                 val (tabs, rows, button) = createRefs()
 
-                TransitionTabs(
+                MonoTabs(
                     modifier = Modifier
                         .constrainAs(tabs) {
                             top.linkTo(parent.top)
