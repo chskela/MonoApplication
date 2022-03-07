@@ -15,7 +15,7 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun BorderRow(
     modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit = {}
+    content: List<@Composable () -> Unit>
 ) {
     Row(
         modifier = modifier
@@ -27,7 +27,17 @@ fun BorderRow(
             .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium)
             .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
-        Column(content = content)
+        Column() {
+            content.map { item ->
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    item()
+                }
+            }
+        }
     }
 }
 
@@ -36,14 +46,10 @@ fun BorderRow(
 @Composable
 fun PreviewBorderRow() {
     MonoApplicationTheme {
-        BorderRow(content = {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(text = "Current balance")
-                Text(text = "\$40,710.00")
-            }
-        })
+        BorderRow(content = listOf {
+            Text(text = "Current balance")
+            Text(text = "\$40,710.00")
+        }
+        )
     }
 }
