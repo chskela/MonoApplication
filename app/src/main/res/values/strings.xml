@@ -15,7 +15,7 @@
     <string name="month_report">Month Report</string>
     <string name="current_balance">Current balance</string>
     <string name="previous_balance">Previous balance</string>
-
+    <string name="all">All</string>
     <!--OnBoarding-->
     <string name="on_boarding_continue">Continue</string>
     <string name="on_boarding_get_started">Get started</string>
