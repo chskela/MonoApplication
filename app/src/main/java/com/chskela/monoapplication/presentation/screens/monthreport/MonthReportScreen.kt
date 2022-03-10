@@ -11,17 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.monthreport.components.BorderRow
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
+import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 
@@ -38,7 +42,7 @@ fun MonthReportActivityScreen(
 fun MonthReportScreen(
     uiState: MonthReportUiState
 ) {
-   Scaffold(
+    Scaffold(
         topBar = {
             MonoTopAppBar(
                 title = stringResource(id = R.string.month_report),
@@ -61,6 +65,7 @@ fun MonthReportScreen(
     ) {
         val income = stringResource(id = R.string.income)
         val expense = stringResource(id = R.string.expense)
+        val currency = uiState.currency
         Column {
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column {
@@ -73,19 +78,19 @@ fun MonthReportScreen(
 
                     BorderRow(content = listOf {
                         Text(text = stringResource(id = R.string.current_balance))
-                        Text(text = "\$40,710.00")
+                        Text(text = "$currency${uiState.currentBalance}")
                     })
                     Spacer(modifier = Modifier.size(16.dp))
 
                     BorderRow(content = listOf(
                         {
                             Text(text = income)
-                            Text(text = "\$40,710.00")
+                            Text(text = "$currency${uiState.income}")
                         },
                         { Spacer(modifier = Modifier.size(12.dp)) },
                         {
                             Text(text = expense)
-                            Text(text = "\$40,710.00")
+                            Text(text = "-$currency${uiState.expense}")
                         }
                     ))
                     Spacer(modifier = Modifier.size(16.dp))
@@ -93,56 +98,80 @@ fun MonthReportScreen(
                     BorderRow(content = listOf(
                         {
                             Text(
-                                text = "${expense}/${income}"
+                                text = "$expense/$income"
                             )
-                            Text(text = "\$40,710.00")
+                            Text(text = "$currency${uiState.expenseIncome}")
                         },
                         { Spacer(modifier = Modifier.size(12.dp)) },
                         {
                             Text(text = stringResource(id = R.string.previous_balance))
-                            Text(text = "\$40,710.00")
+                            Text(text = "$currency${uiState.previousBalance}")
                         }
                     ))
 
                     Spacer(modifier = Modifier.size(24.dp))
 
-                    MonoTabs(state = 0, titles = listOf("All", "Expense", "Income"), onSelect = {})
+                    MonoTabs(
+                        state = uiState.currentTab,
+                        titles = listOf(
+                            stringResource(id = R.string.all),
+                            stringResource(id = R.string.expense),
+                            stringResource(id = R.string.income)
+                        ),
+                        onSelect = {})
                 }
             }
 
             Row {
                 LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
-                    items(listOf("STRING", "sdfgdsf")) {
+                    items(items = uiState.transactionList) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Column() {
+                            Column(modifier = Modifier.weight(0.7f)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
-                                        imageVector = ImageVector.vectorResource(id = R.drawable.category_books),
-                                        contentDescription = "Food"
+                                        imageVector = ImageVector.vectorResource(id = it.icon),
+                                        contentDescription = it.category
                                     )
                                     Spacer(modifier = Modifier.size(12.dp))
                                     Text(
-                                        text = "Food ",
+                                        text = it.category,
                                         style = MaterialTheme.typography.body1,
-                                        color = MaterialTheme.colors.onSurface
+                                        color = MaterialTheme.colors.onSurface,
                                     )
-                                    if (true) Text(
-                                        text = "(Pizza for lazyday)",
-                                        style = MaterialTheme.typography.caption,
-                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
-                                    )
+                                    if (it.note.isNotBlank()) {
+                                        Text(
+                                            text = " (${it.note})",
+                                            style = MaterialTheme.typography.caption,
+                                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                                            overflow = TextOverflow.Ellipsis,
+                                            maxLines = 1
+                                        )
+                                    }
+                                }
+                            }
+                            Column(
+                                modifier = Modifier.weight(0.3f),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.End
+                            ) {
+                                val prefix = when (it.type) {
+                                    TypeTransaction.Expense -> "+"
+                                    TypeTransaction.Income -> "-"
+                                }
+                                val color = when (it.type) {
+                                    TypeTransaction.Expense -> Expense
+                                    TypeTransaction.Income -> Income
                                 }
 
-                            }
-                            Column(verticalArrangement = Arrangement.Center) {
                                 Text(
-                                    text = "+\$50,00", style = MaterialTheme.typography.body1,
-                                    color = Expense
+                                    text = "$prefix$currency${it.amount}",
+                                    style = MaterialTheme.typography.body1,
+                                    color = color
                                 )
                             }
                         }
@@ -160,7 +189,36 @@ fun MonthReportScreen(
 fun PreviewMonthReportScreen() {
     MonoApplicationTheme {
         MonthReportScreen(
-            uiState = MonthReportUiState()
+            uiState = MonthReportUiState(
+                currentData = "February, 2022",
+                currency = "$",
+                currentBalance = 40710.00,
+                income = 143100.00,
+                expense = 118150.00,
+                expenseIncome = 24950.00,
+                previousBalance = 15760.00,
+                currentTab = 0,
+                transactionList = listOf(
+                    TransactionUi(
+                        id = 0,
+                        timestamp = 16165163564,
+                        amount = 10,
+                        note = "Note dfhgdfgdfdfgdsfdfgsdagfdfdfggdfgdfgdfgdfgdhfddfghhfddfgdfgh",
+                        type = TypeTransaction.Expense,
+                        category = "Food",
+                        icon = R.drawable.category_food
+                    ),
+                    TransactionUi(
+                        id = 1,
+                        timestamp = 16165165465,
+                        amount = 10,
+                        note = "Note",
+                        type = TypeTransaction.Income,
+                        category = "Pay",
+                        icon = R.drawable.category_baby
+                    )
+                )
+            )
         )
     }
 }
