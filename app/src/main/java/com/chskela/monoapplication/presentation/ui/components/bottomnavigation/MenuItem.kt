@@ -1,5 +1,10 @@
 package com.chskela.monoapplication.presentation.ui.components.bottomnavigation
 
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
-data class MenuItem(val label: String, val icon: ImageVector, val iconActive: ImageVector)
+data class MenuItem(
+    @StringRes val label: Int,
+    @DrawableRes val icon: Int,
+    @DrawableRes val iconActive: Int
+)

@@ -18,23 +18,27 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun SettingsActivityScreen(
+    bottomBar: @Composable () -> Unit = {},
 //    categoryViewModel: CategoryViewModel = viewModel(),
 ) {
     SettingsScreen(
+        bottomBar = bottomBar
 //        uiState = categoryViewModel.uiState.value,
 //        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
     )
 }
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    bottomBar: @Composable () -> Unit = {},
+) {
     Scaffold(
         topBar = {
             MonoTopAppBar(title = stringResource(id = R.string.settings), navigationIcon = {
                 Spacer(modifier = Modifier.size(48.dp))
             })
         },
-        bottomBar = { MonoBottomNavigation(selectedItem = 3, onClick = { TODO() }) },
+        bottomBar = bottomBar,
         backgroundColor = MaterialTheme.colors.surface
     ) {
         Column(

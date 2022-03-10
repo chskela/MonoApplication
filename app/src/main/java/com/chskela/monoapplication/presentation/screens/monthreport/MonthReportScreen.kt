@@ -32,15 +32,20 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun MonthReportActivityScreen(
     monthReportViewModels: MonthReportViewModels = hiltViewModel(),
+    bottomBar: @Composable () -> Unit = {},
 ) {
     MonthReportScreen(
-        uiState = monthReportViewModels.uiState.value
+        uiState = monthReportViewModels.uiState.value,
+        onEvent = monthReportViewModels::onEvent,
+        bottomBar = bottomBar
     )
 }
 
 @Composable
 fun MonthReportScreen(
-    uiState: MonthReportUiState
+    uiState: MonthReportUiState,
+    onEvent: (MonthReportEvent) -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -60,7 +65,7 @@ fun MonthReportScreen(
                 }
             )
         },
-        bottomBar = { MonoBottomNavigation(selectedItem = 2, onClick = { TODO() }) },
+        bottomBar = bottomBar,
         backgroundColor = MaterialTheme.colors.surface
     ) {
         val income = stringResource(id = R.string.income)
@@ -72,8 +77,8 @@ fun MonthReportScreen(
                     Spacer(modifier = Modifier.size(24.dp))
                     MonoDateRange(
                         currentDate = uiState.currentData,
-                        onPrevious = { /*TODO*/ },
-                        onNext = {/*TODO*/ })
+                        onPrevious = { onEvent(MonthReportEvent.PreviousMonth) },
+                        onNext = { onEvent(MonthReportEvent.NextMonth) })
                     Spacer(modifier = Modifier.size(24.dp))
 
                     BorderRow(content = listOf {
@@ -118,7 +123,7 @@ fun MonthReportScreen(
                             stringResource(id = R.string.expense),
                             stringResource(id = R.string.income)
                         ),
-                        onSelect = {})
+                        onSelect = { onEvent(MonthReportEvent.SelectTab(it)) })
                 }
             }
 
