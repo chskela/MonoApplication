@@ -78,6 +78,8 @@ dependencies {
 
     // Preferences DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.24.3-alpha'
 }
 // to correct error types
 kapt {
