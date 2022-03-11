@@ -21,6 +21,24 @@ class MonthReportViewModels @Inject constructor(
     ))
         private set
 
+    fun onEvent(event: MonthReportEvent) {
+        when (event) {
+            is MonthReportEvent.SelectTab -> {
+                uiState.value = uiState.value.copy(
+                    currentTab = event.tab,
+                )
+            }
+            is MonthReportEvent.PreviousMonth -> {
+                calendar.add(Calendar.MONTH, -1)
+                uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+            }
+            is MonthReportEvent.NextMonth -> {
+                calendar.add(Calendar.MONTH, 1)
+                uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+            }
+        }
+    }
+
 
     private fun formatDate(date: Date) =
         SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(date)
