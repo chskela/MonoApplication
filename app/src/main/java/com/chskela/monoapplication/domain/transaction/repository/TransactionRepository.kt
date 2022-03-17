@@ -1,13 +1,14 @@
 package com.chskela.monoapplication.domain.transaction.repository
 
+import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntityWithCategory
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import kotlinx.coroutines.flow.Flow
 
 interface TransactionRepository {
 
-    fun getAllTransactions(): Flow<List<Transaction>>
+    fun getAllTransactions(): Flow<List<TransactionEntityWithCategory>>
 
-    suspend fun getTransactionById(id: Long): Transaction
+    suspend fun getTransactionById(id: Long): TransactionEntityWithCategory
 
     suspend fun insertTransaction(transaction: Transaction)
 

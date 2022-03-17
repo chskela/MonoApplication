@@ -49,6 +49,10 @@ object DomainModule {
             updateTransactionUseCase = UpdateTransactionUseCase(repository)
         )
     }
+    @Provides
+    fun provideGetAllTransactionsUseCase(repository: TransactionRepository) : GetAllTransactionsUseCase {
+        return GetAllTransactionsUseCase(repository)
+    }
 
 
 }
