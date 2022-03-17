@@ -10,7 +10,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import com.chskela.monoapplication.presentation.MonoScreens
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.chskela.monoapplication.navigation.BottomMenuScreens
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
@@ -19,9 +23,8 @@ fun MonoBottomNavigation(
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = BottomNavigationDefaults.Elevation,
-    items: List<MonoScreens> = emptyList(),
-    selectedItem: MonoScreens,
-    onClick: (MonoScreens) -> Unit = {}
+    items: List<BottomMenuScreens> = emptyList(),
+    navController: NavHostController,
 ) {
     BottomNavigation(
         modifier = modifier,
@@ -29,30 +32,40 @@ fun MonoBottomNavigation(
         contentColor = contentColor,
         elevation = elevation,
     ) {
-        items.forEachIndexed { index, item ->
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentDestination = navBackStackEntry?.destination
+        items.forEach { screen ->
 
-            if (item.menuItem != null) {
-                val label = stringResource(item.menuItem.label)
-                val isSelected = selectedItem == item
+            val label = stringResource(screen.label)
+            val isSelected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
-                BottomNavigationItem(
-                    unselectedContentColor = contentColor,
-                    icon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(
-                                if (isSelected) item.menuItem.iconActive else item.menuItem.icon),
-                            contentDescription = label,
-                        )
-                    },
-                    label = { Text(text = label, style = MaterialTheme.typography.overline) },
-                    selected = isSelected,
-                    onClick = { onClick(item) },
-                )
-            }
+            BottomNavigationItem(
+                unselectedContentColor = contentColor,
+                icon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            if (isSelected) screen.iconActive else screen.icon
+                        ),
+                        contentDescription = label,
+                    )
+                },
+                label = { Text(text = label, style = MaterialTheme.typography.overline) },
+                selected = isSelected,
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+
+                        restoreState = true
+                    }
+                },
+            )
         }
+
     }
 }
-
 
 @Preview(showBackground = true, name = "Light MonoBottomNavigation")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -60,7 +73,7 @@ fun MonoBottomNavigation(
 fun PreviewMonoBottomNavigation() {
     MonoApplicationTheme {
         Surface {
-            MonoBottomNavigation(selectedItem = MonoScreens.Setting)
+//            MonoBottomNavigation(selectedItem = MonoScreens.Setting)
         }
     }
 }

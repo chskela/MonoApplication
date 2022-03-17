@@ -22,7 +22,6 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Ca
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
-import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
@@ -46,6 +45,7 @@ fun TransactionScreen(
     onEvent: (TransitionEvent) -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
 ) {
+
     val scrollState = rememberScrollState()
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
     Scaffold(

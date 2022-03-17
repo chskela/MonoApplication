@@ -22,7 +22,6 @@ import com.chskela.monoapplication.presentation.screens.monthreport.models.Trans
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
-import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income

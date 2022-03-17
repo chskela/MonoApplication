@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.onboarding
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -28,11 +27,13 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun OnBoardingActivityScreen(
     onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
+    onMainScreen: () -> Unit = {}
 ) {
     val uiState = onBoardingViewModel.uiState.value
     OnBoardingScreen(
         uiState = uiState,
-        onEvent = onBoardingViewModel::onEvent
+        onEvent = onBoardingViewModel::onEvent,
+        onMainScreen = onMainScreen
     )
 }
 
@@ -40,6 +41,7 @@ fun OnBoardingActivityScreen(
 fun OnBoardingScreen(
     uiState: OnBoardingUiState,
     onEvent: (OnBoardingEvent) -> Unit = {},
+    onMainScreen: () -> Unit = {}
 ) {
     val (page, image, title, body, buttonTitle) = uiState.onBoardingPage
 
@@ -67,7 +69,7 @@ fun OnBoardingScreen(
 
                     if (uiState.skip) {
                         OutlinedButton(
-                            onClick = { onEvent(OnBoardingEvent.Skip) },
+                            onClick = onMainScreen,
                             contentPadding = PaddingValues(horizontal = 24.dp)
                         ) {
                             Text(
@@ -99,7 +101,12 @@ fun OnBoardingScreen(
             }
             MonoButton(
                 text = stringResource(id = buttonTitle),
-                onClick = { onEvent(OnBoardingEvent.NextPage(page)) })
+                onClick = {
+                    when (page) {
+                        Pages.Third -> onMainScreen()
+                        else -> onEvent(OnBoardingEvent.NextPage(page))
+                    }
+                })
         }
     }
 }

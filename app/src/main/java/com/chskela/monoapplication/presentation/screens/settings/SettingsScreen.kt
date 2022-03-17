@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.settings.components.SettingItem
 import com.chskela.monoapplication.presentation.screens.settings.models.SettingUiItem
-import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
