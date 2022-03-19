@@ -13,6 +13,4 @@ data class TransactionEntity(
     val note: String,
     @ColumnInfo(name = "category_id")
     val categoryId: Long,
-    @ColumnInfo(name = "currency_id")
-    val currencyId: Long,
 )

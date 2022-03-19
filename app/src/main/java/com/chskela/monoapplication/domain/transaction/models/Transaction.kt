@@ -7,5 +7,4 @@ data class Transaction(
     val amount: Long,
     val note: String,
     val categoryId: Long,
-    val currencyId: Long,
 )

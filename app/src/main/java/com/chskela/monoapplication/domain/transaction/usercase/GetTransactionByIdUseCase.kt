@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetTransactionByIdUseCase(private val transactionRepository: TransactionRepository) {
 
-    suspend operator fun invoke(id: Long) : TransactionEntityWithCategory = transactionRepository.getTransactionById(id)
+    suspend operator fun invoke(id: Long): TransactionEntityWithCategory =
+        transactionRepository.getTransactionById(id)
 }
 

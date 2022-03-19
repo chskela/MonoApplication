@@ -8,4 +8,3 @@ class GetAllTransactionsUseCase(private val transactionRepository: TransactionRe
 
     operator fun invoke() : Flow<List<TransactionEntityWithCategory>> = transactionRepository.getAllTransactions()
 }
-

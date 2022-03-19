@@ -6,7 +6,6 @@ import com.chskela.monoapplication.data.transaction.storage.models.TransactionEn
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
     TransactionRepository {
@@ -47,6 +46,5 @@ class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
             amount = transaction.amount,
             note = transaction.note,
             categoryId = transaction.categoryId,
-            currencyId = transaction.currencyId
         )
 }

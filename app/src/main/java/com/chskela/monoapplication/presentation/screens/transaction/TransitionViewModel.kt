@@ -77,7 +77,6 @@ class TransitionViewModel @Inject constructor(
                     amount = uiState.value.amount.toLong() * 100,
                     note = uiState.value.note,
                     categoryId = uiState.value.currentCategory,
-                    currencyId = uiState.value.currentCurrency.id
                 )
                 transactionUseCases.addTransactionUseCase(transaction)
                 uiState.value = uiState.value.copy(
@@ -122,7 +121,7 @@ class TransitionViewModel @Inject constructor(
         CategoryUi(id = item.id, icon = item.icon, title = item.name)
 
     private fun isEnabled() = with(uiState.value) {
-        amount.isNotEmpty() && note.isNotEmpty() && currentCategory != 0L
+        amount.isNotEmpty() && currentCategory != 0L
     }
 
     private fun formatDate(date: Date) =
