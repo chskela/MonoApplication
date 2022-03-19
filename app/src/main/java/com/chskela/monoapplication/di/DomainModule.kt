@@ -4,6 +4,8 @@ import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.category.usecase.*
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
+import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
+import com.chskela.monoapplication.domain.monthreport.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import com.chskela.monoapplication.domain.transaction.usercase.*
 import dagger.Module
@@ -44,15 +46,13 @@ object DomainModule {
         return TransactionUseCases(
             addTransactionUseCase = AddTransactionUseCase(repository),
             deleteTransactionUseCase = DeleteTransactionUseCase(repository),
-            getAllTransactionsUseCase = GetAllTransactionsUseCase(repository),
             getTransactionByIdUseCase = GetTransactionByIdUseCase(repository),
             updateTransactionUseCase = UpdateTransactionUseCase(repository)
         )
     }
+
     @Provides
-    fun provideGetAllTransactionsUseCase(repository: TransactionRepository) : GetAllTransactionsUseCase {
+    fun provideGetAllTransactionsUseCase(repository: MonthReportRepository) : GetAllTransactionsUseCase {
         return GetAllTransactionsUseCase(repository)
     }
-
-
 }

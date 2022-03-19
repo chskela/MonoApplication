@@ -6,6 +6,7 @@ import com.chskela.monoapplication.data.category.storage.dao.CategoryDao
 import com.chskela.monoapplication.data.category.storage.models.CategoryEntity
 import com.chskela.monoapplication.data.currency.storage.dao.CurrencyDao
 import com.chskela.monoapplication.data.currency.storage.models.CurrencyEntity
+import com.chskela.monoapplication.data.monthreport.storage.dao.MonthReportDao
 import com.chskela.monoapplication.data.transaction.storage.dao.TransactionDao
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 
@@ -14,6 +15,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val currencyDao: CurrencyDao
     abstract val categoryDao: CategoryDao
     abstract val transactionDao: TransactionDao
+    abstract val monthReportDao: MonthReportDao
 
     companion object {
         const val DATABASE_NAME = "mono_db"

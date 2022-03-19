@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.data.transaction.storage.models
+package com.chskela.monoapplication.data.monthreport.storage.models
 
 import androidx.room.PrimaryKey
 import com.chskela.monoapplication.data.category.storage.models.Type

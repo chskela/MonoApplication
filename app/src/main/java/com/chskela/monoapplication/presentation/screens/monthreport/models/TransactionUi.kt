@@ -9,3 +9,8 @@ data class TransactionUi(
     val category: String,
     val icon: Int
 )
+
+enum class TypeTransaction {
+    Expense,
+    Income
+}

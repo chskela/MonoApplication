@@ -7,9 +7,11 @@ import com.chskela.monoapplication.data.category.repository.CategoryRepositoryIm
 import com.chskela.monoapplication.data.currency.repository.CurrencyRepositoryImpl
 import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.data.database.AppDatabase
+import com.chskela.monoapplication.data.monthreport.repository.MonthReportRepositoryImpl
 import com.chskela.monoapplication.data.transaction.repository.TransactionRepositoryImpl
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
+import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import dagger.Module
 import dagger.Provides
@@ -52,10 +54,17 @@ object DataModule {
     fun provideCategoryRepository(db: AppDatabase): CategoryRepository {
         return CategoryRepositoryImpl(db.categoryDao)
     }
+
     @Provides
     @Singleton
     fun provideTransactionRepository(db: AppDatabase): TransactionRepository {
         return TransactionRepositoryImpl(db.transactionDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMonthReportRepository(db: AppDatabase): MonthReportRepository {
+        return MonthReportRepositoryImpl(db.monthReportDao)
     }
 
 }

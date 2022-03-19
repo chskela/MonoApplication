@@ -4,8 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chskela.monoapplication.data.category.storage.models.Type
-import com.chskela.monoapplication.domain.transaction.usercase.GetAllTransactionsUseCase
+import com.chskela.monoapplication.domain.category.models.TypeCategory
+import com.chskela.monoapplication.domain.monthreport.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
@@ -65,11 +65,11 @@ class MonthReportViewModels @Inject constructor(
         getAllTransactionsUseCase().onEach { list ->
             allTransactionUi = list.map {
                 TransactionUi(
-                    id = it.id ?: 0,
+                    id = it.id,
                     timestamp = it.timestamp,
                     amount = it.amount,
                     note = it.note,
-                    type = if (it.type == Type.Expense) TypeTransaction.Expense else TypeTransaction.Income,
+                    type = if (it.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
                     category = it.name,
                     icon = it.icon,
                 )

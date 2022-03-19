@@ -64,7 +64,6 @@ class TransitionViewModel @Inject constructor(
             }
             is TransitionEvent.ChangeNote -> {
                 uiState.value = uiState.value.copy(note = event.value)
-                uiState.value = uiState.value.copy(enabledButton = isEnabled())
             }
             is TransitionEvent.SelectCategory -> {
                 uiState.value = uiState.value.copy(currentCategory = event.categoryId)
