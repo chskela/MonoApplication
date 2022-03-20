@@ -8,6 +8,7 @@ import com.chskela.monoapplication.domain.monthreport.models.TransactionWithCate
 import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.*
 
 class MonthReportRepositoryImpl(private val monthReportDao: MonthReportDao) :
     MonthReportRepository {
@@ -18,20 +19,30 @@ class MonthReportRepositoryImpl(private val monthReportDao: MonthReportDao) :
         }
     }
 
+    override fun getAllTransactionsByMonth(month: Int): Flow<List<TransactionWithCategory>> {
+        val calendar = Calendar.getInstance()
+        return getAllTransactions().map { list ->
+            list.filter {
+                calendar.timeInMillis = it.timestamp
+                calendar.get(Calendar.MONTH) == month
+            }
+        }
+    }
+
     private fun mapTypeToDomain(type: Type): TypeCategory = when (type) {
         Type.Expense -> TypeCategory.Expense
         Type.Income -> TypeCategory.Income
     }
 
-    private fun mapToDomain(transactionWithCategory: TransactionEntityWithCategory): TransactionWithCategory =
+    private fun mapToDomain(transactionEntityWithCategory: TransactionEntityWithCategory): TransactionWithCategory =
         TransactionWithCategory(
-            id = transactionWithCategory.id ?: 0,
-            timestamp = transactionWithCategory.timestamp,
-            amount = transactionWithCategory.amount,
-            note = transactionWithCategory.note,
-            name = transactionWithCategory.name,
-            icon = transactionWithCategory.icon,
-            type = mapTypeToDomain(transactionWithCategory.type)
+            id = transactionEntityWithCategory.id ?: 0,
+            timestamp = transactionEntityWithCategory.timestamp,
+            amount = transactionEntityWithCategory.amount,
+            note = transactionEntityWithCategory.note,
+            name = transactionEntityWithCategory.name,
+            icon = transactionEntityWithCategory.icon,
+            type = mapTypeToDomain(transactionEntityWithCategory.type)
         )
 
 }
