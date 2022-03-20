@@ -10,8 +10,8 @@ import com.chskela.monoapplication.presentation.screens.monthreport.models.Month
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -34,7 +34,7 @@ class MonthReportViewModels @Inject constructor(
         private set
 
     init {
-        getAllTransactionByMonth()
+        initialUiState()
     }
 
     fun onEvent(event: MonthReportEvent) {
@@ -53,18 +53,23 @@ class MonthReportViewModels @Inject constructor(
             is MonthReportEvent.PreviousMonth -> {
                 calendar.add(Calendar.MONTH, -1)
                 uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
-                getAllTransactionByMonth()
+                initialUiState()
             }
             is MonthReportEvent.NextMonth -> {
                 calendar.add(Calendar.MONTH, 1)
                 uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
-                getAllTransactionByMonth()
+                initialUiState()
             }
         }
     }
 
-    private fun getAllTransactionByMonth() {
-        monthReportUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)).onEach { list ->
+    private fun initialUiState() {
+        combine(
+            monthReportUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)),
+            monthReportUseCases.getCurrentBalanceUseCase(),
+            monthReportUseCases.getExpenseUseCase(),
+            monthReportUseCases.getIncomeUseCase()
+        ) { list, currentBalance, expense, income ->
             allTransactionUi = list.map {
                 TransactionUi(
                     id = it.id,
@@ -75,7 +80,16 @@ class MonthReportViewModels @Inject constructor(
                     category = it.name,
                     icon = it.icon,
                 )
-            }.also { uiState.value = uiState.value.copy(transactionList = it) }
+            }.also {
+                uiState.value =
+                    uiState.value.copy(
+                        transactionList = it,
+                        currentBalance = currentBalance,
+                        expense = expense,
+                        income = income,
+                        expenseIncome = expense - income
+                    )
+            }
 
             expenseTransactionUi = allTransactionUi.filter { it.type == TypeTransaction.Expense }
 

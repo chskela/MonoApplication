@@ -7,15 +7,15 @@ import kotlinx.coroutines.flow.map
 
 class GetCurrentBalanceUseCase(private val monthReportRepository: MonthReportRepository) {
 
-    operator fun invoke(): Flow<Long> = monthReportRepository.getAllTransactions().map { list ->
-        list.fold(0) { acc, transactionWithCategory ->
+    operator fun invoke(): Flow<Double> = monthReportRepository.getAllTransactions().map { list ->
+        list.fold(0.0) { acc, transactionWithCategory ->
             val amount =
                 if (transactionWithCategory.type == TypeCategory.Expense) {
                     transactionWithCategory.amount
                 } else {
                     -transactionWithCategory.amount
                 }
-            acc + amount
+            (acc + amount) / 100
         }
     }
 }
