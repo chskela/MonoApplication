@@ -19,16 +19,6 @@ class MonthReportRepositoryImpl(private val monthReportDao: MonthReportDao) :
         }
     }
 
-    override fun getAllTransactionsByMonth(month: Int): Flow<List<TransactionWithCategory>> {
-        val calendar = Calendar.getInstance()
-        return getAllTransactions().map { list ->
-            list.filter {
-                calendar.timeInMillis = it.timestamp
-                calendar.get(Calendar.MONTH) == month
-            }
-        }
-    }
-
     private fun mapTypeToDomain(type: Type): TypeCategory = when (type) {
         Type.Expense -> TypeCategory.Expense
         Type.Income -> TypeCategory.Income

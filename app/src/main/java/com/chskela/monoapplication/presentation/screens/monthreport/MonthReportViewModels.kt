@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.domain.monthreport.usecase.GetAllTransactionsUseCase
+import com.chskela.monoapplication.domain.monthreport.usecase.MonthReportUseCases
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MonthReportViewModels @Inject constructor(
-    private val getAllTransactionsUseCase: GetAllTransactionsUseCase
+    private val monthReportUseCases: MonthReportUseCases
 ) : ViewModel() {
 
     private var calendar = Calendar.getInstance()
@@ -34,7 +34,7 @@ class MonthReportViewModels @Inject constructor(
         private set
 
     init {
-        getAllTransaction()
+        getAllTransactionByMonth()
     }
 
     fun onEvent(event: MonthReportEvent) {
@@ -53,16 +53,18 @@ class MonthReportViewModels @Inject constructor(
             is MonthReportEvent.PreviousMonth -> {
                 calendar.add(Calendar.MONTH, -1)
                 uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+                getAllTransactionByMonth()
             }
             is MonthReportEvent.NextMonth -> {
                 calendar.add(Calendar.MONTH, 1)
                 uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+                getAllTransactionByMonth()
             }
         }
     }
 
-    private fun getAllTransaction() {
-        getAllTransactionsUseCase().onEach { list ->
+    private fun getAllTransactionByMonth() {
+        monthReportUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)).onEach { list ->
             allTransactionUi = list.map {
                 TransactionUi(
                     id = it.id,

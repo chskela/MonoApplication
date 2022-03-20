@@ -5,6 +5,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface MonthReportRepository {
     fun getAllTransactions(): Flow<List<TransactionWithCategory>>
-
-    fun getAllTransactionsByMonth(month: Int): Flow<List<TransactionWithCategory>>
 }
