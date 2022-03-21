@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
+import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.monthreport.usecase.MonthReportUseCases
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MonthReportViewModels @Inject constructor(
-    private val monthReportUseCases: MonthReportUseCases
+    private val monthReportUseCases: MonthReportUseCases,
+    private val currencyUseCases: CurrencyUseCases
 ) : ViewModel() {
 
     private var calendar = Calendar.getInstance()
@@ -69,12 +71,9 @@ class MonthReportViewModels @Inject constructor(
             monthReportUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)),
             monthReportUseCases.getCurrentBalanceUseCase(),
             monthReportUseCases.getExpenseUseCase(),
-            monthReportUseCases.getIncomeUseCase()
-        ) { list, currentBalance, expense, income ->
-            Log.d(
-                "RESULT",
-                "initialUiState() called with: currentBalance = $currentBalance, expense = $expense, income = $income"
-            )
+            monthReportUseCases.getIncomeUseCase(),
+            currencyUseCases.getDefaultCurrencyUseCase()
+        ) { list, currentBalance, expense, income, id ->
             allTransactionUi = list.map {
                 TransactionUi(
                     id = it.id,
@@ -86,14 +85,14 @@ class MonthReportViewModels @Inject constructor(
                     icon = it.icon,
                 )
             }.also {
-                uiState.value =
-                    uiState.value.copy(
-                        transactionList = it,
-                        currentBalance = currentBalance / 100,
-                        expense = expense / 100,
-                        income = income / 100,
-                        expenseIncome = (income - expense) / 100
-                    )
+                uiState.value = uiState.value.copy(
+                    transactionList = it,
+                    currentBalance = currentBalance / 100,
+                    expense = expense / 100,
+                    income = income / 100,
+                    expenseIncome = (income - expense) / 100,
+                    currency = currencyUseCases.getCurrencyByIdUseCase(id).symbol
+                )
             }
 
             expenseTransactionUi = allTransactionUi.filter { it.type == TypeTransaction.Expense }
@@ -102,7 +101,6 @@ class MonthReportViewModels @Inject constructor(
 
         }.launchIn(viewModelScope)
     }
-
 
     private fun formatDate(date: Date) =
         SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(date)

@@ -4,9 +4,9 @@ import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetListCurrencyUseCase (private val currencyRepository: CurrencyRepository) {
+class GetListCurrencyUseCase(private val currencyRepository: CurrencyRepository) {
 
-    operator fun invoke() : Flow<List<Currency>> {
+    operator fun invoke(): Flow<List<Currency>> {
         return currencyRepository.getListCurrency()
     }
 }

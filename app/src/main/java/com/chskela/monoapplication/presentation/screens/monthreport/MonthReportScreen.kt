@@ -26,6 +26,7 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import kotlin.math.absoluteValue
 
 
 @Composable
@@ -70,6 +71,7 @@ fun MonthReportScreen(
         val income = stringResource(id = R.string.income)
         val expense = stringResource(id = R.string.expense)
         val currency = uiState.currency
+        fun sign(value: Double) = if (value >= 0) "+" else "-"
         Column {
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column {
@@ -81,8 +83,13 @@ fun MonthReportScreen(
                     Spacer(modifier = Modifier.size(24.dp))
 
                     BorderRow(content = listOf {
-                        Text(text = stringResource(id = R.string.current_balance))
-                        Text(text = "$currency${uiState.currentBalance}")
+                        Text(
+                            text = stringResource(id = R.string.current_balance)
+                        )
+                        Text(
+                            text = "${sign(uiState.currentBalance)}$currency${uiState.currentBalance.absoluteValue}",
+                            color = MaterialTheme.colors.primary
+                        )
                     })
                     Spacer(modifier = Modifier.size(16.dp))
 
@@ -104,7 +111,7 @@ fun MonthReportScreen(
                             Text(
                                 text = "$expense/$income"
                             )
-                            Text(text = "$currency${uiState.expenseIncome}")
+                            Text(text = "${sign(uiState.expenseIncome)}$currency${uiState.expenseIncome.absoluteValue}")
                         },
                         { Spacer(modifier = Modifier.size(12.dp)) },
                         {

@@ -10,9 +10,9 @@ class GetCurrentBalanceUseCase(private val monthReportRepository: MonthReportRep
     operator fun invoke(): Flow<Double> = monthReportRepository.getAllTransactions().map { list ->
         list.fold(0.0) { acc, transactionWithCategory ->
             val amount = if (transactionWithCategory.type == TypeCategory.Expense) {
-                transactionWithCategory.amount
-            } else {
                 -transactionWithCategory.amount
+            } else {
+                +transactionWithCategory.amount
             }
             acc + amount
         }
