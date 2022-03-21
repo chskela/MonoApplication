@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.monthreport
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -70,11 +71,15 @@ class MonthReportViewModels @Inject constructor(
             monthReportUseCases.getExpenseUseCase(),
             monthReportUseCases.getIncomeUseCase()
         ) { list, currentBalance, expense, income ->
+            Log.d(
+                "RESULT",
+                "initialUiState() called with: currentBalance = $currentBalance, expense = $expense, income = $income"
+            )
             allTransactionUi = list.map {
                 TransactionUi(
                     id = it.id,
                     timestamp = it.timestamp,
-                    amount = it.amount,
+                    amount = it.amount / 100,
                     note = it.note,
                     type = if (it.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
                     category = it.name,
@@ -84,10 +89,10 @@ class MonthReportViewModels @Inject constructor(
                 uiState.value =
                     uiState.value.copy(
                         transactionList = it,
-                        currentBalance = currentBalance,
-                        expense = expense,
-                        income = income,
-                        expenseIncome = expense - income
+                        currentBalance = currentBalance / 100,
+                        expense = expense / 100,
+                        income = income / 100,
+                        expenseIncome = (income - expense) / 100
                     )
             }
 

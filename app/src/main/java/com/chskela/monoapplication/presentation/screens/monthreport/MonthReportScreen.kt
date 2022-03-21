@@ -164,8 +164,8 @@ fun MonthReportScreen(
                                 horizontalAlignment = Alignment.End
                             ) {
                                 val prefix = when (it.type) {
-                                    TypeTransaction.Expense -> "+"
-                                    TypeTransaction.Income -> "-"
+                                    TypeTransaction.Expense -> "-"
+                                    TypeTransaction.Income -> "+"
                                 }
                                 val color = when (it.type) {
                                     TypeTransaction.Expense -> Expense
