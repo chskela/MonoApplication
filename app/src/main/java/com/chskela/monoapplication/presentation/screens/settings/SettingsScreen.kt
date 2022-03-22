@@ -18,18 +18,22 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun SettingsActivityScreen(
     bottomBar: @Composable () -> Unit = {},
+    onCategory: () -> Unit,
+    onCurrency: () -> Unit,
 //    categoryViewModel: CategoryViewModel = viewModel(),
 ) {
     SettingsScreen(
-        bottomBar = bottomBar
-//        uiState = categoryViewModel.uiState.value,
-//        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
+        bottomBar = bottomBar,
+        onCategory = onCategory,
+        onCurrency = onCurrency
     )
 }
 
 @Composable
 fun SettingsScreen(
     bottomBar: @Composable () -> Unit = {},
+    onCategory: () -> Unit = {},
+    onCurrency: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -50,7 +54,8 @@ fun SettingsScreen(
                     title = stringResource(id = R.string.category),
                     leftIcon = R.drawable.settings_squares_four,
                     rightIcon = R.drawable.settings_caret_circle_right,
-                    color = MaterialTheme.colors.onSurface
+                    color = MaterialTheme.colors.onSurface,
+                    onClick = { onCategory() }
                 ),
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -59,7 +64,8 @@ fun SettingsScreen(
                     title = stringResource(id = R.string.currency),
                     leftIcon = R.drawable.settings_currency_circle_dollar,
                     rightIcon = R.drawable.settings_caret_circle_right,
-                    color = MaterialTheme.colors.onSurface
+                    color = MaterialTheme.colors.onSurface,
+                    onClick = { onCurrency() }
                 ),
             )
             Spacer(modifier = Modifier.height(24.dp))

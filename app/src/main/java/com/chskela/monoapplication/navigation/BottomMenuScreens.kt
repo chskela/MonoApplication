@@ -25,7 +25,7 @@ sealed class BottomMenuScreens(
         iconActive = R.drawable.bottom_navigation_report_fill,
     )
     object Setting : BottomMenuScreens(
-        route = MonoScreens.Setting.name,
+        route = MonoScreens.SettingRoot.name,
         label = R.string.bottom_navigation_settings,
         icon = R.drawable.bottom_navigation_settings,
         iconActive = R.drawable.bottom_navigation_settings_fill,

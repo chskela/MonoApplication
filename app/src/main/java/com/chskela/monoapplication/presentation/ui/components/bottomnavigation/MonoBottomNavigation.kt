@@ -14,7 +14,9 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.chskela.monoapplication.navigation.BottomMenuScreens
+import com.chskela.monoapplication.presentation.popUpToTop
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
@@ -34,8 +36,8 @@ fun MonoBottomNavigation(
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        items.forEach { screen ->
 
+        items.forEach { screen ->
             val label = stringResource(screen.label)
             val isSelected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
@@ -52,18 +54,20 @@ fun MonoBottomNavigation(
                 label = { Text(text = label, style = MaterialTheme.typography.overline) },
                 selected = isSelected,
                 onClick = {
-                    navController.navigate(screen.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    try {
+                        navController.navigate(screen.route) {
+                            popUpToTop(navController)
                         }
-                        launchSingleTop = true
-
-                        restoreState = true
+                    } catch (e: IllegalStateException) {
+                        if (e.message != "Already attached to lifecycleOwner") {
+                            throw e
+                        } else {
+                            // You can log the exception if you want
+                        }
                     }
                 },
             )
         }
-
     }
 }
 
@@ -73,7 +77,7 @@ fun MonoBottomNavigation(
 fun PreviewMonoBottomNavigation() {
     MonoApplicationTheme {
         Surface {
-//            MonoBottomNavigation(selectedItem = MonoScreens.Setting)
+            MonoBottomNavigation(navController = rememberNavController())
         }
     }
 }
