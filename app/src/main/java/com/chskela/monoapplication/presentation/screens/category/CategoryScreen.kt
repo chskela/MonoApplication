@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -26,16 +26,12 @@ fun CategoryActivityScreen(
 ) {
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,
-//        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
     )
 }
 
 @Composable
-fun CategoryScreen(uiState: CategoryUiState, lastElement: CategoryUi? = null) {
+fun CategoryScreen(uiState: CategoryUiState) {
     val scrollState = rememberScrollState()
-
-    fun listWithLastElement(listCategoryUi: List<CategoryUi>) =
-        if (lastElement != null) listCategoryUi + lastElement else listCategoryUi
 
     Scaffold(topBar = {
         MonoTopAppBar(title = stringResource(id = R.string.category))
@@ -50,12 +46,12 @@ fun CategoryScreen(uiState: CategoryUiState, lastElement: CategoryUi? = null) {
             verticalArrangement = Arrangement.Top
         ) {
             MonoCategorySurface(
-                listCategoryUi = listWithLastElement(uiState.expenseList),
+                listCategoryUi = uiState.expenseList.plus( CategoryUi(id = 0, title = "Add more")),
                 title = stringResource(id = R.string.expense)
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
-                listCategoryUi = listWithLastElement(uiState.incomeList),
+                listCategoryUi = uiState.incomeList.plus( CategoryUi(id = 0, title = "Add more")),
                 title = stringResource(id = R.string.income)
             )
             Spacer(modifier = Modifier.height(40.dp))
@@ -68,7 +64,8 @@ fun CategoryScreen(uiState: CategoryUiState, lastElement: CategoryUi? = null) {
 @Composable
 fun PreviewCategoryScreen() {
     MonoApplicationTheme {
-        CategoryScreen(uiState = CategoryUiState(
+        CategoryScreen(
+            uiState = CategoryUiState(
             expenseList = listOf(
                 CategoryUi(
                     id = 0,
