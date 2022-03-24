@@ -33,9 +33,10 @@ fun CategoryActivityScreen(
 fun CategoryScreen(uiState: CategoryUiState) {
     val scrollState = rememberScrollState()
 
-    Scaffold(topBar = {
-        MonoTopAppBar(title = stringResource(id = R.string.category))
-    },
+    Scaffold(
+        topBar = {
+            MonoTopAppBar(title = stringResource(id = R.string.category))
+        },
         backgroundColor = MaterialTheme.colors.surface
     ) {
         Column(
@@ -46,12 +47,12 @@ fun CategoryScreen(uiState: CategoryUiState) {
             verticalArrangement = Arrangement.Top
         ) {
             MonoCategorySurface(
-                listCategoryUi = uiState.expenseList.plus( CategoryUi(id = 0, title = "Add more")),
+                listCategoryUi = uiState.expenseList.plus(CategoryUi(id = -1, title = "Add more")),
                 title = stringResource(id = R.string.expense)
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
-                listCategoryUi = uiState.incomeList.plus( CategoryUi(id = 0, title = "Add more")),
+                listCategoryUi = uiState.incomeList.plus(CategoryUi(id = -1, title = "Add more")),
                 title = stringResource(id = R.string.income)
             )
             Spacer(modifier = Modifier.height(40.dp))
@@ -66,89 +67,91 @@ fun PreviewCategoryScreen() {
     MonoApplicationTheme {
         CategoryScreen(
             uiState = CategoryUiState(
-            expenseList = listOf(
-                CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
+                expenseList = listOf(
+                    CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ),
+                    CategoryUi(id = 0, title = "Add more")
                 ),
-                CategoryUi(id = 0, title = "Add more")),
-            incomeList = listOf(
-                CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
-                ), CategoryUi(
-                    id = 0,
-                    icon = R.drawable.category_bank,
-                    title = stringResource(id = R.string.category_bank)
+                incomeList = listOf(
+                    CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ), CategoryUi(
+                        id = 0,
+                        icon = R.drawable.category_bank,
+                        title = stringResource(id = R.string.category_bank)
+                    ),
+                    CategoryUi(id = 0, title = "Add more")
                 ),
-                CategoryUi(id = 0, title = "Add more")),
-        )
+            )
         )
     }
 }

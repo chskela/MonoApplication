@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.screens.edit_category.models.EditCategoryUiState
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,13 +28,33 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
     ))
         private set
 
-
-
     fun onEvent(eventEdit: EditCategoryEvent) {
         when (eventEdit) {
-            is EditCategoryEvent.EditCategory -> {
-
+            is EditCategoryEvent.GetCategory -> {
+                viewModelScope.launch {
+                    val category = categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
+                    uiState.value = uiState.value.copy(
+                        id = category.id,
+                        categoryName = category.name,
+                        icon = category.icon,
+                        typeCategory = category.type
+                    )
+                }
             }
+
+            is EditCategoryEvent.EditCategory -> {
+                viewModelScope.launch {
+                    categoryUseCases.updateCategoryUseCase(
+                        Category(
+                            id = uiState.value.id,
+                            name = uiState.value.categoryName,
+                            icon = uiState.value.icon,
+                            type = uiState.value.typeCategory,
+                        )
+                    )
+                }
+            }
+
             is EditCategoryEvent.AddCategory -> {
                 viewModelScope.launch {
                     categoryUseCases.addCategoryUseCase(

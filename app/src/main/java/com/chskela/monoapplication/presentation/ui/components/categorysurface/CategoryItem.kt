@@ -35,9 +35,11 @@ fun CategoryItem(
     Box(
         modifier = modifier
             .size(width = 92.dp, height = 82.dp)
-            .border(width = 1.dp,
+            .border(
+                width = 1.dp,
                 color = borderColor,
-                shape = MaterialTheme.shapes.large)
+                shape = MaterialTheme.shapes.large
+            )
             .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large)
             .clickable { onClick(categoryUi.id) },
         contentAlignment = Alignment.Center

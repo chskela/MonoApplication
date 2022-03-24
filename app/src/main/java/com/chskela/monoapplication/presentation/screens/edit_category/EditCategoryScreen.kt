@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,10 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.edit_category.models.EditCategoryUiState
-
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
-
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
@@ -27,11 +27,27 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun EditCategoryActivityScreen(
-    categoryViewModel: EditCategoryViewModel = hiltViewModel(),
+    editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
+    categoryId: Long,
+) {
+    LaunchedEffect(key1 = categoryId) {
+        editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
+    }
+
+    EditCategoryScreen(
+        uiState = editCategoryViewModel.uiState.value,
+        onEvent = editCategoryViewModel::onEvent
+    )
+}
+
+@Composable
+fun AddCategoryActivityScreen(
+    editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
+    typeCategory: TypeCategory
 ) {
     EditCategoryScreen(
-        uiState = categoryViewModel.uiState.value,
-        onEvent = categoryViewModel::onEvent
+        uiState = editCategoryViewModel.uiState.value.copy(typeCategory = typeCategory),
+        onEvent = editCategoryViewModel::onEvent
     )
 }
 
