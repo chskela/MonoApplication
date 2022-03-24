@@ -6,14 +6,19 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.navigation.BottomMenuScreens
 import com.chskela.monoapplication.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
 import com.chskela.monoapplication.presentation.screens.currency.CurrencyActivityScreen
+import com.chskela.monoapplication.presentation.screens.edit_category.AddCategoryActivityScreen
+import com.chskela.monoapplication.presentation.screens.edit_category.EditCategoryActivityScreen
 import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportActivityScreen
 import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingActivityScreen
 import com.chskela.monoapplication.presentation.screens.settings.SettingsActivityScreen
@@ -42,9 +47,10 @@ fun MonoApp() {
 
             composable(MonoScreens.OnBoarding.name) {
                 OnBoardingActivityScreen(
-                    onMainScreen = { navController.navigate(MonoScreens.Transaction.name) {
-                        popUpToTop(navController)
-                    }
+                    onMainScreen = {
+                        navController.navigate(MonoScreens.Transaction.name) {
+                            popUpToTop(navController)
+                        }
                     }
                 )
             }
@@ -84,12 +90,37 @@ fun MonoApp() {
                     )
                 }
 
+                composable(MonoScreens.Currency.name) {
+                    CurrencyActivityScreen()
+                }
+            }
+
+            navigation(
+                startDestination = MonoScreens.Category.name,
+                route = MonoScreens.CategoryRoot.name
+            ) {
+
                 composable(MonoScreens.Category.name) {
                     CategoryActivityScreen()
                 }
 
-                composable(MonoScreens.Currency.name) {
-                    CurrencyActivityScreen()
+                composable("${MonoScreens.EditCategory.name}/{categoryId}") {
+                    val categoryId =
+                        navController.previousBackStackEntry?.arguments?.getLong("categoryId")
+                    categoryId?.let {
+                        EditCategoryActivityScreen(categoryId = it)
+                    }
+
+                }
+
+                composable(MonoScreens.AddCategory.name) {
+                    val typeCategory =
+                        navController.previousBackStackEntry?.arguments?.getParcelable<TypeCategory>(
+                            "typeCategory"
+                        )
+                    typeCategory?.let {
+                        AddCategoryActivityScreen(typeCategory = it)
+                    }
                 }
             }
         }
@@ -98,6 +129,6 @@ fun MonoApp() {
 
 fun NavOptionsBuilder.popUpToTop(navController: NavController) {
     popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
-        inclusive =  true
+        inclusive = true
     }
 }

@@ -1,5 +1,9 @@
 package com.chskela.monoapplication.domain.category.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
 data class Category(
     val id: Long,
     val name: String,
@@ -7,6 +11,7 @@ data class Category(
     val type: TypeCategory = TypeCategory.Expense,
 )
 
-enum class TypeCategory {
+@Parcelize
+enum class TypeCategory : Parcelable {
     Expense, Income
 }

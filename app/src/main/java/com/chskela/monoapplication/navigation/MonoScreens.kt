@@ -7,6 +7,9 @@ enum class MonoScreens {
     MonthReport,
     SettingRoot,
     Setting,
+    CategoryRoot,
     Category,
+    EditCategory,
+    AddCategory,
     Currency
 }
