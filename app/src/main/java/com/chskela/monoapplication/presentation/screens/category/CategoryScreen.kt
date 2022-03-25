@@ -23,19 +23,23 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun CategoryActivityScreen(
     categoryViewModel: CategoryViewModel = hiltViewModel(),
+    onBack: () -> Unit,
+    onClick: (Long) -> Unit
 ) {
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,
+        onBack = onBack,
+        onClick = onClick
     )
 }
 
 @Composable
-fun CategoryScreen(uiState: CategoryUiState) {
+fun CategoryScreen(uiState: CategoryUiState, onBack: () -> Unit = {}, onClick: (Long) -> Unit = {}) {
     val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
-            MonoTopAppBar(title = stringResource(id = R.string.category))
+            MonoTopAppBar(title = stringResource(id = R.string.category), onNavigation = onBack)
         },
         backgroundColor = MaterialTheme.colors.surface
     ) {
@@ -48,12 +52,14 @@ fun CategoryScreen(uiState: CategoryUiState) {
         ) {
             MonoCategorySurface(
                 listCategoryUi = uiState.expenseList.plus(CategoryUi(id = -1, title = "Add more")),
-                title = stringResource(id = R.string.expense)
+                title = stringResource(id = R.string.expense),
+                onClickItem = onClick
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
                 listCategoryUi = uiState.incomeList.plus(CategoryUi(id = -1, title = "Add more")),
-                title = stringResource(id = R.string.income)
+                title = stringResource(id = R.string.income),
+                onClickItem = onClick
             )
             Spacer(modifier = Modifier.height(40.dp))
         }

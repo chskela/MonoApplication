@@ -1,17 +1,16 @@
 package com.chskela.monoapplication.presentation
 
+import android.util.Log
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.navigation.BottomMenuScreens
 import com.chskela.monoapplication.navigation.MonoScreens
@@ -91,7 +90,7 @@ fun MonoApp() {
                 }
 
                 composable(MonoScreens.Currency.name) {
-                    CurrencyActivityScreen()
+                    CurrencyActivityScreen(onBack = { navController.navigateUp() })
                 }
             }
 
@@ -101,14 +100,24 @@ fun MonoApp() {
             ) {
 
                 composable(MonoScreens.Category.name) {
-                    CategoryActivityScreen()
+                    fun onClick(id: Long) {
+                        navController.currentBackStackEntry?.arguments?.putLong("categoryId", id)
+                        navController.navigate("${MonoScreens.EditCategory.name}/$id")
+                    }
+                    CategoryActivityScreen(
+                        onBack = { navController.navigateUp() },
+                        onClick = ::onClick
+                    )
                 }
 
                 composable("${MonoScreens.EditCategory.name}/{categoryId}") {
+
                     val categoryId =
                         navController.previousBackStackEntry?.arguments?.getLong("categoryId")
                     categoryId?.let {
-                        EditCategoryActivityScreen(categoryId = it)
+                        EditCategoryActivityScreen(
+                            categoryId = it,
+                            onBack = { navController.navigateUp() })
                     }
 
                 }
@@ -119,7 +128,9 @@ fun MonoApp() {
                             "typeCategory"
                         )
                     typeCategory?.let {
-                        AddCategoryActivityScreen(typeCategory = it)
+                        AddCategoryActivityScreen(
+                            typeCategory = it,
+                            onBack = { navController.navigateUp() })
                     }
                 }
             }

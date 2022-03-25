@@ -28,6 +28,7 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun EditCategoryActivityScreen(
     editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
+    onBack: () -> Unit,
     categoryId: Long,
 ) {
     LaunchedEffect(key1 = categoryId) {
@@ -36,18 +37,21 @@ fun EditCategoryActivityScreen(
 
     EditCategoryScreen(
         uiState = editCategoryViewModel.uiState.value,
-        onEvent = editCategoryViewModel::onEvent
+        onEvent = editCategoryViewModel::onEvent,
+        onBack = onBack
     )
 }
 
 @Composable
 fun AddCategoryActivityScreen(
     editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
+    onBack: () -> Unit,
     typeCategory: TypeCategory
 ) {
     EditCategoryScreen(
         uiState = editCategoryViewModel.uiState.value.copy(typeCategory = typeCategory),
-        onEvent = editCategoryViewModel::onEvent
+        onEvent = editCategoryViewModel::onEvent,
+        onBack = onBack
     )
 }
 
@@ -55,6 +59,7 @@ fun AddCategoryActivityScreen(
 fun EditCategoryScreen(
     uiState: EditCategoryUiState,
     onEvent: (EditCategoryEvent) -> Unit = {},
+    onBack: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
 
@@ -67,7 +72,8 @@ fun EditCategoryScreen(
                         modifier = Modifier.clickable { onEvent(EditCategoryEvent.AddCategory) },
                         text = stringResource(id = R.string.add)
                     )
-                })
+                },
+            onNavigation = onBack)
         },
         backgroundColor = MaterialTheme.colors.surface
     ) {

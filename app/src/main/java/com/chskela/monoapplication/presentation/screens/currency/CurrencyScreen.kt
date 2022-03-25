@@ -25,10 +25,11 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = hiltViewModel()) {
+fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = hiltViewModel(), onBack: () -> Unit) {
     CurrencyScreen(
         uiState = currencyViewModel.uiState.value,
-        onSelectedCurrency = currencyViewModel::selectDefaultCurrency
+        onSelectedCurrency = currencyViewModel::selectDefaultCurrency,
+        onBack = onBack
     )
 }
 
@@ -36,9 +37,10 @@ fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = hiltViewModel(
 fun CurrencyScreen(
     uiState: CurrencyUiState,
     onSelectedCurrency: (Long) -> Unit = {},
+    onBack: () -> Unit = {}
 ) {
     Scaffold(topBar = {
-        MonoTopAppBar(title = stringResource(id = R.string.currency))
+        MonoTopAppBar(title = stringResource(id = R.string.currency), onNavigation = onBack)
     },
         backgroundColor = MaterialTheme.colors.surface
     ) {
