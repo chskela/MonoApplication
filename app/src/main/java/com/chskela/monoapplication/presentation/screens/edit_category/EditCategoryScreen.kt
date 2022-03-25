@@ -73,7 +73,8 @@ fun EditCategoryScreen(
                         text = stringResource(id = R.string.add)
                     )
                 },
-            onNavigation = onBack)
+                onNavigation = onBack
+            )
         },
         backgroundColor = MaterialTheme.colors.surface
     ) {
@@ -84,11 +85,16 @@ fun EditCategoryScreen(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Top
         ) {
-            MonoTextField(label = stringResource(id = R.string.category_name), value = "")
+            MonoTextField(
+                label = stringResource(id = R.string.category_name),
+                value = uiState.categoryName,
+                onValueChange = { onEvent(EditCategoryEvent.ChangeCategoryName(it)) }
+            )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
                 listCategoryUi = uiState.icons,
-                title = stringResource(id = R.string.icon)
+                title = stringResource(id = R.string.icon),
+                onClickItem = { onEvent(EditCategoryEvent.ChangeCategoryIcon(it)) }
             )
             Spacer(modifier = Modifier.height(40.dp))
         }
