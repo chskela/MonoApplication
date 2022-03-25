@@ -4,10 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -29,8 +26,10 @@ fun CategoryItem(
     selected: Boolean = false,
     onClick: (Long) -> Unit = {},
 ) {
-    val borderColor = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
-    val contentColor = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
+    val borderColor =
+        if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
+    val contentColor =
+        if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
 
     Box(
         modifier = modifier
@@ -45,15 +44,24 @@ fun CategoryItem(
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
             categoryUi.icon?.let {
-                Icon(imageVector = ImageVector.vectorResource(it),
+                Icon(
+                    imageVector = ImageVector.vectorResource(it),
                     contentDescription = categoryUi.title,
-                    tint = contentColor,
-                    modifier = Modifier.padding(bottom = 8.dp))
+                    tint = contentColor
+                )
             }
-            Text(text = categoryUi.title,
-                style = MaterialTheme.typography.caption,
-                color = contentColor)
+
+            categoryUi.title?.let {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = categoryUi.title,
+                    style = MaterialTheme.typography.caption,
+                    color = contentColor
+                )
+            }
+
         }
     }
 }
@@ -63,11 +71,12 @@ fun CategoryItem(
 @Composable
 fun PreviewCategoryItem() {
     MonoApplicationTheme {
-        CategoryItem(categoryUi = CategoryUi(
-            id = 0,
-            icon = R.drawable.category_bank,
-            title = stringResource(id = R.string.category_bank)
-        )
+        CategoryItem(
+            categoryUi = CategoryUi(
+                id = 0,
+                icon = R.drawable.category_bank,
+                title = stringResource(id = R.string.category_bank)
+            )
         )
     }
 }
