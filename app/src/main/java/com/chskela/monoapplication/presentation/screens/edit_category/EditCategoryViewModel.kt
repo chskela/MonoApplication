@@ -22,7 +22,6 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
             CategoryUi(
                 id = index.toLong(),
                 icon = icon,
-                title = ""
             )
         }
     ))
@@ -30,6 +29,14 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
 
     fun onEvent(eventEdit: EditCategoryEvent) {
         when (eventEdit) {
+            is EditCategoryEvent.ChangeCategoryName -> {
+                uiState.value = uiState.value.copy(categoryName = eventEdit.value)
+            }
+
+            is EditCategoryEvent.ChangeCategoryIcon -> {
+                uiState.value = uiState.value.copy(icon = eventEdit.iconId.toInt())
+            }
+
             is EditCategoryEvent.GetCategory -> {
                 viewModelScope.launch {
                     val category = categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
