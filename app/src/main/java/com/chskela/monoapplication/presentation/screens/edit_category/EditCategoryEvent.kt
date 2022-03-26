@@ -7,5 +7,6 @@ sealed class EditCategoryEvent{
     data class EditCategory(val categoryUi: CategoryUi) : EditCategoryEvent()
     data class ChangeCategoryName(val value: String): EditCategoryEvent()
     data class ChangeCategoryIcon(val iconId: Long): EditCategoryEvent()
+    data class SelectTab(val tab: Int) : EditCategoryEvent()
     object AddCategory : EditCategoryEvent()
 }

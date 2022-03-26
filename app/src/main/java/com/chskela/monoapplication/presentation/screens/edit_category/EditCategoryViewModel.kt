@@ -29,6 +29,9 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
 
     fun onEvent(eventEdit: EditCategoryEvent) {
         when (eventEdit) {
+            is EditCategoryEvent.SelectTab -> {
+                uiState.value = uiState.value.copy(currentTab = eventEdit.tab)
+            }
             is EditCategoryEvent.ChangeCategoryName -> {
                 uiState.value = uiState.value.copy(categoryName = eventEdit.value)
             }

@@ -6,6 +6,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Ca
 
 data class EditCategoryUiState(
     val id: Long = 0,
+    val currentTab: Int = 0,
     val categoryName: String = "",
     @DrawableRes val icon: Int = 0,
     val typeCategory: TypeCategory = TypeCategory.Expense,

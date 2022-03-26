@@ -101,7 +101,7 @@ fun MonoApp() {
                 composable(MonoScreens.Category.name) {
                     fun onClick(id: Long) {
                         navController.currentBackStackEntry?.arguments?.putLong("categoryId", id)
-                        navController.navigate("${MonoScreens.EditCategory.name}/$id")
+                        navController.navigate(MonoScreens.EditCategory.name)
                     }
                     CategoryActivityScreen(
                         onBack = { navController.navigateUp() },
@@ -109,7 +109,7 @@ fun MonoApp() {
                     )
                 }
 
-                composable("${MonoScreens.EditCategory.name}/{categoryId}") {
+                composable(MonoScreens.EditCategory.name) {
                     val categoryId =
                         navController.previousBackStackEntry?.arguments?.getLong("categoryId")
                     categoryId?.let {

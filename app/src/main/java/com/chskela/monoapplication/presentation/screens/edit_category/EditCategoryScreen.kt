@@ -21,6 +21,7 @@ import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.edit_category.models.EditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
+import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -64,7 +65,7 @@ fun EditCategoryScreen(
     onBack: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
-
+    val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
     Scaffold(
         topBar = {
             MonoTopAppBar(
@@ -89,6 +90,12 @@ fun EditCategoryScreen(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Top
         ) {
+            MonoTabs(
+                state = uiState.currentTab,
+                titles = titles,
+                onSelect = { onEvent(EditCategoryEvent.SelectTab(it)) }
+            )
+            Spacer(modifier = Modifier.height(24.dp))
             MonoTextField(
                 label = stringResource(id = R.string.category_name),
                 value = uiState.categoryName,
