@@ -1,11 +1,13 @@
 package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,17 +31,32 @@ fun CategoryActivityScreen(
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,
         onBack = onBack,
-        onClick = onClick
+        onEdit = onClick
     )
 }
 
 @Composable
-fun CategoryScreen(uiState: CategoryUiState, onBack: () -> Unit = {}, onClick: (Long) -> Unit = {}) {
+fun CategoryScreen(
+    uiState: CategoryUiState,
+    onBack: () -> Unit = {},
+    onEdit: (Long) -> Unit = {},
+    onAddMore: () -> Unit = {}
+) {
     val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
-            MonoTopAppBar(title = stringResource(id = R.string.category), onNavigation = onBack)
+            MonoTopAppBar(
+                title = stringResource(id = R.string.category), onNavigation = onBack,
+                actions = {
+                    Text(
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .clickable { onAddMore() },
+                        text = stringResource(id = R.string.add_more)
+                    )
+                },
+            )
         },
         backgroundColor = MaterialTheme.colors.surface
     ) {
@@ -51,15 +68,19 @@ fun CategoryScreen(uiState: CategoryUiState, onBack: () -> Unit = {}, onClick: (
             verticalArrangement = Arrangement.Top
         ) {
             MonoCategorySurface(
-                listCategoryUi = uiState.expenseList.plus(CategoryUi(id = -1, title = "Add more")),
+                listCategoryUi = uiState.expenseList
+//                    .plus(CategoryUi(id = -1, title = "Add more"))
+                ,
                 title = stringResource(id = R.string.expense),
-                onClickItem = onClick
+                onClickItem = onEdit
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
-                listCategoryUi = uiState.incomeList.plus(CategoryUi(id = -1, title = "Add more")),
+                listCategoryUi = uiState.incomeList
+//                    .plus(CategoryUi(id = -1, title = "Add more"))
+                ,
                 title = stringResource(id = R.string.income),
-                onClickItem = onClick
+                onClickItem = onEdit
             )
             Spacer(modifier = Modifier.height(40.dp))
         }

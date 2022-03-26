@@ -19,6 +19,7 @@
     <string name="category_name">Category name</string>
     <string name="icon">Icon</string>
     <string name="add">Add</string>
+    <string name="add_more">Add more</string>
     <!--OnBoarding-->
     <string name="on_boarding_continue">Continue</string>
     <string name="on_boarding_get_started">Get started</string>
@@ -95,4 +96,5 @@
     <string name="category_wallet">Wallet</string>
     <string name="category_wc">WC</string>
     <string name="settings">Settings</string>
+
 </resources>
