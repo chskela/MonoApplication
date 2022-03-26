@@ -8,7 +8,7 @@ data class EditCategoryUiState(
     val id: Long = 0,
     val currentTab: Int = 0,
     val categoryName: String = "",
-    @DrawableRes val icon: Int = 0,
+    val icon: String = "",
     val typeCategory: TypeCategory = TypeCategory.Expense,
     val icons: List<CategoryUi> = emptyList(),
 )

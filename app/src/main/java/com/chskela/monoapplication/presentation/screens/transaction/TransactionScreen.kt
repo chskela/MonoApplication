@@ -177,47 +177,47 @@ fun PreviewTransactionScreen() {
                 listCategory = listOf(
                     CategoryUi(
                         id = 0,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 1,
-                        icon = R.drawable.category_bank,
+                        icon ="bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 2,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 3,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 4,
-                        icon = R.drawable.category_bank,
+                        icon ="bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 5,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 6,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 7,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 8,
-                        icon = R.drawable.category_bank,
+                        icon ="bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 9,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 10,
-                        icon = R.drawable.category_bank,
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     )
                 ),

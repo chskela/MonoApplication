@@ -13,7 +13,7 @@ data class CategoryEntity(
     val name: String,
 
     @ColumnInfo
-    val icon: Int,
+    val icon: String,
 
     @ColumnInfo
     val type: Type = Type.Expense,

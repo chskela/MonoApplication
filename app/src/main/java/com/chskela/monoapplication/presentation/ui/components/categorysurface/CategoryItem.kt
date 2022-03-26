@@ -17,6 +17,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
@@ -47,7 +48,9 @@ fun CategoryItem(
 
             categoryUi.icon?.let {
                 Icon(
-                    imageVector = ImageVector.vectorResource(it),
+                    imageVector = ImageVector.vectorResource(
+                        iconsMap.getOrDefault(it, R.drawable.category_bank)
+                    ),
                     contentDescription = categoryUi.title,
                     tint = contentColor
                 )
@@ -61,7 +64,6 @@ fun CategoryItem(
                     color = contentColor
                 )
             }
-
         }
     }
 }
@@ -74,7 +76,7 @@ fun PreviewCategoryItem() {
         CategoryItem(
             categoryUi = CategoryUi(
                 id = 0,
-                icon = R.drawable.category_bank,
+                icon = "bank",
                 title = stringResource(id = R.string.category_bank)
             )
         )

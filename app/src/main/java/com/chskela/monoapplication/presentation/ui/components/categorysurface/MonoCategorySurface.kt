@@ -46,44 +46,56 @@ fun MonoCategorySurface(
 @Composable
 fun PreviewMonoCategorySurface() {
     MonoApplicationTheme {
-        MonoCategorySurface(listCategoryUi = listOf(
-            CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ), CategoryUi(
-                id = 0,
-                icon = R.drawable.category_bank,
-                title = stringResource(id = R.string.category_bank)
-            ),
-            CategoryUi(id = 0, title = "Add more")), title = "Category")
+        MonoCategorySurface(
+            listCategoryUi = listOf(
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ), CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(
+                    id = 0,
+                    icon = "bank",
+                    title = stringResource(id = R.string.category_bank)
+                ),
+                CategoryUi(id = 0, title = "Add more")
+            ), title = "Category"
+        )
     }
 }

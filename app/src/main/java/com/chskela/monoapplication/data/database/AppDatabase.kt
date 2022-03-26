@@ -10,7 +10,7 @@ import com.chskela.monoapplication.data.monthreport.storage.dao.MonthReportDao
 import com.chskela.monoapplication.data.transaction.storage.dao.TransactionDao
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 
-@Database(entities = [CurrencyEntity::class, CategoryEntity::class, TransactionEntity::class], version = 3)
+@Database(entities = [CurrencyEntity::class, CategoryEntity::class, TransactionEntity::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract val currencyDao: CurrencyDao
     abstract val categoryDao: CategoryDao

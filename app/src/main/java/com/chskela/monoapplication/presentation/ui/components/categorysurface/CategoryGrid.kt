@@ -50,39 +50,39 @@ fun PreviewCategoryGrid() {
             listOf(
                 CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ), CategoryUi(
                     id = 0,
-                    icon = R.drawable.category_bank,
+                    icon = "bank",
                     title = stringResource(id = R.string.category_bank)
                 ),
                 CategoryUi(id = 0, title = "Add more")).map { CategoryItem(categoryUi = it) }
