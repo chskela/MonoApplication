@@ -31,8 +31,10 @@ fun EditCategoryActivityScreen(
     onBack: () -> Unit,
     categoryId: Long,
 ) {
-    LaunchedEffect(key1 = categoryId) {
-        editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
+    LaunchedEffect(true) {
+        categoryId.let {
+            editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
+        }
     }
 
     EditCategoryScreen(
@@ -69,7 +71,9 @@ fun EditCategoryScreen(
                 title = stringResource(id = R.string.category),
                 actions = {
                     Text(
-                        modifier = Modifier.clickable { onEvent(EditCategoryEvent.AddCategory) },
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .clickable { onEvent(EditCategoryEvent.AddCategory) },
                         text = stringResource(id = R.string.add)
                     )
                 },

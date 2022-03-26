@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.presentation
 
-import android.util.Log
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -111,7 +110,6 @@ fun MonoApp() {
                 }
 
                 composable("${MonoScreens.EditCategory.name}/{categoryId}") {
-
                     val categoryId =
                         navController.previousBackStackEntry?.arguments?.getLong("categoryId")
                     categoryId?.let {
@@ -119,7 +117,6 @@ fun MonoApp() {
                             categoryId = it,
                             onBack = { navController.navigateUp() })
                     }
-
                 }
 
                 composable(MonoScreens.AddCategory.name) {
