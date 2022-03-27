@@ -24,9 +24,11 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
             )
         }
 
-    var uiState: MutableState<EditCategoryUiState> = mutableStateOf(EditCategoryUiState(
-        icons = icons
-    ))
+    var uiState: MutableState<EditCategoryUiState> = mutableStateOf(
+        EditCategoryUiState(
+            icons = icons
+        )
+    )
         private set
 
     fun onEvent(eventEdit: EditCategoryEvent) {
@@ -34,12 +36,16 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
             is EditCategoryEvent.SelectTab -> {
                 uiState.value = uiState.value.copy(currentTab = eventEdit.tab)
             }
+
             is EditCategoryEvent.ChangeCategoryName -> {
                 uiState.value = uiState.value.copy(categoryName = eventEdit.value)
             }
 
             is EditCategoryEvent.ChangeCategoryIcon -> {
-                uiState.value = uiState.value.copy(icon = icons[eventEdit.iconId.toInt()].icon ?: "")
+                val icon = icons[eventEdit.iconId.toInt()].icon
+                icon?.let {
+                    uiState.value = uiState.value.copy(icon = icon)
+                }
             }
 
             is EditCategoryEvent.GetCategory -> {

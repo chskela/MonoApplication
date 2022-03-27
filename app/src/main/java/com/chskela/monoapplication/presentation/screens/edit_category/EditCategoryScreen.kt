@@ -105,6 +105,7 @@ fun EditCategoryScreen(
             MonoCategorySurface(
                 listCategoryUi = uiState.icons,
                 title = stringResource(id = R.string.icon),
+                selectedCategory = uiState.icons.firstOrNull { it.icon == uiState.icon }?.id ?: -1,
                 onClickItem = { onEvent(EditCategoryEvent.ChangeCategoryIcon(it)) }
             )
             Spacer(modifier = Modifier.height(40.dp))
