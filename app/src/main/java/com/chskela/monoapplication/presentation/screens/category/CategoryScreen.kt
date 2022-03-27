@@ -26,12 +26,14 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 fun CategoryActivityScreen(
     categoryViewModel: CategoryViewModel = hiltViewModel(),
     onBack: () -> Unit,
-    onClick: (Long) -> Unit
+    onClick: (Long) -> Unit,
+    onAddMore: () -> Unit
 ) {
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,
         onBack = onBack,
-        onEdit = onClick
+        onEdit = onClick,
+        onAddMore = onAddMore
     )
 }
 
@@ -68,17 +70,13 @@ fun CategoryScreen(
             verticalArrangement = Arrangement.Top
         ) {
             MonoCategorySurface(
-                listCategoryUi = uiState.expenseList
-//                    .plus(CategoryUi(id = -1, title = "Add more"))
-                ,
+                listCategoryUi = uiState.expenseList,
                 title = stringResource(id = R.string.expense),
                 onClickItem = onEdit
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
-                listCategoryUi = uiState.incomeList
-//                    .plus(CategoryUi(id = -1, title = "Add more"))
-                ,
+                listCategoryUi = uiState.incomeList,
                 title = stringResource(id = R.string.income),
                 onClickItem = onEdit
             )
@@ -131,7 +129,7 @@ fun PreviewCategoryScreen() {
                         id = 0,
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
-                    ),CategoryUi(id = 0, title = "Add more")
+                    ), CategoryUi(id = 0, title = "Add more")
                 ),
                 incomeList = listOf(
                     CategoryUi(
@@ -170,7 +168,7 @@ fun PreviewCategoryScreen() {
                         id = 0,
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
-                    ),CategoryUi(id = 0, title = "Add more")
+                    ), CategoryUi(id = 0, title = "Add more")
                 ),
             )
         )
