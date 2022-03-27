@@ -50,7 +50,13 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
         type = mapTypeToDomain(categoryEntity.type)
     )
 
-    private fun mapCategoryToStorage(category: Category): CategoryEntity = CategoryEntity(
+    private fun mapCategoryToStorage(category: Category): CategoryEntity = if (category.id == 0L) {
+        CategoryEntity(
+            name = category.name,
+            icon = category.icon,
+            type = mapTypeToStorage(category.type)
+        )
+    } else CategoryEntity(
         id = category.id,
         name = category.name,
         icon = category.icon,
