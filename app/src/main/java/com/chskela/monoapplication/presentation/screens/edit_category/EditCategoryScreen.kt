@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.edit_category.models.EditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
@@ -49,10 +48,9 @@ fun EditCategoryActivityScreen(
 fun AddCategoryActivityScreen(
     editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
     onBack: () -> Unit,
-    typeCategory: TypeCategory
 ) {
     EditCategoryScreen(
-        uiState = editCategoryViewModel.uiState.value.copy(typeCategory = typeCategory),
+        uiState = editCategoryViewModel.uiState.value,
         onEvent = editCategoryViewModel::onEvent,
         onBack = onBack
     )
