@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.domain.category.models.Category
+import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.presentation.screens.edit_category.models.EditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
@@ -34,7 +35,12 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
     fun onEvent(eventEdit: EditCategoryEvent) {
         when (eventEdit) {
             is EditCategoryEvent.SelectTab -> {
-                uiState.value = uiState.value.copy(currentTab = eventEdit.tab)
+                val typeCategory =
+                    if (eventEdit.tab == 0) TypeCategory.Expense else TypeCategory.Income
+                uiState.value = uiState.value.copy(
+                    currentTab = eventEdit.tab,
+                    typeCategory = typeCategory
+                )
             }
 
             is EditCategoryEvent.ChangeCategoryName -> {
@@ -79,7 +85,8 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
                         Category(
                             id = 0,
                             name = uiState.value.categoryName,
-                            icon = uiState.value.icon
+                            icon = uiState.value.icon,
+                            type = uiState.value.typeCategory
                         )
                     )
                 }
