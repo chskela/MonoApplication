@@ -105,7 +105,8 @@ fun MonoApp() {
                     }
                     CategoryActivityScreen(
                         onBack = { navController.navigateUp() },
-                        onClick = ::onClick
+                        onClick = ::onClick,
+                        onAddMore = { navController.navigate(MonoScreens.AddCategory.name) }
                     )
                 }
 
@@ -120,15 +121,8 @@ fun MonoApp() {
                 }
 
                 composable(MonoScreens.AddCategory.name) {
-                    val typeCategory =
-                        navController.previousBackStackEntry?.arguments?.getParcelable<TypeCategory>(
-                            "typeCategory"
-                        )
-                    typeCategory?.let {
-                        AddCategoryActivityScreen(
-                            typeCategory = it,
-                            onBack = { navController.navigateUp() })
-                    }
+                    AddCategoryActivityScreen(
+                        onBack = { navController.navigateUp() })
                 }
             }
         }
