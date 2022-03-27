@@ -8,6 +8,7 @@ import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -31,14 +32,18 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
 
     fun selectDefaultCurrency(id: Long) {
         uiState.value = uiState.value.copy(selectedCurrency = id)
+        viewModelScope.launch {
+            currencyUseCases.setDefaultCurrencyUseCase(id)
+        }
     }
 
     private fun getCurrency() {
-        currencyUseCases.getListCurrencyUseCase().onEach {
-            uiState.value =
-                uiState.value.copy(currencyList = it, selectedCurrency = it.firstOrNull()?.id ?: 0)
-        }
-            .launchIn(viewModelScope)
+        combine(
+            currencyUseCases.getListCurrencyUseCase(),
+            currencyUseCases.getDefaultCurrencyUseCase()
+        ) { list, id ->
+            uiState.value = uiState.value.copy(currencyList = list, selectedCurrency = id)
+        }.launchIn(viewModelScope)
     }
 
 }
