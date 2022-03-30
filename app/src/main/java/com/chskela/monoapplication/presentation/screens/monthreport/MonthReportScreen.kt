@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.screens.monthreport.components.BorderRow
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
@@ -135,7 +136,7 @@ fun MonthReportScreen(
 
             Row {
                 LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
-                    items(items = uiState.transactionList) {
+                    items(items = uiState.transactionList) { transactionUi ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -144,19 +145,23 @@ fun MonthReportScreen(
                         ) {
                             Column(modifier = Modifier.weight(0.7f)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(
-                                        imageVector = ImageVector.vectorResource(id = it.icon),
-                                        contentDescription = it.category
-                                    )
+                                    val icon = iconsMap[transactionUi.icon]
+                                    icon?.let { id ->
+                                        Icon(
+                                            imageVector = ImageVector.vectorResource(id = id),
+                                            contentDescription = transactionUi.category
+                                        )
+                                    }
+
                                     Spacer(modifier = Modifier.size(12.dp))
                                     Text(
-                                        text = it.category,
+                                        text = transactionUi.category,
                                         style = MaterialTheme.typography.body1,
                                         color = MaterialTheme.colors.onSurface,
                                     )
-                                    if (it.note.isNotBlank()) {
+                                    if (transactionUi.note.isNotBlank()) {
                                         Text(
-                                            text = " (${it.note})",
+                                            text = " (${transactionUi.note})",
                                             style = MaterialTheme.typography.caption,
                                             color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
                                             overflow = TextOverflow.Ellipsis,
@@ -170,17 +175,17 @@ fun MonthReportScreen(
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.End
                             ) {
-                                val prefix = when (it.type) {
+                                val prefix = when (transactionUi.type) {
                                     TypeTransaction.Expense -> "-"
                                     TypeTransaction.Income -> "+"
                                 }
-                                val color = when (it.type) {
+                                val color = when (transactionUi.type) {
                                     TypeTransaction.Expense -> Expense
                                     TypeTransaction.Income -> Income
                                 }
 
                                 Text(
-                                    text = "$prefix$currency${it.amount}",
+                                    text = "$prefix$currency${transactionUi.amount}",
                                     style = MaterialTheme.typography.body1,
                                     color = color
                                 )
@@ -217,7 +222,7 @@ fun PreviewMonthReportScreen() {
                         note = "Note dfhgdfgdfdfgdsfdfgsdagfdfdfggdfgdfgdfgdfgdhfddfghhfddfgdfgh",
                         type = TypeTransaction.Expense,
                         category = "Food",
-                        icon = R.drawable.category_food
+                        icon = "category_food"
                     ),
                     TransactionUi(
                         id = 1,
@@ -226,7 +231,7 @@ fun PreviewMonthReportScreen() {
                         note = "Note",
                         type = TypeTransaction.Income,
                         category = "Pay",
-                        icon = R.drawable.category_baby
+                        icon = "category_baby"
                     )
                 )
             )

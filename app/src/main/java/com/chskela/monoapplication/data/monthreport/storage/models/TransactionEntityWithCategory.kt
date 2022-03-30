@@ -10,6 +10,6 @@ data class TransactionEntityWithCategory(
     val amount: Long,
     val note: String,
     val name: String,
-    val icon: Int,
+    val icon: String,
     val type: Type = Type.Expense,
 )

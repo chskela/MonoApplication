@@ -7,7 +7,7 @@ data class TransactionUi(
     val note: String,
     val type: TypeTransaction = TypeTransaction.Expense,
     val category: String,
-    val icon: Int
+    val icon: String
 )
 
 enum class TypeTransaction {
