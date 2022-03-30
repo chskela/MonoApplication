@@ -59,8 +59,10 @@ class TransitionViewModel @Inject constructor(
                 )
             }
             is TransitionEvent.ChangeAmount -> {
-                uiState.value = uiState.value.copy(amount = event.value)
-                uiState.value = uiState.value.copy(enabledButton = isEnabled())
+                if (validateAmount(event.value)) {
+                    uiState.value = uiState.value.copy(amount = event.value)
+                    uiState.value = uiState.value.copy(enabledButton = isEnabled())
+                }
             }
             is TransitionEvent.ChangeNote -> {
                 uiState.value = uiState.value.copy(note = event.value)
@@ -94,6 +96,15 @@ class TransitionViewModel @Inject constructor(
                 uiState.value = uiState.value.copy(currentData = formatDate(currentDate.time))
             }
         }
+    }
+
+    private fun validateAmount(value: String): Boolean {
+        val symbols = listOf('.').plus('0'..'9')
+        val partsOfNumber = value.split('.')
+
+        return (value == "" || value.last() in symbols || partsOfNumber.first().isNotEmpty())
+                && partsOfNumber.size <= 2
+                && partsOfNumber.last().length <= 2
     }
 
     private fun initialUiStateFromStore() {
