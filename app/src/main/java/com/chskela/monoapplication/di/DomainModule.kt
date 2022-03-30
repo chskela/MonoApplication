@@ -52,6 +52,11 @@ object DomainModule {
     }
 
     @Provides
+    fun provideDeleteAllTransactionsUseCase(repository: TransactionRepository) : DeleteAllTransactionsUseCase {
+        return DeleteAllTransactionsUseCase(repository)
+    }
+
+    @Provides
     fun provideMonthReportUseCase(repository: MonthReportRepository) : MonthReportUseCases {
         return MonthReportUseCases(
             getAllTransactionsByMonthUseCase = GetAllTransactionsByMonthUseCase(repository),

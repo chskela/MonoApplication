@@ -25,6 +25,10 @@ class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
         transactionDao.deleteTransaction(mapCategoryToStorage(transaction))
     }
 
+    override suspend fun deleteAllTransactions() {
+        transactionDao.deleteAllTransactions()
+    }
+
 //    private fun mapTransactionToDomain(transactionEntityWithCategory: TransactionEntityWithCategory): Transaction =
 //        Transaction(
 //            id = transactionEntity.id ?: 0,
