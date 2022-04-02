@@ -1,13 +1,12 @@
 package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,15 +49,12 @@ fun CategoryScreen(
         topBar = {
             MonoTopAppBar(
                 title = stringResource(id = R.string.category), onNavigation = onBack,
-                actions = {
-                    Text(
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .clickable { onAddMore() },
-                        text = stringResource(id = R.string.add_more)
-                    )
-                },
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddMore) {
+                Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_more))
+            }
         },
         backgroundColor = MaterialTheme.colors.surface
     ) {
