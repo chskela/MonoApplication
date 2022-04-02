@@ -78,7 +78,7 @@ fun EditCategoryScreen(
                         onBack()
                     }) {
                         Text(
-                            modifier = Modifier.padding(horizontal = 16.dp),
+                            modifier = Modifier.padding(horizontal = 12.dp),
                             text = stringResource(id = actionTitleId)
                         )
                     }
