@@ -4,13 +4,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavController
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.navigation.BottomMenuScreens
 import com.chskela.monoapplication.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
@@ -26,7 +23,7 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun MonoApp() {
+fun MonoApp(onBoardingIsSkip: Boolean) {
     MonoApplicationTheme {
         val navController = rememberNavController()
         val systemUiController = rememberSystemUiController()
@@ -41,7 +38,14 @@ fun MonoApp() {
             BottomMenuScreens.MonthReport,
             BottomMenuScreens.Setting
         )
-        NavHost(navController = navController, startDestination = MonoScreens.OnBoarding.name) {
+
+        val startDestination = if (onBoardingIsSkip) {
+            MonoScreens.OnBoarding.name
+        } else {
+            MonoScreens.Transaction.name
+        }
+
+        NavHost(navController = navController, startDestination = startDestination) {
 
             composable(MonoScreens.OnBoarding.name) {
                 OnBoardingActivityScreen(
