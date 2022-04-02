@@ -55,13 +55,14 @@ class EditCategoryViewModel @Inject constructor(private val categoryUseCases: Ca
             }
 
             is EditCategoryEvent.GetCategory -> {
+                uiState.value = uiState.value.copy(isNewCategory = false)
                 viewModelScope.launch {
                     val category = categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
                     uiState.value = uiState.value.copy(
                         id = category.id,
                         categoryName = category.name,
                         icon = category.icon,
-                        typeCategory = category.type
+                        typeCategory = category.type,
                     )
                 }
             }
