@@ -1,10 +1,10 @@
 package com.chskela.monoapplication.presentation.screens.edit_category
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -66,15 +66,22 @@ fun EditCategoryScreen(
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
     Scaffold(
         topBar = {
+            val titleId =
+                if (uiState.isNewCategory) R.string.add_category else R.string.edit_category
+            val actionTitleId = if (uiState.isNewCategory) R.string.add else R.string.save
+
             MonoTopAppBar(
-                title = stringResource(id = R.string.category),
+                title = stringResource(id = titleId),
                 actions = {
-                    Text(
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .clickable { onEvent(EditCategoryEvent.AddCategory) },
-                        text = stringResource(id = R.string.add)
-                    )
+                    IconButton(onClick = {
+                        onEvent(EditCategoryEvent.AddCategory)
+                        onBack()
+                    }) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            text = stringResource(id = actionTitleId)
+                        )
+                    }
                 },
                 onNavigation = onBack
             )
@@ -149,7 +156,7 @@ fun PreviewEditCategoryScreen() {
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 0,
-                        icon ="bank",
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 0,
