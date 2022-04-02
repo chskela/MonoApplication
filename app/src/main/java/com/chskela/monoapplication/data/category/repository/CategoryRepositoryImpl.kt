@@ -29,8 +29,8 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
         categoryDao.updateCategory(mapCategoryToStorage(category))
     }
 
-    override suspend fun deleteCategory(category: Category) {
-        categoryDao.deleteCategory(mapCategoryToStorage(category))
+    override suspend fun deleteCategory(id: Long) {
+        categoryDao.deleteCategory(id)
     }
 
     private fun mapTypeToDomain(type: Type): TypeCategory = when (type) {
