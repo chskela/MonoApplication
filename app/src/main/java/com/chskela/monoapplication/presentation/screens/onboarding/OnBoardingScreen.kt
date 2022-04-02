@@ -69,7 +69,10 @@ fun OnBoardingScreen(
 
                     if (uiState.skip) {
                         OutlinedButton(
-                            onClick = onMainScreen,
+                            onClick = {
+                                onMainScreen()
+                                onEvent(OnBoardingEvent.Skip)
+                            },
                             contentPadding = PaddingValues(horizontal = 24.dp)
                         ) {
                             Text(
@@ -103,7 +106,10 @@ fun OnBoardingScreen(
                 text = stringResource(id = buttonTitle),
                 onClick = {
                     when (page) {
-                        Pages.Third -> onMainScreen()
+                        Pages.Third -> {
+                            onMainScreen()
+                            onEvent(OnBoardingEvent.NextPage(Pages.Third))
+                        }
                         else -> onEvent(OnBoardingEvent.NextPage(page))
                     }
                 })
