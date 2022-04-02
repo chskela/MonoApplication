@@ -3,15 +3,20 @@ package com.chskela.monoapplication.presentation.screens.onboarding
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.domain.onboarding.usecase.SetOnBoardingIsSkipUseCase
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingPage
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingUiState
 import com.chskela.monoapplication.presentation.screens.onboarding.models.Pages
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnBoardingViewModel @Inject constructor() : ViewModel() {
+class OnBoardingViewModel @Inject constructor(
+    private val setOnBoardingIsSkipUseCase: SetOnBoardingIsSkipUseCase
+) : ViewModel() {
 
     private val pageFirst = OnBoardingPage(
         page = Pages.First,
@@ -39,7 +44,8 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
         OnBoardingUiState(
             onBoardingPage = pageFirst,
             skip = true,
-        ))
+        )
+    )
         private set
 
 
@@ -53,14 +59,16 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
                     is Pages.Second -> {
                         uiState.value = uiState.value.copy(onBoardingPage = pageThird, skip = false)
                     }
-                    is Pages.Third -> {
-
-                    }
+                    is Pages.Third -> setOnBoardingIsSkip()
                 }
             }
-            is OnBoardingEvent.Skip -> {
+            is OnBoardingEvent.Skip -> setOnBoardingIsSkip()
+        }
+    }
 
-            }
+    private fun setOnBoardingIsSkip() {
+        viewModelScope.launch {
+            setOnBoardingIsSkipUseCase()
         }
     }
 }
