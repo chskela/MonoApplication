@@ -27,7 +27,7 @@ fun SettingsActivityScreen(
         bottomBar = bottomBar,
         onCategory = onCategory,
         onCurrency = onCurrency,
-        deletAllData = settingsViewModel::deleteAllData
+        deleteAllData = settingsViewModel::deleteAllData
     )
 }
 
@@ -36,7 +36,7 @@ fun SettingsScreen(
     bottomBar: @Composable () -> Unit = {},
     onCategory: () -> Unit = {},
     onCurrency: () -> Unit = {},
-    deletAllData: () -> Unit = {}
+    deleteAllData: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -77,7 +77,7 @@ fun SettingsScreen(
                     title = stringResource(id = R.string.delete_all_data),
                     leftIcon = R.drawable.settings_trash,
                     color = MaterialTheme.colors.error,
-                    onClick = deletAllData
+                    onClick = deleteAllData
                 )
             )
         }
@@ -87,7 +87,7 @@ fun SettingsScreen(
 @Preview(showBackground = true, name = "Light SettingsScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewCategoryScreen() {
+fun PreviewSettingsScreen() {
     MonoApplicationTheme {
         SettingsScreen()
     }
