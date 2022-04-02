@@ -15,7 +15,7 @@ class CurrencyStore(private val context: Context) {
     companion object {
         private const val CURRENCY_DEFAULT = "CURRENCY_DEFAULT"
         private val CURRENCY_DEFAULT_KEY = longPreferencesKey(CURRENCY_DEFAULT)
-        private val Context.dataStore by preferencesDataStore("setting")
+        private val Context.dataStore by preferencesDataStore("currency")
     }
 
     val getDefaultCurrency: Flow<Long> = context.dataStore.data
