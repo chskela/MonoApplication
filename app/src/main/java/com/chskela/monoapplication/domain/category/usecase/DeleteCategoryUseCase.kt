@@ -5,7 +5,7 @@ import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 
 class DeleteCategoryUseCase(private val categoryRepository: CategoryRepository) {
 
-    suspend operator fun invoke(category: Category) {
-        categoryRepository.deleteCategory(category = category)
+    suspend operator fun invoke(id: Long) {
+        categoryRepository.deleteCategory(id)
     }
 }
