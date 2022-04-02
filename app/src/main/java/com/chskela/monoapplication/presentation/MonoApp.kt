@@ -46,9 +46,8 @@ fun MonoApp() {
             composable(MonoScreens.OnBoarding.name) {
                 OnBoardingActivityScreen(
                     onMainScreen = {
-                        navController.navigate(MonoScreens.Transaction.name) {
-                            popUpToTop(navController)
-                        }
+                        navController.popBackStack()
+                        navController.navigate(MonoScreens.Transaction.name)
                     }
                 )
             }
@@ -126,11 +125,5 @@ fun MonoApp() {
                 }
             }
         }
-    }
-}
-
-fun NavOptionsBuilder.popUpToTop(navController: NavController) {
-    popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
-        inclusive = true
     }
 }

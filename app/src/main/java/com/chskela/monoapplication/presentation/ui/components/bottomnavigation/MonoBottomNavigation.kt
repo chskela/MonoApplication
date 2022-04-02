@@ -2,7 +2,8 @@ package com.chskela.monoapplication.presentation.ui.components.bottomnavigation
 
 import android.content.res.Configuration
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -11,12 +12,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.chskela.monoapplication.navigation.BottomMenuScreens
-import com.chskela.monoapplication.presentation.popUpToTop
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
@@ -55,9 +54,8 @@ fun MonoBottomNavigation(
                 selected = isSelected,
                 onClick = {
                     try {
-                        navController.navigate(screen.route) {
-                            popUpToTop(navController)
-                        }
+                        navController.popBackStack()
+                        navController.navigate(screen.route)
                     } catch (e: IllegalStateException) {
                         if (e.message != "Already attached to lifecycleOwner") {
                             throw e
