@@ -29,7 +29,7 @@ fun MonoTopAppBar(
                 text = "Back",
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.secondary,
-                modifier = Modifier.padding(start = 12.dp)
+                modifier = Modifier.padding(horizontal = 12.dp)
             )
         }
     },
