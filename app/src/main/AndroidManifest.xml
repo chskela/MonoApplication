@@ -9,11 +9,11 @@
         android:name=".MonoApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MonoApplication">
+        android:theme="@style/Theme.CustomSplashScreenTheme">
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.MonoApplication">
+            android:theme="@style/Theme.CustomSplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
