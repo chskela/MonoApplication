@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,11 +29,10 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
 
     fun onEvent(event: CategoryEvent) {
         when (event) {
-            is CategoryEvent.AddMore -> {
-
-            }
-            is CategoryEvent.EditCategory -> {
-
+            is CategoryEvent.DeleteCategory -> {
+                viewModelScope.launch {
+                    categoryUseCases.deleteCategoryUseCase(event.id)
+                }
             }
         }
     }
