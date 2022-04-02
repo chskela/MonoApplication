@@ -6,6 +6,8 @@ import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
 import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
 import com.chskela.monoapplication.domain.monthreport.usecase.*
+import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
+import com.chskela.monoapplication.domain.onboarding.usecase.SetOnBoardingIsSkipUseCase
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import com.chskela.monoapplication.domain.transaction.usercase.*
 import dagger.Module
