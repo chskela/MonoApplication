@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.edit_category
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,6 +26,7 @@ import com.chskela.monoapplication.presentation.ui.components.textfield.MonoText
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun EditCategoryActivityScreen(
     editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
@@ -44,6 +46,7 @@ fun EditCategoryActivityScreen(
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun AddCategoryActivityScreen(
     editCategoryViewModel: EditCategoryViewModel = hiltViewModel(),
@@ -56,6 +59,7 @@ fun AddCategoryActivityScreen(
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun EditCategoryScreen(
     uiState: EditCategoryUiState,
@@ -118,6 +122,7 @@ fun EditCategoryScreen(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light EditCategoryScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

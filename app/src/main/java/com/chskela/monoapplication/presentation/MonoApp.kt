@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -22,6 +23,7 @@ import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.M
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+@ExperimentalFoundationApi
 @Composable
 fun MonoApp(onBoardingIsSkip: Boolean) {
     MonoApplicationTheme {

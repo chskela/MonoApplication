@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,13 +14,15 @@ import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun MonoCategorySurface(
     modifier: Modifier = Modifier,
     listCategoryUi: List<CategoryUi>,
     title: String,
     selectedCategory: Long = 0,
-    onClickItem: (Long) -> Unit = {}
+    onClickItem: (Long) -> Unit = {},
+    onLongClick: (Long) -> Unit = {}
 ) {
     Row(modifier = modifier) {
         Column {
@@ -33,7 +36,12 @@ fun MonoCategorySurface(
                 CategoryGrid {
                     listCategoryUi.map {
                         val selected = selectedCategory == it.id
-                        CategoryItem(categoryUi = it, onClick = onClickItem, selected = selected)
+                        CategoryItem(
+                            categoryUi = it,
+                            onClick = onClickItem,
+                            onLongClick = onLongClick,
+                            selected = selected
+                        )
                     }
                 }
             }
@@ -41,6 +49,7 @@ fun MonoCategorySurface(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light MonoCategorySurface", showSystemUi = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable

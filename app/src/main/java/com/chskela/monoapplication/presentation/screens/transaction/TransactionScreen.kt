@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.transaction
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +28,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun TransactionActivityScreen(
     transitionViewModel: TransitionViewModel = hiltViewModel(),
@@ -39,6 +41,7 @@ fun TransactionActivityScreen(
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun TransactionScreen(
     uiState: TransitionUiState,
@@ -167,6 +170,7 @@ fun TransactionScreen(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light TransactionScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

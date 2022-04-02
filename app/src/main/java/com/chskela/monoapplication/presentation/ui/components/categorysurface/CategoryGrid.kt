@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
@@ -10,6 +11,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlin.math.ceil
 
+@ExperimentalFoundationApi
 @Composable
 fun CategoryGrid(
     modifier: Modifier = Modifier,
@@ -40,7 +42,7 @@ fun CategoryGrid(
         }
     }
 }
-
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen", showSystemUi = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable

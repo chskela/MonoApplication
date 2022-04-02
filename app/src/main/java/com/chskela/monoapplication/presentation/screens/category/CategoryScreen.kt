@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +22,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun CategoryActivityScreen(
     categoryViewModel: CategoryViewModel = hiltViewModel(),
@@ -30,15 +32,18 @@ fun CategoryActivityScreen(
 ) {
     CategoryScreen(
         uiState = categoryViewModel.uiState.value,
+        onEvent = categoryViewModel::onEvent,
         onBack = onBack,
         onEdit = onClick,
         onAddMore = onAddMore
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun CategoryScreen(
     uiState: CategoryUiState,
+    onEvent: (CategoryEvent) -> Unit = {},
     onBack: () -> Unit = {},
     onEdit: (Long) -> Unit = {},
     onAddMore: () -> Unit = {}
@@ -68,19 +73,22 @@ fun CategoryScreen(
             MonoCategorySurface(
                 listCategoryUi = uiState.expenseList,
                 title = stringResource(id = R.string.expense),
-                onClickItem = onEdit
+                onClickItem = onEdit,
+                onLongClick = {onEvent(CategoryEvent.DeleteCategory(it))}
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
                 listCategoryUi = uiState.incomeList,
                 title = stringResource(id = R.string.income),
-                onClickItem = onEdit
+                onClickItem = onEdit,
+                onLongClick = {onEvent(CategoryEvent.DeleteCategory(it))}
             )
             Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
