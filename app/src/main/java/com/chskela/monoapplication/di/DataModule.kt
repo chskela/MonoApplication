@@ -71,4 +71,22 @@ object DataModule {
         return MonthReportRepositoryImpl(db.monthReportDao)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideOnBoardingStore(@ApplicationContext appContext: Context): OnBoardingStore {
+        return OnBoardingStore(appContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepository(onBoardingStore: OnBoardingStore): OnBoardingRepository {
+        return OnBoardingRepositoryImpl(onBoardingStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOnBoardingIsSkipUseCase(repository: OnBoardingRepository) : OnBoardingIsSkipUseCase {
+        return OnBoardingIsSkipUseCase(repository)
+    }
 }
