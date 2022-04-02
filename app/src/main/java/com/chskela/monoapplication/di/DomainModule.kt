@@ -67,4 +67,12 @@ object DomainModule {
             getIncomeUseCase = GetIncomeUseCase(repository)
         )
     }
+
+
+
+    @Provides
+    fun provideSetOnBoardingIsSkipUseCase(repository: OnBoardingRepository) : SetOnBoardingIsSkipUseCase {
+        return SetOnBoardingIsSkipUseCase(repository)
+    }
+
 }
