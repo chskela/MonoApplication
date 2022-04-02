@@ -1,9 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -20,12 +18,14 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun CategoryItem(
     modifier: Modifier = Modifier,
     categoryUi: CategoryUi,
     selected: Boolean = false,
     onClick: (Long) -> Unit = {},
+    onLongClick: (Long) -> Unit = {},
 ) {
     val borderColor =
         if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
@@ -41,7 +41,12 @@ fun CategoryItem(
                 shape = MaterialTheme.shapes.large
             )
             .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large)
-            .clickable { onClick(categoryUi.id) },
+            .combinedClickable(
+                enabled = true,
+                onClick = { onClick(categoryUi.id) },
+                onLongClick = { onLongClick(categoryUi.id) },
+                onDoubleClick = {}
+                ),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -68,6 +73,7 @@ fun CategoryItem(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -83,6 +89,7 @@ fun PreviewCategoryItem() {
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen no icon")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
