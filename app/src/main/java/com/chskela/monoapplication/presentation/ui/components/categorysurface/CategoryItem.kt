@@ -18,7 +18,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryItem(
     modifier: Modifier = Modifier,
@@ -73,7 +73,6 @@ fun CategoryItem(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

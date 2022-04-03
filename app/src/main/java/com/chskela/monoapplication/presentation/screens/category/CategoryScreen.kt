@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.category
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -22,7 +21,6 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
-@ExperimentalFoundationApi
 @Composable
 fun CategoryActivityScreen(
     categoryViewModel: CategoryViewModel = hiltViewModel(),
@@ -39,7 +37,6 @@ fun CategoryActivityScreen(
     )
 }
 
-@ExperimentalFoundationApi
 @Composable
 fun CategoryScreen(
     uiState: CategoryUiState,
@@ -88,7 +85,6 @@ fun CategoryScreen(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light CategoryScreen", showSystemUi = true)
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

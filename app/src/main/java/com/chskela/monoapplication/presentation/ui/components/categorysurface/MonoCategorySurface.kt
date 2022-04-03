@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.ui.components.categorysurface
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -14,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
-@ExperimentalFoundationApi
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MonoCategorySurface(
     modifier: Modifier = Modifier,
@@ -33,15 +34,17 @@ fun MonoCategorySurface(
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             if (listCategoryUi.isNotEmpty()) {
-                CategoryGrid {
-                    listCategoryUi.map {
-                        val selected = selectedCategory == it.id
-                        CategoryItem(
-                            categoryUi = it,
-                            onClick = onClickItem,
-                            onLongClick = onLongClick,
-                            selected = selected
-                        )
+                AnimatedContent(targetState = listCategoryUi) { targetState ->
+                    CategoryGrid {
+                        targetState.map {
+                            val selected = selectedCategory == it.id
+                            CategoryItem(
+                                categoryUi = it,
+                                onClick = onClickItem,
+                                onLongClick = onLongClick,
+                                selected = selected
+                            )
+                        }
                     }
                 }
             }
@@ -49,7 +52,6 @@ fun MonoCategorySurface(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(showBackground = true, name = "Light MonoCategorySurface", showSystemUi = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
