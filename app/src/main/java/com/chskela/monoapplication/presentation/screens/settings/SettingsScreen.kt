@@ -18,13 +18,11 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun SettingsActivityScreen(
-    bottomBar: @Composable () -> Unit = {},
     onCategory: () -> Unit,
     onCurrency: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     SettingsScreen(
-        bottomBar = bottomBar,
         onCategory = onCategory,
         onCurrency = onCurrency,
         deleteAllData = settingsViewModel::deleteAllData
@@ -33,7 +31,6 @@ fun SettingsActivityScreen(
 
 @Composable
 fun SettingsScreen(
-    bottomBar: @Composable () -> Unit = {},
     onCategory: () -> Unit = {},
     onCurrency: () -> Unit = {},
     deleteAllData: () -> Unit = {}
@@ -44,7 +41,6 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.size(48.dp))
             })
         },
-        bottomBar = bottomBar,
         backgroundColor = MaterialTheme.colors.surface
     ) {
         Column(
