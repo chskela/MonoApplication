@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.settings.components
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
@@ -65,26 +63,6 @@ fun SettingItem(
         }
 
     }
-}
-
-@Composable
-fun TemplateSettingItem( modifier: Modifier = Modifier, content: @Composable RowScope.() -> Unit) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(height = 48.dp)
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
-                shape = MaterialTheme.shapes.medium)
-            .background(
-                color = MaterialTheme.colors.surface,
-                shape = MaterialTheme.shapes.medium)
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        content = content
-    )
 }
 
 @Preview(showBackground = true, name = "Light SettingItem")

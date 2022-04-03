@@ -1,7 +1,6 @@
 package com.chskela.monoapplication.presentation.ui.components.button
 
 import android.content.res.Configuration
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -46,8 +45,8 @@ fun MonoButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButton() {
-    MonoApplicationTheme() {
-        Surface() {
+    MonoApplicationTheme {
+        Surface {
             MonoButton(text = "Submit")
         }
 
@@ -58,8 +57,8 @@ fun PreviewMonoButton() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonError() {
-    MonoApplicationTheme() {
-        Surface() {
+    MonoApplicationTheme {
+        Surface {
             MonoButton(text = "Submit", isPrimary = false)
         }
     }
@@ -69,8 +68,8 @@ fun PreviewMonoButtonError() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonDisable() {
-    MonoApplicationTheme() {
-        Surface() {
+    MonoApplicationTheme {
+        Surface {
             MonoButton(text = "Submit", enabled = false)
         }
     }

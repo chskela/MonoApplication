@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.domain.monthreport.usecase
 
-import android.util.Log
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.presentation.screens.monthreport
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

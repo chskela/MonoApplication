@@ -27,7 +27,7 @@ fun BorderRow(
             .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium)
             .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
-        Column() {
+        Column {
             content.map { item ->
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,

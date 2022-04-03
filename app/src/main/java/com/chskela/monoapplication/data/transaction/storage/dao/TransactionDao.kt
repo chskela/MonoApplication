@@ -7,7 +7,6 @@ import com.chskela.monoapplication.data.monthreport.storage.models.TransactionEn
 @Dao
 interface TransactionDao {
 
-
     @Query("SELECT T.id, T.timestamp, T.amount, T.note, C.name, C.icon, C.type  FROM 'transaction' T JOIN category C ON t.category_id=c.id WHERE T.id = :id")
     suspend fun getTransactionById(id: Long): TransactionEntityWithCategory
 

@@ -17,7 +17,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
@@ -60,7 +59,7 @@ fun CurrencyScreen(
                 ) {
                     RadioButton(
                         selected = (currency.id == uiState.selectedCurrency),
-                        onClick = null,// null recommended for accessibility with screenreaders
+                        onClick = null,// null recommended for accessibility with screen readers
                         colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary)
                     )
 

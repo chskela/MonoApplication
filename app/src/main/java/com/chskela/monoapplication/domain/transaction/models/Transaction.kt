@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.domain.transaction.models
 
-
 data class Transaction(
     val id: Long,
     val timestamp: Long,
