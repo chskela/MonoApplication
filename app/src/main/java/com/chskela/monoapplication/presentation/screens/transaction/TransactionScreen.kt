@@ -30,12 +30,10 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun TransactionActivityScreen(
     transitionViewModel: TransitionViewModel = hiltViewModel(),
-    bottomBar: @Composable () -> Unit = {}
 ) {
     TransactionScreen(
         uiState = transitionViewModel.uiState.value,
         onEvent = transitionViewModel::onEvent,
-        bottomBar = bottomBar
     )
 }
 
@@ -43,17 +41,10 @@ fun TransactionActivityScreen(
 fun TransactionScreen(
     uiState: TransitionUiState,
     onEvent: (TransitionEvent) -> Unit = {},
-    bottomBar: @Composable () -> Unit = {},
 ) {
-
     val scrollState = rememberScrollState()
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
-    Scaffold(
-        modifier = Modifier
-            .fillMaxHeight(),
-        bottomBar = bottomBar,
-        backgroundColor = MaterialTheme.colors.surface
-    ) {
+
         BoxWithConstraints {
             val heightTabs = 48.dp
             val heightBottomBar = 56.dp
@@ -165,7 +156,7 @@ fun TransactionScreen(
                 )
             }
         }
-    }
+
 }
 
 @Preview(showBackground = true, name = "Light TransactionScreen", showSystemUi = true)
