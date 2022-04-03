@@ -33,12 +33,10 @@ import kotlin.math.absoluteValue
 @Composable
 fun MonthReportActivityScreen(
     monthReportViewModels: MonthReportViewModels = hiltViewModel(),
-    bottomBar: @Composable () -> Unit = {},
 ) {
     MonthReportScreen(
         uiState = monthReportViewModels.uiState.value,
         onEvent = monthReportViewModels::onEvent,
-        bottomBar = bottomBar
     )
 }
 
@@ -46,7 +44,6 @@ fun MonthReportActivityScreen(
 fun MonthReportScreen(
     uiState: MonthReportUiState,
     onEvent: (MonthReportEvent) -> Unit = {},
-    bottomBar: @Composable () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -66,7 +63,6 @@ fun MonthReportScreen(
                 }
             )
         },
-        bottomBar = bottomBar,
         backgroundColor = MaterialTheme.colors.surface
     ) {
         val income = stringResource(id = R.string.income)
