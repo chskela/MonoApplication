@@ -69,8 +69,8 @@ fun TransactionScreen(
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
-                    uiState.currentTab,
-                    titles,
+                    state = uiState.currentTab,
+                    titles = titles,
                     onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
                 )
 
@@ -85,6 +85,7 @@ fun TransactionScreen(
                         end.linkTo(parent.end)
                     }
                 ) {
+
                     Spacer(modifier = Modifier.height(24.dp))
 
                     MonoDateRange(

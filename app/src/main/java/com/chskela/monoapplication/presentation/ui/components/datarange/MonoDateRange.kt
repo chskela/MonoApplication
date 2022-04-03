@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.datarange
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -39,17 +40,17 @@ fun MonoDateRange(currentDate: String, onPrevious: () -> Unit, onNext: () -> Uni
         )
         AnimatedContent(
             targetState = currentDate,
-            transitionSpec = {
-                if (targetState > initialState) {
-                    slideInHorizontally { width -> width / 3 } + fadeIn() with
-                            slideOutHorizontally { width -> -width / 3 } + fadeOut()
-                } else {
-                    slideInHorizontally { width -> -width / 3 } + fadeIn() with
-                            slideOutHorizontally { width -> width / 3 } + fadeOut()
-                }.using(
-                    SizeTransform(clip = false)
-                )
-            }
+//            transitionSpec = {
+//                if (targetState.value.state > initialState.value.state) {
+//                    slideInHorizontally { width -> width / 3 } + fadeIn() with
+//                            slideOutHorizontally { width -> -width / 3 } + fadeOut()
+//                } else {
+//                    slideInHorizontally { width -> -width / 3 } + fadeIn() with
+//                            slideOutHorizontally { width -> width / 3 } + fadeOut()
+//                }.using(
+//                    SizeTransform(clip = false)
+//                )
+//            }
         ) { currentDate ->
             Text(
                 text = currentDate,
