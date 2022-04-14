@@ -32,9 +32,7 @@ fun EditCategoryActivityScreen(
     categoryId: Long,
 ) {
     LaunchedEffect(true) {
-        categoryId.let {
-            editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
-        }
+        editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
     }
 
     EditCategoryScreen(
