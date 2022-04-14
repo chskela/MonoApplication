@@ -9,9 +9,12 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
-import com.chskela.monoapplication.navigation.BottomMenuScreens
-import com.chskela.monoapplication.navigation.MonoScreens
+import com.chskela.monoapplication.presentation.navigation.BottomMenuScreens
+import com.chskela.monoapplication.presentation.navigation.MonoScreens
+import com.chskela.monoapplication.presentation.navigation.reportGraph
+import com.chskela.monoapplication.presentation.navigation.settingGraph
 import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
+import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryReportActivityScreen
 import com.chskela.monoapplication.presentation.screens.currency.CurrencyActivityScreen
 import com.chskela.monoapplication.presentation.screens.edit_category.AddCategoryActivityScreen
 import com.chskela.monoapplication.presentation.screens.edit_category.EditCategoryActivityScreen
@@ -84,26 +87,9 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
                     TransactionActivityScreen()
                 }
 
-                composable(MonoScreens.MonthReport.name) {
-                    MonthReportActivityScreen()
-                }
+                reportGraph(navController)
 
-                navigation(
-                    startDestination = MonoScreens.Setting.name,
-                    route = MonoScreens.SettingRoot.name
-                ) {
-
-                    composable(MonoScreens.Setting.name) {
-                        SettingsActivityScreen(
-                            onCategory = { navController.navigate(MonoScreens.Category.name) },
-                            onCurrency = { navController.navigate(MonoScreens.Currency.name) }
-                        )
-                    }
-
-                    composable(MonoScreens.Currency.name) {
-                        CurrencyActivityScreen(onBack = { navController.navigateUp() })
-                    }
-                }
+                settingGraph(navController)
 
                 navigation(
                     startDestination = MonoScreens.Category.name,
