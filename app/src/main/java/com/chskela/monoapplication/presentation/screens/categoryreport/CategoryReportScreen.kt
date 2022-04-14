@@ -26,8 +26,12 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun CategoryReportActivityScreen(
     categoryReportViewModels: CategoryReportViewModels = hiltViewModel(),
+    onSelectCategory: (Long) -> Unit
 ) {
-    CategoryReportScreen(uiState = categoryReportViewModels.uiState.value)
+    CategoryReportScreen(
+        uiState = categoryReportViewModels.uiState.value,
+        onSelectCategory = onSelectCategory
+    )
 }
 
 @Composable
