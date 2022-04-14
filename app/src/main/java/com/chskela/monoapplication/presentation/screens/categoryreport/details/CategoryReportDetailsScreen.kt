@@ -28,6 +28,11 @@ fun CategoryReportDetailsActivityScreen(
     categoryReportDetailsViewModels: CategoryReportDetailsViewModels = hiltViewModel(),
     onBack: () -> Unit
 ) {
+    LaunchedEffect(true) {
+//        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(categoryId))
+        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(1))
+    }
+
     CategoryReportDetailsScreen(
         uiState = categoryReportDetailsViewModels.uiState.value,
         onEvent = categoryReportDetailsViewModels::onEvent,
