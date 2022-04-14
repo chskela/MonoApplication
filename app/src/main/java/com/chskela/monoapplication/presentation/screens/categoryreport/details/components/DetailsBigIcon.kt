@@ -12,47 +12,47 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
+import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.Income
 
 @Composable
 fun DetailsBigIcon(
-    categoryUi: CategoryUi
+    title: String,
+    icon: String,
+    typeCategory: TypeCategory,
 ) {
+    val color = when(typeCategory) {
+        TypeCategory.Expense -> Expense
+        TypeCategory.Income -> Income
+    }
     Box(
         modifier = Modifier
             .size(312.dp)
             .background(
-                color = Expense.copy(alpha = 0.2f),
+                color = color.copy(alpha = 0.2f),
                 shape = MaterialTheme.shapes.small
             ),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            categoryUi.icon?.let {
-                Icon(
-                    modifier = Modifier.size(200.dp),
-                    painter = painterResource(
-                        id = iconsMap.getOrDefault(
-                            it,
-                            R.drawable.category_bank
-                        )
-                    ),
-                    contentDescription = "",
-                    tint = Expense
-                )
-            }
+            Icon(
+                modifier = Modifier.size(200.dp),
+                painter = painterResource(
+                    id = iconsMap.getOrDefault(icon, R.drawable.category_bank)
+                ),
+                contentDescription = "",
+                tint = color
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            categoryUi.title?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.secondary
-                )
-            }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.subtitle1,
+                color = MaterialTheme.colors.secondary
+            )
         }
     }
 }
