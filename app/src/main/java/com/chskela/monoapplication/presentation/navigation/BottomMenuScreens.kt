@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.navigation
+package com.chskela.monoapplication.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

@@ -1,9 +1,10 @@
-package com.chskela.monoapplication.presentation.navigation
+package com.chskela.monoapplication.presentation.navigation.graphs
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryReportActivityScreen
 import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportActivityScreen
 
