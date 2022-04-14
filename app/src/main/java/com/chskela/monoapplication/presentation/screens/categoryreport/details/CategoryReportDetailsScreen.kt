@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -87,6 +84,13 @@ fun CategoryReportDetailsScreen(
                 onSelect = { onEvent(CategoryReportDetailsEvent.SelectTab(it)) }
             )
 
+            Spacer(modifier = Modifier.height(40.dp))
+
+            DetailsBigIcon(
+                title = uiState.categoryName,
+                icon = uiState.icon,
+                typeCategory = uiState.typeCategory
+            )
         }
     }
 }
