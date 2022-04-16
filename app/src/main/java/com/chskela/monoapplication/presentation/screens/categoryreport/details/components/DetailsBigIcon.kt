@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
@@ -20,12 +21,8 @@ import com.chskela.monoapplication.presentation.ui.theme.Income
 fun DetailsBigIcon(
     title: String,
     icon: String,
-    typeCategory: TypeCategory,
+    color: Color,
 ) {
-    val color = when(typeCategory) {
-        TypeCategory.Expense -> Expense
-        TypeCategory.Income -> Income
-    }
     Box(
         modifier = Modifier
             .size(312.dp)
