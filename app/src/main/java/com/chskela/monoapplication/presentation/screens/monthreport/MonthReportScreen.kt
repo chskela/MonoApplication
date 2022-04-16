@@ -64,12 +64,12 @@ fun MonthReportScreen(
             )
         },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
+    ) { padding ->
         val income = stringResource(id = R.string.income)
         val expense = stringResource(id = R.string.expense)
         val currency = uiState.currency
         fun sign(value: Double) = if (value >= 0) "+" else "-"
-        Column {
+        Column( modifier = Modifier.padding(padding)) {
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column {
                     Spacer(modifier = Modifier.size(24.dp))
@@ -195,8 +195,8 @@ fun MonthReportScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light CurrencyScreen", showSystemUi = true)
-@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, name = "Light CurrencyScreen", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonthReportScreen() {
     MonoApplicationTheme {

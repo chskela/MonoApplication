@@ -13,9 +13,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.presentation.ui.theme.Expense
-import com.chskela.monoapplication.presentation.ui.theme.Income
 
 @Composable
 fun DetailsBigIcon(
