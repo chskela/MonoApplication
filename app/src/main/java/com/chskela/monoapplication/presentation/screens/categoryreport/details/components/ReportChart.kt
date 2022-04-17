@@ -1,0 +1,149 @@
+package com.chskela.monoapplication.presentation.screens.categoryreport.details.components
+
+import android.content.res.Configuration
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import android.graphics.Color as AGColor
+import android.graphics.Paint as AGPaint
+import android.graphics.Path as AGPath
+
+@Composable
+fun ReportChart(
+    modifier: Modifier = Modifier,
+    reportsList: List<ReportUi> = emptyList(),
+    graphColor: Color = Expense,
+    textColor: Color = Color(0xFFBABABF),
+    textStyle: TextStyle = MaterialTheme.typography.body1
+) {
+    val spacing = 50f
+    val transparentGraphColor = remember {
+        graphColor.copy(alpha = 0.5f)
+    }
+    val upperValue = remember(reportsList) {
+        reportsList.maxOfOrNull { it.amount } ?: 0
+    }
+    val lowerValue = remember(reportsList) {
+        reportsList.minOfOrNull { it.amount } ?: 0
+    }
+
+    val density = LocalDensity.current
+    val textPaint = remember(density) {
+        AGPaint().apply {
+            color = AGColor.rgb(
+                textColor.red,
+                textColor.green,
+                textColor.blue
+            )
+            textAlign = AGPaint.Align.CENTER
+            textSize = density.run { textStyle.fontSize.toPx() }
+        }
+    }
+
+    Canvas(
+        modifier = modifier.border(
+            width = 1.dp,
+            color = MaterialTheme.colors.secondaryVariant,
+            shape = MaterialTheme.shapes.small
+        )
+    ) {
+        val height = size.height - spacing
+        val spacePerX = size.width / (reportsList.size + 1)
+        val ratioY = height / (upperValue - lowerValue) + 1
+
+        reportsList.forEachIndexed { i, report ->
+            if (i == 0) return@forEachIndexed
+            drawContext.canvas.nativeCanvas.apply {
+                drawText(
+                    report.signatures,
+                    spacePerX / 2 + i * spacePerX,
+                    size.height - 10,
+                    textPaint
+                )
+            }
+        }
+        var lastX = 0f
+        val strokePath = Path().apply {
+            reportsList.forEachIndexed { i, report ->
+                val x1 = spacePerX / 2 + spacePerX * i
+                val y1 = height - (report.amount - lowerValue) * ratioY
+
+                val nextReport = reportsList.getOrNull(i + 1) ?: reportsList.last()
+                val x2 = spacePerX / 2 + spacePerX * (i + 1)
+                val y2 = height - (nextReport.amount - lowerValue) * ratioY
+
+                if (i == 0) {
+                    moveTo(x1, y1)
+                }
+                lastX = (x1 + x2) / 2f
+                quadraticBezierTo(
+                    x1, y1, (x1 + x2) / 2f, (y1 + y2) / 2f
+                )
+            }
+        }
+
+        val fillPath = AGPath(strokePath.asAndroidPath())
+            .asComposePath()
+            .apply {
+                lineTo(lastX, size.height - spacing)
+                lineTo(spacing, size.height - spacing)
+                close()
+            }
+        drawPath(
+            path = fillPath,
+            brush = Brush.verticalGradient(
+                colors = listOf(
+                    transparentGraphColor,
+                    Color.Transparent
+                ),
+                endY = size.height - spacing
+            )
+        )
+
+        drawPath(
+            path = strokePath,
+            color = graphColor,
+            style = Stroke(
+                width = 2.dp.toPx(),
+                cap = StrokeCap.Round
+            )
+        )
+    }
+}
+
+
+data class ReportUi(
+    val signatures: String,
+    val amount: Long,
+)
+
+@Preview(showBackground = true, name = "Light ReportChart", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewReportChart() {
+    MonoApplicationTheme {
+        ReportChart(
+            Modifier.size(width = 300.dp, height = 150.dp),
+            reportsList = listOf(
+                ReportUi(signatures = "Oct", amount = 2),
+                ReportUi(signatures = "Nov", amount = 10),
+                ReportUi(signatures = "Dec", amount = 4),
+                ReportUi(signatures = "Oct", amount = 1),
+                ReportUi(signatures = "Nov", amount = 14),
+                ReportUi(signatures = "Dec", amount = 7)
+            )
+        )
+    }
+}
