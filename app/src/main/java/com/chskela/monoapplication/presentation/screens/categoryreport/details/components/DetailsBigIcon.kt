@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.categoryreport.details.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -10,14 +11,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
+import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DetailsBigIcon(
     title: String,
-    icon: String,
+    icon: String = "",
     color: Color,
 ) {
     Box(
@@ -48,5 +52,14 @@ fun DetailsBigIcon(
                 color = MaterialTheme.colors.secondary
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light DetailsBigIcon", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewDetailsBigIcon() {
+    MonoApplicationTheme {
+        DetailsBigIcon(title = "Title", color = Expense)
     }
 }
