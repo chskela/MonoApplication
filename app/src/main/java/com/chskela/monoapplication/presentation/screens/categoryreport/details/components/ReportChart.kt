@@ -60,28 +60,29 @@ fun ReportChart(
         )
     ) {
         val height = size.height - spacing
-        val spacePerX = size.width / (reportsList.size + 1)
-        val ratioY = height / (upperValue - lowerValue) + 1
+        val spacePerX = size.width / (reportsList.size - 1)
+        val ratioY = height / (upperValue - lowerValue)
 
         reportsList.forEachIndexed { i, report ->
-            if (i == 0) return@forEachIndexed
+            if (i == 0 || i == reportsList.lastIndex) return@forEachIndexed
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     report.signatures,
-                    spacePerX / 2 + i * spacePerX,
+                    i * spacePerX,
                     size.height - 10,
                     textPaint
                 )
             }
         }
+
         var lastX = 0f
         val strokePath = Path().apply {
             reportsList.forEachIndexed { i, report ->
-                val x1 = spacePerX / 2 + spacePerX * i
+                val x1 = spacePerX * i
                 val y1 = height - (report.amount - lowerValue) * ratioY
 
                 val nextReport = reportsList.getOrNull(i + 1) ?: reportsList.last()
-                val x2 = spacePerX / 2 + spacePerX * (i + 1)
+                val x2 = spacePerX * (i + 1)
                 val y2 = height - (nextReport.amount - lowerValue) * ratioY
 
                 if (i == 0) {
@@ -101,6 +102,7 @@ fun ReportChart(
                 lineTo(spacing, size.height - spacing)
                 close()
             }
+
         drawPath(
             path = fillPath,
             brush = Brush.verticalGradient(
@@ -122,7 +124,6 @@ fun ReportChart(
         )
     }
 }
-
 
 data class ReportUi(
     val signatures: String,
