@@ -59,9 +59,10 @@ fun CategoryReportScreen(
             )
         },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
+    ) { padding ->
         Column(
             modifier = Modifier
+                .padding(padding)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -83,15 +84,13 @@ fun CategoryReportScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light CategoryReportScreen", showSystemUi = true)
-@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, name = "Light CategoryReportScreen", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryReportScreen() {
     MonoApplicationTheme {
         CategoryReportScreen(
             uiState = CategoryReportUiState()
         )
-
-
     }
 }

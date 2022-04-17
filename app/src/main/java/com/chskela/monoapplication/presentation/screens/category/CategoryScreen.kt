@@ -59,9 +59,10 @@ fun CategoryScreen(
             }
         },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
+    ) { padding ->
         Column(
             modifier = Modifier
+                .padding(padding)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
