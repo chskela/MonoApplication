@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.categoryreport.details.components
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -18,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DetailsTabs(
@@ -89,5 +92,14 @@ fun DetailsTabs(
                 onClick = { onSelect(index) }
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light DetailsTabs", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewDetailsTabs() {
+    MonoApplicationTheme {
+        DetailsTabs(state = 0)
     }
 }
