@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.categoryreport.details.models
 
 import com.chskela.monoapplication.domain.category.models.TypeCategory
+import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 
 data class CategoryReportDetailsUiState(
@@ -10,5 +11,6 @@ data class CategoryReportDetailsUiState(
     val icon: String = "",
     val typeCategory: TypeCategory = TypeCategory.Expense,
     val currency: String = "",
-    val transactionList: List<TransactionUi> = emptyList()
+    val transactionList: List<TransactionUi> = emptyList(),
+    val reportsList: List<ReportUi> = emptyList()
 )
