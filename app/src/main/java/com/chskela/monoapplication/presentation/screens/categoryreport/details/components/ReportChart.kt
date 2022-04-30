@@ -15,6 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import android.graphics.Color as AGColor
 import android.graphics.Paint as AGPaint
@@ -25,7 +26,7 @@ fun ReportChart(
     modifier: Modifier = Modifier,
     reportsList: List<ReportUi> = emptyList(),
     graphColor: Color = Expense,
-    textColor: Color = Color(0xFFBABABF),
+    textColor: Color = MaterialTheme.colors.secondary,
     textStyle: TextStyle = MaterialTheme.typography.body1
 ) {
     val spacing = 50f
@@ -145,6 +146,26 @@ fun PreviewReportChart() {
                 ReportUi(signatures = "Nov", amount = 14),
                 ReportUi(signatures = "Dec", amount = 7)
             )
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light ReportChartIncome", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewReportChartIncome() {
+    MonoApplicationTheme {
+        ReportChart(
+            Modifier.size(width = 300.dp, height = 150.dp),
+            reportsList = listOf(
+                ReportUi(signatures = "Oct", amount = 2),
+                ReportUi(signatures = "Nov", amount = 10),
+                ReportUi(signatures = "Dec", amount = 4),
+                ReportUi(signatures = "Oct", amount = 1),
+                ReportUi(signatures = "Nov", amount = 14),
+                ReportUi(signatures = "Dec", amount = 7)
+            ),
+            graphColor = Income
         )
     }
 }
