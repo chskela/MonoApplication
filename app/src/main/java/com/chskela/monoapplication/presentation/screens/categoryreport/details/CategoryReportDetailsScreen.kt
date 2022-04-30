@@ -2,6 +2,7 @@ package com.chskela.monoapplication.presentation.screens.categoryreport.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +19,10 @@ import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.DetailsBigIcon
 import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.DetailsTabs
 import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportChart
+import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.categoryreport.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
@@ -49,7 +53,7 @@ fun CategoryReportDetailsScreen(
     onEvent: (CategoryReportDetailsEvent) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
-    val color = when(uiState.typeCategory) {
+    val color = when (uiState.typeCategory) {
         TypeCategory.Expense -> Expense
         TypeCategory.Income -> Income
     }
@@ -75,19 +79,18 @@ fun CategoryReportDetailsScreen(
         Column(
             modifier = Modifier
                 .padding(padding)
-                .padding(horizontal = 16.dp)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             DetailsTabs(
                 state = uiState.currentTab,
                 onSelect = { onEvent(CategoryReportDetailsEvent.SelectTab(it)) }
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             DetailsBigIcon(
                 title = uiState.categoryName,
@@ -95,7 +98,7 @@ fun CategoryReportDetailsScreen(
                 color = color
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "This month",
@@ -110,9 +113,22 @@ fun CategoryReportDetailsScreen(
                 style = MaterialTheme.typography.h1,
                 color = color
             )
-            ReportChart(graphColor = color)
+            Spacer(modifier = Modifier.height(16.dp))
 
-            MonoTransactionList(transactionList =  uiState.transactionList, currency = uiState.currency)
+            ReportChart(
+                modifier = Modifier
+                    .height(124.dp)
+                    .fillMaxWidth(),
+                graphColor = color,
+                reportsList = uiState.reportsList
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            MonoTransactionList(
+                transactionList = uiState.transactionList,
+                currency = uiState.currency
+            )
         }
     }
 }
@@ -123,7 +139,35 @@ fun CategoryReportDetailsScreen(
 fun PreviewCategoryReportDetailsScreen() {
     MonoApplicationTheme {
         CategoryReportDetailsScreen(
-            uiState = CategoryReportDetailsUiState()
+            uiState = CategoryReportDetailsUiState(
+                transactionList = listOf(
+                    TransactionUi(
+                        id = 0,
+                        timestamp = 16165163564,
+                        amount = 10,
+                        note = "Note dfhgdfgdffgdfgdhfddfghhfddfgdfgh",
+                        type = TypeTransaction.Expense,
+                        category = "Food",
+                        icon = "category_food"
+                    ),
+                    TransactionUi(
+                        id = 1,
+                        timestamp = 16165165465,
+                        amount = 10,
+                        note = "Note",
+                        type = TypeTransaction.Income,
+                        category = "Pay",
+                        icon = "category_baby"
+                    )
+                ), reportsList = listOf(
+                    ReportUi(signatures = "Oct", amount = 2),
+                    ReportUi(signatures = "Nov", amount = 10),
+                    ReportUi(signatures = "Dec", amount = 4),
+                    ReportUi(signatures = "Oct", amount = 1),
+                    ReportUi(signatures = "Nov", amount = 14),
+                    ReportUi(signatures = "Dec", amount = 7)
+                )
+            )
         )
     }
 }
