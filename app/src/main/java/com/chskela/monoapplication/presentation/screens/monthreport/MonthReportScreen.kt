@@ -2,30 +2,24 @@ package com.chskela.monoapplication.presentation.screens.monthreport
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.screens.monthreport.components.BorderRow
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
-import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
+import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.Expense
-import com.chskela.monoapplication.presentation.ui.theme.Income
+import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlin.math.absoluteValue
 
@@ -69,7 +63,7 @@ fun MonthReportScreen(
         val expense = stringResource(id = R.string.expense)
         val currency = uiState.currency
         fun sign(value: Double) = if (value >= 0) "+" else "-"
-        Column( modifier = Modifier.padding(padding)) {
+        Column(modifier = Modifier.padding(padding)) {
             Row(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column {
                     Spacer(modifier = Modifier.size(24.dp))
@@ -129,68 +123,7 @@ fun MonthReportScreen(
                         onSelect = { onEvent(MonthReportEvent.SelectTab(it)) })
                 }
             }
-
-            Row {
-                LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
-                    items(items = uiState.transactionList) { transactionUi ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Column(modifier = Modifier.weight(0.7f)) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    val icon = iconsMap[transactionUi.icon]
-                                    icon?.let { id ->
-                                        Icon(
-                                            imageVector = ImageVector.vectorResource(id = id),
-                                            contentDescription = transactionUi.category
-                                        )
-                                    }
-
-                                    Spacer(modifier = Modifier.size(12.dp))
-                                    Text(
-                                        text = transactionUi.category,
-                                        style = MaterialTheme.typography.body1,
-                                        color = MaterialTheme.colors.onSurface,
-                                    )
-                                    if (transactionUi.note.isNotBlank()) {
-                                        Text(
-                                            text = " (${transactionUi.note})",
-                                            style = MaterialTheme.typography.caption,
-                                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
-                                            overflow = TextOverflow.Ellipsis,
-                                            maxLines = 1
-                                        )
-                                    }
-                                }
-                            }
-                            Column(
-                                modifier = Modifier.weight(0.3f),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.End
-                            ) {
-                                val prefix = when (transactionUi.type) {
-                                    TypeTransaction.Expense -> "-"
-                                    TypeTransaction.Income -> "+"
-                                }
-                                val color = when (transactionUi.type) {
-                                    TypeTransaction.Expense -> Expense
-                                    TypeTransaction.Income -> Income
-                                }
-
-                                Text(
-                                    text = "$prefix$currency${transactionUi.amount}",
-                                    style = MaterialTheme.typography.body1,
-                                    color = color
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
+            MonoTransactionList(transactionList = uiState.transactionList, currency = currency)
         }
     }
 }
