@@ -2,7 +2,8 @@ package com.chskela.monoapplication.presentation.screens.categoryreport.details.
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -53,13 +54,7 @@ fun ReportChart(
         }
     }
 
-    Canvas(
-        modifier = modifier.border(
-            width = 1.dp,
-            color = MaterialTheme.colors.secondaryVariant,
-            shape = MaterialTheme.shapes.small
-        )
-    ) {
+    Canvas(modifier = modifier) {
         val height = size.height - spacing
         val spacePerX = size.width / (reportsList.size - 1)
         val ratioY = height / (upperValue - lowerValue)
@@ -80,11 +75,11 @@ fun ReportChart(
         val strokePath = Path().apply {
             reportsList.forEachIndexed { i, report ->
                 val x1 = spacePerX * i
-                val y1 = height - (report.amount - lowerValue) * ratioY
+                val y1 = height - (report.amount - lowerValue) * ratioY - spacing
 
                 val nextReport = reportsList.getOrNull(i + 1) ?: reportsList.last()
                 val x2 = spacePerX * (i + 1)
-                val y2 = height - (nextReport.amount - lowerValue) * ratioY
+                val y2 = height - (nextReport.amount - lowerValue) * ratioY - spacing
 
                 if (i == 0) {
                     moveTo(x1, y1)
@@ -156,7 +151,9 @@ fun PreviewReportChart() {
 fun PreviewReportChartIncome() {
     MonoApplicationTheme {
         ReportChart(
-            Modifier.size(width = 300.dp, height = 150.dp),
+            Modifier
+                .fillMaxWidth()
+                .height(124.dp),
             reportsList = listOf(
                 ReportUi(signatures = "Oct", amount = 2),
                 ReportUi(signatures = "Nov", amount = 10),
