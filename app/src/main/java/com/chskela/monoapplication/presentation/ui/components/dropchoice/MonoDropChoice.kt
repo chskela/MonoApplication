@@ -21,7 +21,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun DropChoice(
+fun MonoDropChoice(
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(16.dp),
     items: List<String> = emptyList(),
@@ -30,7 +30,6 @@ fun DropChoice(
 ) {
     Column(
         modifier = modifier
-            .width(123.dp)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.secondaryVariant,
@@ -70,7 +69,7 @@ fun DropChoice(
 @Composable
 fun PreviewDropChoice() {
     MonoApplicationTheme {
-        DropChoice(
+        MonoDropChoice(
             items = listOf(
                 stringResource(id = R.string.monthly),
                 stringResource(id = R.string.category)
