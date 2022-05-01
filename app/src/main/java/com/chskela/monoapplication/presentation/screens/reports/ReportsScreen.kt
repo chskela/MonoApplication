@@ -1,11 +1,12 @@
 package com.chskela.monoapplication.presentation.screens.reports
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryReportScreen
 import com.chskela.monoapplication.presentation.screens.categoryreport.models.CategoryReportUiState
@@ -24,51 +26,79 @@ import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportS
 import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
+import com.chskela.monoapplication.presentation.ui.components.dropchoice.MonoDropChoice
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun ReportsScreen(
     uiState: ReportsUiState,
-    onSelectCategory: (Long) -> Unit = {}
-    ) {
-        val scrollState = rememberScrollState()
-        Scaffold(
-            topBar = {
-                MonoTopAppBar(
-                    title = stringResource(id = R.string.category_report),
-                    navigationIcon = {
-                        Spacer(modifier = Modifier.size(48.dp))
-                    },
-                    actions = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.caret_down),
-                                tint = MaterialTheme.colors.secondary,
-                                contentDescription = "caret down"
-                            )
-                        }
+    onEvent: (ReportsEvent) -> Unit = {}
+) {
+    Scaffold(
+        topBar = {
+            MonoTopAppBar(
+                title = stringResource(id = uiState.title),
+                navigationIcon = {
+                    Spacer(modifier = Modifier.size(48.dp))
+                },
+                actions = {
+                    IconButton(onClick = { onEvent(ReportsEvent.ToggleVisible) }) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.caret_down),
+                            tint = MaterialTheme.colors.secondary,
+                            contentDescription = "caret down"
+                        )
                     }
-                )
-            },
-            backgroundColor = MaterialTheme.colors.surface
-        ) { padding->
-            Crossfade(modifier = Modifier.padding(padding), targetState = uiState.report) { content ->
-                when(content) {
+                }
+            )
+        },
+        backgroundColor = MaterialTheme.colors.surface
+    ) { padding ->
+        ConstraintLayout(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) {
+            val (content, modal) = createRefs()
+            Crossfade(
+                modifier = Modifier.constrainAs(content) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                },
+                targetState = uiState.report
+            ) { screen ->
+                when (screen) {
                     Report.Category -> CategoryReportScreen(uiState = CategoryReportUiState())
                     Report.Month -> MonthReportScreen(uiState = MonthReportUiState())
                 }
             }
-        }
-    }
 
-    @Preview(showBackground = true, name = "Light ReportsScreen", showSystemUi = false)
-    @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
-    @Composable
-    fun PreviewReportsScreen() {
-        MonoApplicationTheme {
-            ReportsScreen(
-                uiState = ReportsUiState()
-            )
+            AnimatedVisibility(visible = uiState.isVisibleModal) {
+                MonoDropChoice(
+                    modifier = Modifier
+                        .constrainAs(modal) {
+                            top.linkTo(parent.top)
+                            end.linkTo(parent.end, margin = 16.dp)
+                        }, items = listOf(
+                        stringResource(id = R.string.monthly),
+                        stringResource(id = R.string.category)
+                    )
+                )
+            }
+
+
         }
     }
+}
+
+@Preview(showBackground = true, name = "Light ReportsScreen", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewReportsScreen() {
+    MonoApplicationTheme {
+        ReportsScreen(
+            uiState = ReportsUiState()
+        )
+    }
+}
