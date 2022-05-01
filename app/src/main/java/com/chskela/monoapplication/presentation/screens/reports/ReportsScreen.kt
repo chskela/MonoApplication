@@ -21,9 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryReportScreen
-import com.chskela.monoapplication.presentation.screens.categoryreport.models.CategoryReportUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportScreen
-import com.chskela.monoapplication.presentation.screens.monthreport.models.MonthReportUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.ui.components.dropchoice.MonoDropChoice
@@ -33,7 +31,8 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun ReportsScreen(
     uiState: ReportsUiState,
-    onEvent: (ReportsEvent) -> Unit = {}
+    onEvent: (ReportsEvent) -> Unit = {},
+    onSelectCategory: (Long) -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -69,8 +68,23 @@ fun ReportsScreen(
                 targetState = uiState.report
             ) { screen ->
                 when (screen) {
-                    Report.Category -> CategoryReportScreen(uiState = CategoryReportUiState())
-                    Report.Month -> MonthReportScreen(uiState = MonthReportUiState())
+                    Report.Category -> CategoryReportScreen(
+                        expenseList = uiState.expenseList,
+                        incomeList = uiState.incomeList,
+                        onSelectCategory = onSelectCategory
+                    )
+                    Report.Month -> MonthReportScreen(
+                        currentData = uiState.currentData,
+                        currency = uiState.currency,
+                        currentBalance = uiState.currentBalance,
+                        income = uiState.income,
+                        expense = uiState.expense,
+                        expenseIncome = uiState.expenseIncome,
+                        previousBalance = uiState.previousBalance,
+                        currentTab = uiState.currentTab,
+                        transactionList = uiState.transactionList,
+                        onEvent = onEvent,
+                    )
                 }
             }
 
@@ -86,8 +100,6 @@ fun ReportsScreen(
                     )
                 )
             }
-
-
         }
     }
 }
