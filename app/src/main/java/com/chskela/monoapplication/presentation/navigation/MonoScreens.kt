@@ -5,8 +5,7 @@ enum class MonoScreens {
     Transaction,
 
     ReportRoot,
-    MonthReport,
-    CategoryReport,
+    Reports,
     CategoryReportDetails,
 
     SettingRoot,
