@@ -24,7 +24,7 @@ import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryR
 import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportScreen
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
-import com.chskela.monoapplication.presentation.ui.components.dropchoice.MonoDropChoice
+import com.chskela.monoapplication.presentation.screens.reports.components.dropchoice.DropChoice
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
@@ -88,16 +88,22 @@ fun ReportsScreen(
                 }
             }
 
-            AnimatedVisibility(visible = uiState.isVisibleModal) {
-                MonoDropChoice(
-                    modifier = Modifier
-                        .constrainAs(modal) {
-                            top.linkTo(parent.top)
-                            end.linkTo(parent.end, margin = 16.dp)
-                        }, items = listOf(
+            AnimatedVisibility(modifier = Modifier
+                .constrainAs(modal) {
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end, margin = 16.dp)
+                }, visible = uiState.isVisibleModal
+            ) {
+                DropChoice(
+                    items = listOf(
                         stringResource(id = R.string.monthly),
                         stringResource(id = R.string.category)
-                    )
+                    ),
+                    state = uiState.report,
+                    onSelect = {
+                        onEvent(ReportsEvent.SelectReport(it))
+                        onEvent(ReportsEvent.ToggleVisible)
+                    }
                 )
             }
         }
