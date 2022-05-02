@@ -123,7 +123,7 @@ class ReportsViewModels @Inject constructor(
                 TransactionUi(
                     id = it.id,
                     timestamp = it.timestamp,
-                    amount = it.amount / 100,
+                    amount = it.amount / 100.0,
                     note = it.note,
                     type = if (it.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
                     category = it.name,

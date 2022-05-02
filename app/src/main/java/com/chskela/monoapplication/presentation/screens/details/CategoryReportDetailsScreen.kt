@@ -20,8 +20,8 @@ import com.chskela.monoapplication.presentation.screens.details.components.Detai
 import com.chskela.monoapplication.presentation.screens.details.components.ReportChart
 import com.chskela.monoapplication.presentation.screens.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
@@ -143,7 +143,7 @@ fun PreviewCategoryReportDetailsScreen() {
                     TransactionUi(
                         id = 0,
                         timestamp = 16165163564,
-                        amount = 10,
+                        amount = 10.0,
                         note = "Note dfhgdfgdffgdfgdhfddfghhfddfgdfgh",
                         type = TypeTransaction.Expense,
                         category = "Food",
@@ -152,7 +152,7 @@ fun PreviewCategoryReportDetailsScreen() {
                     TransactionUi(
                         id = 1,
                         timestamp = 16165165465,
-                        amount = 10,
+                        amount = 10.0,
                         note = "Note",
                         type = TypeTransaction.Income,
                         category = "Pay",

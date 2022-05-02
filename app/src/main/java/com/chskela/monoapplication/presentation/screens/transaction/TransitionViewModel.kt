@@ -75,7 +75,7 @@ class TransitionViewModel @Inject constructor(
                 val transaction = Transaction(
                     id = 0,
                     timestamp = currentDate.timeInMillis,
-                    amount = uiState.value.amount.toLong() * 100,
+                    amount = (uiState.value.amount.toDouble() * 100).toLong(),
                     note = uiState.value.note,
                     categoryId = uiState.value.currentCategory,
                 )
