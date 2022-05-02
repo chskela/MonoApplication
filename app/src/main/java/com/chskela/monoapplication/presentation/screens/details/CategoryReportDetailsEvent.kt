@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.categoryreport.details
+package com.chskela.monoapplication.presentation.screens.details
 
 sealed class CategoryReportDetailsEvent{
     data class SelectTab(val tab: Int) : CategoryReportDetailsEvent()

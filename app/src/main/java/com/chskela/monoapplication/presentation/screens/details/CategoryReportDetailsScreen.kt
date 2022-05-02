@@ -1,8 +1,7 @@
-package com.chskela.monoapplication.presentation.screens.categoryreport.details
+package com.chskela.monoapplication.presentation.screens.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,11 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.DetailsBigIcon
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.DetailsTabs
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportChart
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportUi
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.details.components.DetailsBigIcon
+import com.chskela.monoapplication.presentation.screens.details.components.DetailsTabs
+import com.chskela.monoapplication.presentation.screens.details.components.ReportChart
+import com.chskela.monoapplication.presentation.screens.details.components.ReportUi
+import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar

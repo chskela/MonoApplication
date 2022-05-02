@@ -1,11 +1,11 @@
-package com.chskela.monoapplication.presentation.screens.categoryreport.details
+package com.chskela.monoapplication.presentation.screens.details
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

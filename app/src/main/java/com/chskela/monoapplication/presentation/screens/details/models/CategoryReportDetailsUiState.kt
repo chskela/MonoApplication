@@ -1,7 +1,7 @@
-package com.chskela.monoapplication.presentation.screens.categoryreport.details.models
+package com.chskela.monoapplication.presentation.screens.details.models
 
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.components.ReportUi
+import com.chskela.monoapplication.presentation.screens.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
 
 data class CategoryReportDetailsUiState(

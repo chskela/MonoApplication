@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
-import com.chskela.monoapplication.presentation.screens.categoryreport.details.CategoryReportDetailsActivityScreen
+import com.chskela.monoapplication.presentation.screens.details.CategoryReportDetailsActivityScreen
 import com.chskela.monoapplication.presentation.screens.reports.ReportsScreen
 import com.chskela.monoapplication.presentation.screens.reports.ReportsViewModels
 

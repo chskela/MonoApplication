@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.categoryreport.details.components
+package com.chskela.monoapplication.presentation.screens.details.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
