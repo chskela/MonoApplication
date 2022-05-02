@@ -4,8 +4,8 @@ import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.category.usecase.*
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
-import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
-import com.chskela.monoapplication.domain.monthreport.usecase.*
+import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
+import com.chskela.monoapplication.domain.reports.usecase.*
 import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
 import com.chskela.monoapplication.domain.onboarding.usecase.SetOnBoardingIsSkipUseCase
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
@@ -59,7 +59,7 @@ object DomainModule {
     }
 
     @Provides
-    fun provideMonthReportUseCase(repository: MonthReportRepository) : MonthReportUseCases {
+    fun provideMonthReportUseCase(repository: ReportsRepository) : MonthReportUseCases {
         return MonthReportUseCases(
             getAllTransactionsByMonthUseCase = GetAllTransactionsByMonthUseCase(repository),
             getCurrentBalanceUseCase = GetCurrentBalanceUseCase(repository),

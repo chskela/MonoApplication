@@ -7,13 +7,13 @@ import com.chskela.monoapplication.data.category.repository.CategoryRepositoryIm
 import com.chskela.monoapplication.data.currency.repository.CurrencyRepositoryImpl
 import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.data.database.AppDatabase
-import com.chskela.monoapplication.data.monthreport.repository.MonthReportRepositoryImpl
+import com.chskela.monoapplication.data.monthreport.repository.ReportsRepositoryImpl
 import com.chskela.monoapplication.data.onboarding.repository.OnBoardingRepositoryImpl
 import com.chskela.monoapplication.data.onboarding.storage.store.OnBoardingStore
 import com.chskela.monoapplication.data.transaction.repository.TransactionRepositoryImpl
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
-import com.chskela.monoapplication.domain.monthreport.repository.MonthReportRepository
+import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
 import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
 import com.chskela.monoapplication.domain.onboarding.usecase.OnBoardingIsSkipUseCase
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
@@ -67,8 +67,8 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideMonthReportRepository(db: AppDatabase): MonthReportRepository {
-        return MonthReportRepositoryImpl(db.monthReportDao)
+    fun provideMonthReportRepository(db: AppDatabase): ReportsRepository {
+        return ReportsRepositoryImpl(db.monthReportDao)
     }
 
 

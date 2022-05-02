@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.monthreport
+package com.chskela.monoapplication.presentation.screens.details.components.monthreport
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
@@ -10,9 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.monthreport.components.BorderRow
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.details.components.monthreport.components.BorderRow
+import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
@@ -120,7 +120,7 @@ fun PreviewMonthReportScreen() {
                 TransactionUi(
                     id = 0,
                     timestamp = 16165163564,
-                    amount = 10,
+                    amount = 10.0,
                     note = "Note dfhgdfgdfdfgdsfdfgsdagfdfdfggdfgdfgdfgdfgdhfddfghhfddfgdfgh",
                     type = TypeTransaction.Expense,
                     category = "Food",
@@ -129,7 +129,7 @@ fun PreviewMonthReportScreen() {
                 TransactionUi(
                     id = 1,
                     timestamp = 16165165465,
-                    amount = 10,
+                    amount = 10.0,
                     note = "Note",
                     type = TypeTransaction.Income,
                     category = "Pay",
