@@ -24,8 +24,13 @@ fun NavGraphBuilder.reportGraph(navController: NavController) {
                 )
                 navController.navigate(MonoScreens.CategoryReportDetails.name)
             }
+
             val reportViewModels: ReportsViewModels = hiltViewModel()
-            ReportsScreen(uiState = reportViewModels.uiState.value, onSelectCategory = ::onClick)
+            ReportsScreen(
+                uiState = reportViewModels.uiState.value,
+                onEvent = reportViewModels::onEvent,
+                onSelectCategory = ::onClick
+            )
         }
 
         composable(MonoScreens.CategoryReportDetails.name) {
