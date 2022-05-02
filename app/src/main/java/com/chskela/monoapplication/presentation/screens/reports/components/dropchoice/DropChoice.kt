@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.ui.components.dropchoice
+package com.chskela.monoapplication.presentation.screens.reports.components.dropchoice
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
@@ -18,15 +18,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun MonoDropChoice(
+fun DropChoice(
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(16.dp),
     items: List<String> = emptyList(),
-    state: Int = 0,
-    onSelect: (Int) -> Unit = {}
+    state: Report = Report.Month,
+    onSelect: (Report) -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -45,7 +46,7 @@ fun MonoDropChoice(
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         items.mapIndexed { index, item ->
-            val selected = state == index
+            val selected = state.info == index
             val color: Color by animateColorAsState(
                 targetValue = if (selected) {
                     MaterialTheme.colors.primary
@@ -54,7 +55,7 @@ fun MonoDropChoice(
                 }
             )
             Text(
-                modifier = Modifier.clickable { onSelect(index) },
+                modifier = Modifier.clickable { onSelect(state) },
                 text = item,
                 color = color
             )
@@ -69,7 +70,7 @@ fun MonoDropChoice(
 @Composable
 fun PreviewDropChoice() {
     MonoApplicationTheme {
-        MonoDropChoice(
+        DropChoice(
             items = listOf(
                 stringResource(id = R.string.monthly),
                 stringResource(id = R.string.category)
