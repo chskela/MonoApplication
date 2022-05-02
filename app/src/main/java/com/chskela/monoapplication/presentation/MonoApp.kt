@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation
 
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -8,15 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.chskela.monoapplication.presentation.navigation.BottomMenuScreens
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.navigation.graphs.categoryGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.reportGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.settingGraph
-import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
-import com.chskela.monoapplication.presentation.screens.edit_category.AddCategoryActivityScreen
-import com.chskela.monoapplication.presentation.screens.edit_category.EditCategoryActivityScreen
 import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingActivityScreen
 import com.chskela.monoapplication.presentation.screens.transaction.TransactionActivityScreen
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
@@ -40,7 +41,7 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
 
         val menuList = listOf(
             BottomMenuScreens.Transaction,
-            BottomMenuScreens.MonthReport,
+            BottomMenuScreens.Reports,
             BottomMenuScreens.Setting
         )
 
@@ -54,22 +55,24 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
 
         Scaffold(
             scaffoldState = scaffoldState,
-            modifier = Modifier
-                .fillMaxHeight(),
+            modifier = Modifier.fillMaxHeight(),
             bottomBar = {
                 when (currentDestination?.route) {
                     MonoScreens.Transaction.name,
-                    MonoScreens.MonthReport.name,
+                    MonoScreens.Reports.name,
                     MonoScreens.Setting.name -> MonoBottomNavigation(
                         items = menuList,
                         navController = navController
                     )
-                    else -> {}
                 }
             },
             backgroundColor = MaterialTheme.colors.surface
-        ) {
-            NavHost(navController = navController, startDestination = startDestination) {
+        ) { padding ->
+            NavHost(
+                modifier = Modifier.padding(padding),
+                navController = navController,
+                startDestination = startDestination
+            ) {
 
                 composable(MonoScreens.OnBoarding.name) {
                     OnBoardingActivityScreen(
