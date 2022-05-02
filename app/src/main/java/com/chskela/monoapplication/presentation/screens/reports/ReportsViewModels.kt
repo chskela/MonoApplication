@@ -9,10 +9,10 @@ import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
-import com.chskela.monoapplication.domain.monthreport.models.TransactionWithCategory
-import com.chskela.monoapplication.domain.monthreport.usecase.MonthReportUseCases
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TypeTransaction
+import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
+import com.chskela.monoapplication.domain.reports.usecase.MonthReportUseCases
+import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi

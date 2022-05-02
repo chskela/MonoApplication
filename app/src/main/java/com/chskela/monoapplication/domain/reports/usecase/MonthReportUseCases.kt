@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.domain.monthreport.usecase
+package com.chskela.monoapplication.domain.reports.usecase
 
 data class MonthReportUseCases(
     val getAllTransactionsByMonthUseCase: GetAllTransactionsByMonthUseCase,

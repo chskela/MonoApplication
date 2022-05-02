@@ -68,7 +68,7 @@ object DataModule {
     @Provides
     @Singleton
     fun provideMonthReportRepository(db: AppDatabase): ReportsRepository {
-        return ReportsRepositoryImpl(db.monthReportDao)
+        return ReportsRepositoryImpl(db.reportsDao)
     }
 
 

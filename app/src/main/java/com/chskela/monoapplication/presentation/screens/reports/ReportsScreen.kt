@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.categoryreport.CategoryReportScreen
-import com.chskela.monoapplication.presentation.screens.monthreport.MonthReportScreen
+import com.chskela.monoapplication.presentation.screens.details.components.categoryreport.CategoryReportScreen
+import com.chskela.monoapplication.presentation.screens.details.components.monthreport.MonthReportScreen
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.screens.reports.components.dropchoice.DropChoice

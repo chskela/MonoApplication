@@ -13,7 +13,7 @@ class MonthReportRepositoryImpl(private val monthReportDao: MonthReportDao) :
     MonthReportRepository {
 
     override fun getAllTransactions(): Flow<List<TransactionWithCategory>> {
-        return monthReportDao.getAllTransactions().map { list ->
+        return reportsDao.getAllTransactions().map { list ->
             list.map { mapToDomain(it) }
         }
     }

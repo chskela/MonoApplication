@@ -1,6 +1,6 @@
 package com.chskela.monoapplication.presentation.screens.reports.models
 
-import com.chskela.monoapplication.presentation.screens.monthreport.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 
 data class ReportsUiState(

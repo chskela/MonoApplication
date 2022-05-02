@@ -6,7 +6,7 @@ import com.chskela.monoapplication.data.monthreport.storage.models.TransactionEn
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MonthReportDao {
+interface ReportsDao {
 
     @Query("SELECT T.id, T.timestamp, T.amount, T.note, C.name, C.icon, C.type  FROM 'transaction' T JOIN category C ON t.category_id=c.id")
     fun getAllTransactions(): Flow<List<TransactionEntityWithCategory>>
