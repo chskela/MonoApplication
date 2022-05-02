@@ -76,7 +76,11 @@ class ReportsViewModels @Inject constructor(
                     Report.Category -> Report.Month
                     Report.Month -> Report.Category
                 }
-                uiState.value = uiState.value.copy(report = newReport)
+                val title = when (event.tab) {
+                    Report.Category -> R.string.month_report
+                    Report.Month -> R.string.category_report
+                }
+                uiState.value = uiState.value.copy(report = newReport, title = title)
             }
             ReportsEvent.ToggleVisible -> uiState.value =
                 uiState.value.copy(isVisibleModal = !uiState.value.isVisibleModal)
