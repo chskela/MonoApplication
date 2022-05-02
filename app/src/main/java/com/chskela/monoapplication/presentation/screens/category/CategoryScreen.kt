@@ -74,14 +74,12 @@ fun CategoryScreen(
                 onClickItem = onEdit,
                 onLongClick = {onEvent(CategoryEvent.DeleteCategory(it))}
             )
-            Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
                 listCategoryUi = uiState.incomeList,
                 title = stringResource(id = R.string.income),
                 onClickItem = onEdit,
                 onLongClick = {onEvent(CategoryEvent.DeleteCategory(it))}
             )
-            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
