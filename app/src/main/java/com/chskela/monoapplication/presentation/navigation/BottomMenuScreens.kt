@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.navigation
+package com.chskela.monoapplication.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -18,8 +18,8 @@ sealed class BottomMenuScreens(
         iconActive = R.drawable.bottom_navigation_input_fill,
     )
 
-    object MonthReport : BottomMenuScreens(
-        route = MonoScreens.MonthReport.name,
+    object Reports : BottomMenuScreens(
+        route = MonoScreens.ReportRoot.name,
         label = R.string.bottom_navigation_report,
         icon = R.drawable.bottom_navigation_report,
         iconActive = R.drawable.bottom_navigation_report_fill,

@@ -42,9 +42,10 @@ fun SettingsScreen(
             })
         },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
+    ) {padding ->
         Column(
             modifier = Modifier
+                .padding(padding)
                 .padding(top = 24.dp)
                 .padding(horizontal = 16.dp)
         ) {

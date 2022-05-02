@@ -24,7 +24,10 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
-fun CurrencyActivityScreen(currencyViewModel: CurrencyViewModel = hiltViewModel(), onBack: () -> Unit) {
+fun CurrencyActivityScreen(
+    currencyViewModel: CurrencyViewModel = hiltViewModel(),
+    onBack: () -> Unit
+) {
     CurrencyScreen(
         uiState = currencyViewModel.uiState.value,
         onSelectedCurrency = currencyViewModel::selectDefaultCurrency,
@@ -38,12 +41,15 @@ fun CurrencyScreen(
     onSelectedCurrency: (Long) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
-    Scaffold(topBar = {
-        MonoTopAppBar(title = stringResource(id = R.string.currency), onNavigation = onBack)
-    },
+    Scaffold(
+        topBar = {
+            MonoTopAppBar(title = stringResource(id = R.string.currency), onNavigation = onBack)
+        },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
-        LazyColumn(Modifier.selectableGroup()) {
+    ) { padding ->
+        LazyColumn(modifier = Modifier
+            .padding(padding)
+            .selectableGroup()) {
             items(uiState.currencyList) { currency ->
                 Row(
                     Modifier
@@ -78,8 +84,10 @@ fun CurrencyScreen(
                             style = MaterialTheme.typography.body1,
                         )
                     }
-                    Row(modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         Text(
                             text = "${currency.symbol} 100.00",
                             style = MaterialTheme.typography.body1,
@@ -104,11 +112,15 @@ fun CurrencyScreen(
 @Composable
 fun PreviewCurrencyScreen() {
     MonoApplicationTheme {
-        CurrencyScreen(uiState = CurrencyUiState(
-            currencyList = listOf(Currency(1, "Dollar", "USD", "$"),
-                Currency(2, "Dollar", "USD", "$"),
-                Currency(3, "Dollar", "USD", "$")),
-            selectedCurrency = 3
-        ))
+        CurrencyScreen(
+            uiState = CurrencyUiState(
+                currencyList = listOf(
+                    Currency(1, "Dollar", "USD", "$"),
+                    Currency(2, "Dollar", "USD", "$"),
+                    Currency(3, "Dollar", "USD", "$")
+                ),
+                selectedCurrency = 3
+            )
+        )
     }
 }

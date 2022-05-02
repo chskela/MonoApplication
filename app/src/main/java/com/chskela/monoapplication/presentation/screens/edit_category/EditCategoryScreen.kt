@@ -32,9 +32,7 @@ fun EditCategoryActivityScreen(
     categoryId: Long,
 ) {
     LaunchedEffect(true) {
-        categoryId.let {
-            editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
-        }
+        editCategoryViewModel.onEvent(EditCategoryEvent.GetCategory(categoryId))
     }
 
     EditCategoryScreen(
@@ -87,9 +85,10 @@ fun EditCategoryScreen(
             )
         },
         backgroundColor = MaterialTheme.colors.surface
-    ) {
+    ) { padding ->
         Column(
             modifier = Modifier
+                .padding(padding)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.Start,
