@@ -36,13 +36,11 @@ fun CategoryReportScreen(
             title = stringResource(id = R.string.expense),
             onClickItem = onSelectCategory,
         )
-        Spacer(modifier = Modifier.height(40.dp))
         MonoCategorySurface(
             listCategoryUi = incomeList,
             title = stringResource(id = R.string.income),
             onClickItem = onSelectCategory,
         )
-        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
