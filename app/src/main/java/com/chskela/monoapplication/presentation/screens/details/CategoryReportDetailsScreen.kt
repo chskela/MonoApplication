@@ -2,14 +2,14 @@ package com.chskela.monoapplication.presentation.screens.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,8 +35,7 @@ fun CategoryReportDetailsActivityScreen(
     categoryId: Long,
 ) {
     LaunchedEffect(true) {
-//        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(categoryId))
-        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(1))
+        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(categoryId))
     }
 
     CategoryReportDetailsScreen(
@@ -61,15 +60,6 @@ fun CategoryReportDetailsScreen(
         topBar = {
             MonoTopAppBar(
                 title = stringResource(id = R.string.category_report),
-                actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.caret_down),
-                            tint = MaterialTheme.colors.secondary,
-                            contentDescription = "caret down"
-                        )
-                    }
-                },
                 onNavigation = onBack
             )
         },
@@ -100,7 +90,7 @@ fun CategoryReportDetailsScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "This month",
+                text = stringResource(id = R.string.this_month),
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.secondary
             )
@@ -108,10 +98,11 @@ fun CategoryReportDetailsScreen(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "$871,81",
+                text = "${uiState.currency}${uiState.sumThisMonth}",
                 style = MaterialTheme.typography.h1,
                 color = color
             )
+
             Spacer(modifier = Modifier.height(16.dp))
 
             ReportChart(
