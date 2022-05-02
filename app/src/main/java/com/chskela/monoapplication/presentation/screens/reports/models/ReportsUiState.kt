@@ -22,7 +22,7 @@ data class ReportsUiState(
     val incomeList: List<CategoryUi> = emptyList()
 )
 
-enum class Report(val info: String) {
-    Category("Category"),
-    Month("Month")
+enum class Report(val info: Int) {
+    Month(0),
+    Category(1)
 }
