@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.map
 
 class GetIncomeUseCase(private val reportsRepository: ReportsRepository) {
 
-    operator fun invoke(): Flow<Double> = reportsRepository.getAllTransactions().map { list ->
+    operator fun invoke(): Flow<Double> = reportsRepository.getAllTransactionsByCategory().map { list ->
         list.fold(0.0) { acc, transactionWithCategory ->
             val amount = if (transactionWithCategory.type == TypeCategory.Expense) {
                 0
