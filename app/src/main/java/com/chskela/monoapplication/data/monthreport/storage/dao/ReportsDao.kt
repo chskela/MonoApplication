@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface ReportsDao {
 
     @Query("SELECT T.id, T.timestamp, T.amount, T.note, T.category_id, C.name, C.icon, C.type  FROM 'transaction' T JOIN category C ON T.category_id=C.id")
-    fun getAllTransactions(): Flow<List<TransactionEntityWithCategory>>
+    fun getAllTransactionsByCategory(): Flow<List<TransactionEntityWithCategory>>
 }
