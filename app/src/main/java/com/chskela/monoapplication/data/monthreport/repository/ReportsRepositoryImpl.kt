@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.map
 class ReportsRepositoryImpl(private val reportsDao: ReportsDao) :
     ReportsRepository {
 
-    override fun getAllTransactions(): Flow<List<TransactionWithCategory>> {
-        return reportsDao.getAllTransactions().map { list ->
+    override fun getAllTransactionsByCategory(): Flow<List<TransactionWithCategory>> {
+        return reportsDao.getAllTransactionsByCategory().map { list ->
             list.map { mapToDomain(it) }
         }
     }
