@@ -3,7 +3,6 @@ package com.chskela.monoapplication.data.monthreport.storage.dao
 import androidx.room.Dao
 import androidx.room.Query
 import com.chskela.monoapplication.data.monthreport.storage.models.TransactionEntityWithCategory
-import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
