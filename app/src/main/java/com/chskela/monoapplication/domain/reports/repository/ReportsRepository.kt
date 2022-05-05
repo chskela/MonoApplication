@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReportsRepository {
     fun getAllTransactions(): Flow<List<TransactionWithCategory>>
+
+    fun getAllTransactionsByCategory(): Flow<List<TransactionWithCategory>>
 }
