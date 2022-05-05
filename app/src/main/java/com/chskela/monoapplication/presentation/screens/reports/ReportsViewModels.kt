@@ -10,7 +10,7 @@ import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
-import com.chskela.monoapplication.domain.reports.usecase.MonthReportUseCases
+import com.chskela.monoapplication.domain.reports.usecase.ReportsUseCases
 import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReportsViewModels @Inject constructor(
-    private val monthReportUseCases: MonthReportUseCases,
+    private val reportsUseCases: ReportsUseCases,
     private val currencyUseCases: CurrencyUseCases,
     private val categoryUseCases: CategoryUseCases,
 ) : ViewModel() {
@@ -93,10 +93,10 @@ class ReportsViewModels @Inject constructor(
 
     private fun getMonthReport(): Flow<MonthReport> {
         return combine(
-            monthReportUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)),
-            monthReportUseCases.getCurrentBalanceUseCase(),
-            monthReportUseCases.getExpenseUseCase(),
-            monthReportUseCases.getIncomeUseCase(),
+            reportsUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)),
+            reportsUseCases.getCurrentBalanceUseCase(),
+            reportsUseCases.getExpenseUseCase(),
+            reportsUseCases.getIncomeUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
         ) { list, currentBalance, expense, income, id ->
             MonthReport(

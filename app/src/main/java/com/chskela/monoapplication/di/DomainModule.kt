@@ -59,8 +59,8 @@ object DomainModule {
     }
 
     @Provides
-    fun provideMonthReportUseCase(repository: ReportsRepository) : MonthReportUseCases {
-        return MonthReportUseCases(
+    fun provideMonthReportUseCase(repository: ReportsRepository) : ReportsUseCases {
+        return ReportsUseCases(
             getAllTransactionsByMonthUseCase = GetAllTransactionsByMonthUseCase(repository),
             getCurrentBalanceUseCase = GetCurrentBalanceUseCase(repository),
             getExpenseUseCase = GetExpenseUseCase(repository),
