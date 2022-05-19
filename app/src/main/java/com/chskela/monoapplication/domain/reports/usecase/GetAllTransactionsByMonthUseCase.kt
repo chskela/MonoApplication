@@ -10,7 +10,7 @@ class GetAllTransactionsByMonthUseCase(private val reportsRepository: ReportsRep
 
     operator fun invoke(month: Int): Flow<List<TransactionWithCategory>> {
         val calendar = Calendar.getInstance()
-        return reportsRepository.getAllTransactionsByCategory().map { list ->
+        return reportsRepository.getAllTransactions().map { list ->
             list.filter {
                 calendar.timeInMillis = it.timestamp
                 calendar.get(Calendar.MONTH) == month
