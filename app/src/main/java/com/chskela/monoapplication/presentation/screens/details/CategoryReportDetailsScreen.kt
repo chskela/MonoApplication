@@ -6,13 +6,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.details.components.DetailsBigIcon
@@ -27,23 +25,6 @@ import com.chskela.monoapplication.presentation.ui.components.transactionList.Mo
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
-
-@Composable
-fun CategoryReportDetailsActivityScreen(
-    categoryReportDetailsViewModels: CategoryReportDetailsViewModels = hiltViewModel(),
-    onBack: () -> Unit,
-    categoryId: Long,
-) {
-    LaunchedEffect(true) {
-        categoryReportDetailsViewModels.onEvent(CategoryReportDetailsEvent.GetCategory(categoryId))
-    }
-
-    CategoryReportDetailsScreen(
-        uiState = categoryReportDetailsViewModels.uiState.value,
-        onEvent = categoryReportDetailsViewModels::onEvent,
-        onBack = onBack
-    )
-}
 
 @Composable
 fun CategoryReportDetailsScreen(
