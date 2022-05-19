@@ -1,9 +1,9 @@
-package com.chskela.monoapplication.presentation.screens.edit_category.models
+package com.chskela.monoapplication.presentation.screens.add_edit_category.models
 
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 
-data class EditCategoryUiState(
+data class AddEditCategoryUiState(
     val id: Long = 0,
     val currentTab: Int = 0,
     val categoryName: String = "",
