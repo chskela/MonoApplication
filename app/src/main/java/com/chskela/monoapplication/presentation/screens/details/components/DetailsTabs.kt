@@ -65,10 +65,6 @@ fun DetailsTabs(
                 } else {
                     MaterialTheme.colors.surface
                 },
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioHighBouncy,
-                    stiffness = Spring.StiffnessMedium
-                )
             )
             val shape = if (index == 0) {
                 RoundedCornerShape(topStart = 24.dp, bottomStart = 24.dp)
