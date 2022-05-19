@@ -13,8 +13,7 @@ enum class MonoScreens {
 
     CategoryRoot,
     Category,
-    EditCategory,
-    AddCategory,
+    AddEditCategory,
 
     Currency
 }
