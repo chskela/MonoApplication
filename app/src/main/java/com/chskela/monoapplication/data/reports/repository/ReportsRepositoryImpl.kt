@@ -1,8 +1,8 @@
-package com.chskela.monoapplication.data.monthreport.repository
+package com.chskela.monoapplication.data.reports.repository
 
 import com.chskela.monoapplication.data.category.storage.models.Type
-import com.chskela.monoapplication.data.monthreport.storage.dao.ReportsDao
-import com.chskela.monoapplication.data.monthreport.storage.models.TransactionEntityWithCategory
+import com.chskela.monoapplication.data.reports.storage.dao.ReportsDao
+import com.chskela.monoapplication.data.reports.storage.models.TransactionEntityWithCategory
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory

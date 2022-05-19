@@ -1,6 +1,6 @@
 package com.chskela.monoapplication.domain.transaction.usercase
 
-import com.chskela.monoapplication.data.monthreport.storage.models.TransactionEntityWithCategory
+import com.chskela.monoapplication.data.reports.storage.models.TransactionEntityWithCategory
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 
 class GetTransactionByIdUseCase(private val transactionRepository: TransactionRepository) {

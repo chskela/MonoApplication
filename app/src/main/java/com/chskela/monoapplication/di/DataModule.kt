@@ -7,7 +7,7 @@ import com.chskela.monoapplication.data.category.repository.CategoryRepositoryIm
 import com.chskela.monoapplication.data.currency.repository.CurrencyRepositoryImpl
 import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.data.database.AppDatabase
-import com.chskela.monoapplication.data.monthreport.repository.ReportsRepositoryImpl
+import com.chskela.monoapplication.data.reports.repository.ReportsRepositoryImpl
 import com.chskela.monoapplication.data.onboarding.repository.OnBoardingRepositoryImpl
 import com.chskela.monoapplication.data.onboarding.storage.store.OnBoardingStore
 import com.chskela.monoapplication.data.transaction.repository.TransactionRepositoryImpl

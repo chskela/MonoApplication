@@ -6,7 +6,7 @@ import com.chskela.monoapplication.data.category.storage.dao.CategoryDao
 import com.chskela.monoapplication.data.category.storage.models.CategoryEntity
 import com.chskela.monoapplication.data.currency.storage.dao.CurrencyDao
 import com.chskela.monoapplication.data.currency.storage.models.CurrencyEntity
-import com.chskela.monoapplication.data.monthreport.storage.dao.ReportsDao
+import com.chskela.monoapplication.data.reports.storage.dao.ReportsDao
 import com.chskela.monoapplication.data.transaction.storage.dao.TransactionDao
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 
