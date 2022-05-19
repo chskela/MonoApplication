@@ -1,13 +1,16 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
+import com.chskela.monoapplication.presentation.screens.add_edit_category.AddEditCategoryViewModel
 import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
-import com.chskela.monoapplication.presentation.screens.edit_category.AddCategoryActivityScreen
-import com.chskela.monoapplication.presentation.screens.edit_category.EditCategoryActivityScreen
+import com.chskela.monoapplication.presentation.screens.add_edit_category.EditCategoryScreen
 
 fun NavGraphBuilder.categoryGraph(navController: NavController) {
     navigation(
@@ -16,32 +19,25 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
     ) {
 
         composable(MonoScreens.Category.name) {
-            fun onClick(id: Long) {
-                navController.currentBackStackEntry?.arguments?.putLong(
-                    "categoryId",
-                    id
-                )
-                navController.navigate(MonoScreens.EditCategory.name)
-            }
             CategoryActivityScreen(
                 onBack = { navController.navigateUp() },
-                onClick = ::onClick,
+                onClick = { id: Long -> navController.navigate(MonoScreens.AddEditCategory.name + "?categoryId=${id}") },
                 onAddMore = { navController.navigate(MonoScreens.AddCategory.name) }
             )
         }
 
-        composable(MonoScreens.EditCategory.name) {
-            val categoryId =
-                navController.previousBackStackEntry?.arguments?.getLong("categoryId")
-            categoryId?.let {
-                EditCategoryActivityScreen(
-                    categoryId = it,
-                    onBack = { navController.navigateUp() })
-            }
-        }
+        composable(
+            route = "${MonoScreens.AddEditCategory.name}?categoryId={categoryId}",
+            arguments = listOf(navArgument(name = "categoryId") {
+                type = NavType.LongType
+                defaultValue = -1
+            })
+        ) {
+            val addEditCategoryViewModel: AddEditCategoryViewModel = hiltViewModel()
 
-        composable(MonoScreens.AddCategory.name) {
-            AddCategoryActivityScreen(
+            EditCategoryScreen(
+                uiState = addEditCategoryViewModel.uiState.value,
+                onEvent = addEditCategoryViewModel::onEvent,
                 onBack = { navController.navigateUp() })
         }
     }
