@@ -21,8 +21,11 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
         composable(MonoScreens.Category.name) {
             CategoryActivityScreen(
                 onBack = { navController.navigateUp() },
-                onClick = { id: Long -> navController.navigate(MonoScreens.AddEditCategory.name + "?categoryId=${id}") },
-                onAddMore = { navController.navigate(MonoScreens.AddCategory.name) }
+                onClick = { id ->
+                    navController
+                        .navigate("${MonoScreens.AddEditCategory.name}?categoryId=${id}")
+                },
+                onAddMore = { navController.navigate(MonoScreens.AddEditCategory.name) }
             )
         }
 
