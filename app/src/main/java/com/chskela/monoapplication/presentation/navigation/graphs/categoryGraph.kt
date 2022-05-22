@@ -9,8 +9,9 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.add_edit_category.AddEditCategoryViewModel
-import com.chskela.monoapplication.presentation.screens.category.CategoryActivityScreen
 import com.chskela.monoapplication.presentation.screens.add_edit_category.EditCategoryScreen
+import com.chskela.monoapplication.presentation.screens.category.CategoryScreen
+import com.chskela.monoapplication.presentation.screens.category.CategoryViewModel
 
 fun NavGraphBuilder.categoryGraph(navController: NavController) {
     navigation(
@@ -19,9 +20,12 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
     ) {
 
         composable(MonoScreens.Category.name) {
-            CategoryActivityScreen(
+            val categoryViewModel: CategoryViewModel = hiltViewModel()
+            CategoryScreen(
+                uiState = categoryViewModel.uiState.value,
+                onEvent = categoryViewModel::onEvent,
                 onBack = { navController.navigateUp() },
-                onClick = { id ->
+                onEdit = { id ->
                     navController
                         .navigate("${MonoScreens.AddEditCategory.name}?categoryId=${id}")
                 },
