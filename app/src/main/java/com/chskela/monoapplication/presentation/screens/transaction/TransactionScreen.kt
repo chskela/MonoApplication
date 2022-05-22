@@ -8,7 +8,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,124 +27,133 @@ import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TransactionScreen(
     uiState: TransitionUiState,
     onEvent: (TransitionEvent) -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
 
-        BoxWithConstraints {
-            val heightBottomBar = 48.dp
-            val heightScrollableColumn = maxHeight - heightBottomBar
+    BoxWithConstraints {
+        val heightBottomBar = 48.dp
+        val heightScrollableColumn = maxHeight - heightBottomBar
 
-            ConstraintLayout {
-                val (tabs, rows, button) = createRefs()
+        ConstraintLayout {
+            val (tabs, rows, button) = createRefs()
 
-                MonoTabs(
-                    modifier = Modifier
-                        .constrainAs(tabs) {
-                            top.linkTo(parent.top)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        },
-                    state = uiState.currentTab,
-                    titles = titles,
-                    onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
-                )
-
-                Column(modifier = Modifier
-                    .height(height = heightScrollableColumn)
-                    .padding(horizontal = 16.dp)
-                    .verticalScroll(scrollState)
-                    .constrainAs(rows) {
-                        top.linkTo(tabs.bottom)
-                        bottom.linkTo(parent.bottom)
+            MonoTabs(
+                modifier = Modifier
+                    .constrainAs(tabs) {
+                        top.linkTo(parent.top)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }
-                ) {
+                    },
+                state = uiState.currentTab,
+                titles = titles,
+                onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
+            )
 
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    MonoDateRange(
-                        currentDate = uiState.currentData,
-                        onPrevious = { onEvent(TransitionEvent.PreviousData) },
-                        onNext = { onEvent(TransitionEvent.NextData) }
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    MonoTextField(
-                        label = if (uiState.currentTab == 0) {
-                            stringResource(id = R.string.expense)
-                        } else {
-                            stringResource(id = R.string.income)
-                        },
-                        value = uiState.amount,
-                        textStyle = MaterialTheme.typography.h1,
-                        trailingIcon = {
-                            Text(
-                                text = uiState.currentCurrency.symbol,
-                                style = MaterialTheme.typography.h1,
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        },
-                        placeholder = {
-                            Text(
-                                text = "0.00",
-                                style = MaterialTheme.typography.h1,
-                                color = MaterialTheme.colors.secondaryVariant
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    MonoTextField(
-                        label = stringResource(id = R.string.note),
-                        value = uiState.note,
-                        placeholder = {
-                            Text(
-                                text = stringResource(id = R.string.please_input),
-                                style = MaterialTheme.typography.subtitle2,
-                                color = MaterialTheme.colors.secondaryVariant
-                            )
-                        },
-                        singleLine = false,
-                        maxLines = 5,
-                        onValueChange = { onEvent(TransitionEvent.ChangeNote(it)) }
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    MonoCategorySurface(
-                        listCategoryUi = uiState.listCategory,
-                        title = stringResource(id = R.string.category),
-                        selectedCategory = uiState.currentCategory,
-                        onClickItem = { onEvent(TransitionEvent.SelectCategory(it)) }
-                    )
-
-                    Spacer(modifier = Modifier.height(84.dp))
+            Column(modifier = Modifier
+                .height(height = heightScrollableColumn)
+                .padding(horizontal = 16.dp)
+                .verticalScroll(scrollState)
+                .constrainAs(rows) {
+                    top.linkTo(tabs.bottom)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 }
+            ) {
 
-                MonoButton(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .constrainAs(button) {
-                            bottom.linkTo(parent.bottom, margin = 18.dp)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        },
-                    onClick = { onEvent(TransitionEvent.Submit) },
-                    text = stringResource(id = R.string.submit),
-                    enabled = uiState.enabledButton
+                Spacer(modifier = Modifier.height(24.dp))
+
+                MonoDateRange(
+                    currentDate = uiState.currentData,
+                    onPrevious = { onEvent(TransitionEvent.PreviousData) },
+                    onNext = { onEvent(TransitionEvent.NextData) }
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                MonoTextField(
+                    label = if (uiState.currentTab == 0) {
+                        stringResource(id = R.string.expense)
+                    } else {
+                        stringResource(id = R.string.income)
+                    },
+                    value = uiState.amount,
+                    textStyle = MaterialTheme.typography.h1,
+                    trailingIcon = {
+                        Text(
+                            text = uiState.currentCurrency.symbol,
+                            style = MaterialTheme.typography.h1,
+                            color = MaterialTheme.colors.onSurface
+                        )
+                    },
+                    placeholder = {
+                        Text(
+                            text = "0.00",
+                            style = MaterialTheme.typography.h1,
+                            color = MaterialTheme.colors.secondaryVariant
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                MonoTextField(
+                    label = stringResource(id = R.string.note),
+                    value = uiState.note,
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.please_input),
+                            style = MaterialTheme.typography.subtitle2,
+                            color = MaterialTheme.colors.secondaryVariant
+                        )
+                    },
+                    singleLine = false,
+                    maxLines = 5,
+                    onValueChange = { onEvent(TransitionEvent.ChangeNote(it)) },
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                MonoCategorySurface(
+                    listCategoryUi = uiState.listCategory,
+                    title = stringResource(id = R.string.category),
+                    selectedCategory = uiState.currentCategory,
+                    onClickItem = {
+                        keyboardController?.hide()
+                        onEvent(TransitionEvent.SelectCategory(it))
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(84.dp))
             }
+
+            MonoButton(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .constrainAs(button) {
+                        bottom.linkTo(parent.bottom, margin = 18.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                onClick = {
+                    keyboardController?.hide()
+                    onEvent(TransitionEvent.Submit)
+                },
+                text = stringResource(id = R.string.submit),
+                enabled = uiState.enabledButton
+            )
         }
+    }
 
 }
 
@@ -160,7 +171,7 @@ fun PreviewTransactionScreen() {
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 1,
-                        icon ="bank",
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 2,
@@ -172,7 +183,7 @@ fun PreviewTransactionScreen() {
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 4,
-                        icon ="bank",
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 5,
@@ -188,7 +199,7 @@ fun PreviewTransactionScreen() {
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 8,
-                        icon ="bank",
+                        icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     ), CategoryUi(
                         id = 9,
