@@ -5,22 +5,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
-import com.chskela.monoapplication.presentation.screens.add_edit_category.AddEditCategoryEvent
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoryReportDetailsViewModels @Inject constructor(
     private val categoryUseCases: CategoryUseCases,
-    private val getAllTransactionsByCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
+    private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private var calendar = Calendar.getInstance()
 
     var uiState: MutableState<CategoryReportDetailsUiState> =
         mutableStateOf(CategoryReportDetailsUiState())
@@ -44,15 +47,32 @@ class CategoryReportDetailsViewModels @Inject constructor(
             }
 
             is CategoryReportDetailsEvent.GetCategory -> {
-                viewModelScope.launch {
-                    val category = categoryUseCases.getCategoryByIdUseCase(event.categoryId)
+                combine(
+                    categoryUseCases.getCategoryByIdUseCase(event.categoryId),
+                    getAllTransactionsByMonthAndCategoryUseCase(
+                        categoryId = event.categoryId,
+                        month = calendar.get(Calendar.MONTH)
+                    )
+                ) { category, list ->
                     uiState.value = uiState.value.copy(
                         currentCategory = category.id,
                         categoryName = category.name,
                         icon = category.icon,
                         typeCategory = category.type,
+                        sumThisMonth = list.sumOf { it.amount } / 100.0,
+                        transactionList = list.map {
+                            TransactionUi(
+                                id = it.id,
+                                timestamp = it.timestamp,
+                                amount = it.amount / 100.0,
+                                note = it.note,
+                                type = if (category.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
+                                category = category.name,
+                                icon = null
+                            )
+                        }
                     )
-                }
+                }.launchIn(viewModelScope)
             }
         }
     }
