@@ -68,6 +68,11 @@ object DomainModule {
         )
     }
 
+    @Provides
+    fun provideGetAllTransactionsByCategoryUseCase(repository: ReportsRepository) : GetAllTransactionsByMonthAndCategoryUseCase {
+        return GetAllTransactionsByMonthAndCategoryUseCase( repository )
+    }
+
 
 
     @Provides
