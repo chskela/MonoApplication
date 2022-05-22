@@ -7,34 +7,23 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
-import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
-import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
 import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
+import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
+import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
+import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
-
-@Composable
-fun TransactionActivityScreen(
-    transitionViewModel: TransitionViewModel = hiltViewModel(),
-) {
-    TransactionScreen(
-        uiState = transitionViewModel.uiState.value,
-        onEvent = transitionViewModel::onEvent,
-    )
-}
 
 @Composable
 fun TransactionScreen(
@@ -45,9 +34,8 @@ fun TransactionScreen(
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
 
         BoxWithConstraints {
-            val heightTabs = 48.dp
-            val heightBottomBar = 56.dp
-            val heightScrollableColumn = maxHeight - heightTabs - heightBottomBar
+            val heightBottomBar = 48.dp
+            val heightScrollableColumn = maxHeight - heightBottomBar
 
             ConstraintLayout {
                 val (tabs, rows, button) = createRefs()
