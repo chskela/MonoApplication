@@ -17,8 +17,10 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
         }
     }
 
-    override suspend fun getCategoryById(id: Long): Category {
-        return mapCategoryToDomain(categoryDao.getCategoryById(id))
+    override fun getCategoryById(id: Long): Flow<Category> {
+        return categoryDao.getCategoryById(id).map { categoryEntity ->
+            mapCategoryToDomain(categoryEntity)
+        }
     }
 
     override suspend fun insertCategory(category: Category) {
