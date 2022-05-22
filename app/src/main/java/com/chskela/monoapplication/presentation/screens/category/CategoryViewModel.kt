@@ -5,12 +5,14 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,7 +23,9 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
     ViewModel() {
 
     var uiState : MutableState<CategoryUiState> = mutableStateOf(CategoryUiState())
-    private set
+        private set
+
+    private var restoreCategory: Category? = null
 
     init {
         getCategoryList()
@@ -31,7 +35,14 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
         when (event) {
             is CategoryEvent.DeleteCategory -> {
                 viewModelScope.launch {
+                    restoreCategory = categoryUseCases.getCategoryByIdUseCase(event.id).first()
                     categoryUseCases.deleteCategoryUseCase(event.id)
+                }
+            }
+            CategoryEvent.Restore -> {
+                viewModelScope.launch {
+                    categoryUseCases.addCategoryUseCase(restoreCategory ?: return@launch)
+                    restoreCategory = null
                 }
             }
         }
