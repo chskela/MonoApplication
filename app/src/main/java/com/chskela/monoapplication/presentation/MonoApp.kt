@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,7 +20,8 @@ import com.chskela.monoapplication.presentation.navigation.graphs.categoryGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.reportGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.settingGraph
 import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingActivityScreen
-import com.chskela.monoapplication.presentation.screens.transaction.TransactionActivityScreen
+import com.chskela.monoapplication.presentation.screens.transaction.TransactionScreen
+import com.chskela.monoapplication.presentation.screens.transaction.TransitionViewModel
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -84,7 +86,11 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
                 }
 
                 composable(MonoScreens.Transaction.name) {
-                    TransactionActivityScreen()
+                    val transitionViewModel: TransitionViewModel = hiltViewModel()
+                    TransactionScreen(
+                        uiState = transitionViewModel.uiState.value,
+                        onEvent = transitionViewModel::onEvent,
+                    )
                 }
 
                 reportGraph(navController)
