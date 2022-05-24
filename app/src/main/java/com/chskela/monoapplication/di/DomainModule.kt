@@ -62,9 +62,7 @@ object DomainModule {
     fun provideMonthReportUseCase(repository: ReportsRepository) : ReportsUseCases {
         return ReportsUseCases(
             getAllTransactionsByMonthUseCase = GetAllTransactionsByMonthUseCase(repository),
-            getCurrentBalanceUseCase = GetCurrentBalanceUseCase(repository),
-            getExpenseUseCase = GetExpenseUseCase(repository),
-            getIncomeUseCase = GetIncomeUseCase(repository)
+            getAllTransactionsUseCase = GetAllTransactionsUseCase(repository)
         )
     }
 
