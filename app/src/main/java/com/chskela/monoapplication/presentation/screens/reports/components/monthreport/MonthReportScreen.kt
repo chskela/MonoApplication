@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.details.components.monthreport
+package com.chskela.monoapplication.presentation.screens.reports.components.monthreport
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
@@ -10,9 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.details.components.monthreport.components.BorderRow
-import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.reports.components.monthreport.components.BorderRow
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs

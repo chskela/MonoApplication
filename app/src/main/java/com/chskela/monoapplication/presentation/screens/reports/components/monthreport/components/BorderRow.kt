@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.details.components.monthreport.components
+package com.chskela.monoapplication.presentation.screens.reports.components.monthreport.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

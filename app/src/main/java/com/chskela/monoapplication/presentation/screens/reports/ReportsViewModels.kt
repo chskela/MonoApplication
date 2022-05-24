@@ -11,8 +11,8 @@ import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.ReportsUseCases
-import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi

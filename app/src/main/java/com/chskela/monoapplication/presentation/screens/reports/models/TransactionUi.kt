@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.presentation.screens.details.models
+package com.chskela.monoapplication.presentation.screens.reports.models
 
 data class TransactionUi(
     val id: Long,

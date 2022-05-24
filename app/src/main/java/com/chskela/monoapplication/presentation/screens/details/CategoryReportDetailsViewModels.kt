@@ -9,8 +9,8 @@ import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
-import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn

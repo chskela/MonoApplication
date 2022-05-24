@@ -14,8 +14,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 

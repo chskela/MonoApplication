@@ -18,8 +18,8 @@ import com.chskela.monoapplication.presentation.screens.details.components.Detai
 import com.chskela.monoapplication.presentation.screens.details.components.ReportChart
 import com.chskela.monoapplication.presentation.screens.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
-import com.chskela.monoapplication.presentation.screens.details.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.details.models.TypeTransaction
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
