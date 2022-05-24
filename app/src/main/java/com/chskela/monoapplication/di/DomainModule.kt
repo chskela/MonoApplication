@@ -33,7 +33,7 @@ object DomainModule {
     }
 
     @Provides
-    fun provideCategoryUseCases(repository: CategoryRepository) : CategoryUseCases {
+    fun provideCategoryUseCases(repository: CategoryRepository): CategoryUseCases {
         return CategoryUseCases(
             getAllCategoryUseCase = GetAllCategoryUseCase(repository),
             addCategoryUseCase = AddCategoryUseCase(repository),
@@ -44,7 +44,7 @@ object DomainModule {
     }
 
     @Provides
-    fun provideTransactionUseCases(repository: TransactionRepository) : TransactionUseCases {
+    fun provideTransactionUseCases(repository: TransactionRepository): TransactionUseCases {
         return TransactionUseCases(
             addTransactionUseCase = AddTransactionUseCase(repository),
             deleteTransactionUseCase = DeleteTransactionUseCase(repository),
@@ -54,27 +54,23 @@ object DomainModule {
     }
 
     @Provides
-    fun provideDeleteAllTransactionsUseCase(repository: TransactionRepository) : DeleteAllTransactionsUseCase {
+    fun provideDeleteAllTransactionsUseCase(repository: TransactionRepository): DeleteAllTransactionsUseCase {
         return DeleteAllTransactionsUseCase(repository)
     }
 
     @Provides
-    fun provideMonthReportUseCase(repository: ReportsRepository) : ReportsUseCases {
-        return ReportsUseCases(
-            getAllTransactionsByMonthUseCase = GetAllTransactionsByMonthUseCase(repository),
-            getAllTransactionsUseCase = GetAllTransactionsUseCase(repository)
-        )
+    fun provideGetAllTransactionsUseCase(repository: ReportsRepository): GetAllTransactionsUseCase {
+        return GetAllTransactionsUseCase(repository)
     }
 
     @Provides
-    fun provideGetAllTransactionsByCategoryUseCase(repository: ReportsRepository) : GetAllTransactionsByMonthAndCategoryUseCase {
-        return GetAllTransactionsByMonthAndCategoryUseCase( repository )
+    fun provideGetAllTransactionsByCategoryUseCase(repository: ReportsRepository): GetAllTransactionsByMonthAndCategoryUseCase {
+        return GetAllTransactionsByMonthAndCategoryUseCase(repository)
     }
 
 
-
     @Provides
-    fun provideSetOnBoardingIsSkipUseCase(repository: OnBoardingRepository) : SetOnBoardingIsSkipUseCase {
+    fun provideSetOnBoardingIsSkipUseCase(repository: OnBoardingRepository): SetOnBoardingIsSkipUseCase {
         return SetOnBoardingIsSkipUseCase(repository)
     }
 
