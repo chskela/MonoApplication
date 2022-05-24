@@ -5,19 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
-import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
-import com.chskela.monoapplication.domain.reports.usecase.ReportsUseCases
-import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
+import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
+import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
+import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import java.text.SimpleDateFormat
@@ -26,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReportsViewModels @Inject constructor(
-    private val reportsUseCases: ReportsUseCases,
+    private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val currencyUseCases: CurrencyUseCases,
     private val categoryUseCases: CategoryUseCases,
 ) : ViewModel() {
@@ -87,44 +84,30 @@ class ReportsViewModels @Inject constructor(
         }
     }
 
-    private fun getCategoryList(): Flow<List<Category>> {
-        return categoryUseCases.getAllCategoryUseCase()
-    }
-
-    private fun getMonthReport(): Flow<MonthReport> {
-        return combine(
-            reportsUseCases.getAllTransactionsUseCase(),
+    private fun initialUiState() {
+        combine(
+            getAllTransactionsUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
-        ) { allTransactions, currencyId ->
+            categoryUseCases.getAllCategoryUseCase()
+        ) { allTransactions, currencyId, categoryReport ->
+            val calendar = Calendar.getInstance()
+
             val currentBalance =
                 allTransactions.sumOf { if (it.type == TypeCategory.Expense) -it.amount else it.amount }
-            val (incomeList, expenseList) = allTransactions.partition { it.type == TypeCategory.Income }
-            val calendar = Calendar.getInstance()
+                    .toDouble() / 100
+
             val listByMonth = allTransactions.filter {
                 calendar.timeInMillis = it.timestamp
                 calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)
             }
-            MonthReport(
-                list = listByMonth,
-                currentBalance = currentBalance.toDouble(),
-                income = incomeList.sumOf { it.amount }.toDouble(),
-                expense = expenseList.sumOf { it.amount }.toDouble(),
-                currencyId = currencyId
-            )
-        }
-    }
 
-    internal data class MonthReport(
-        val list: List<TransactionWithCategory>,
-        val currentBalance: Double,
-        val expense: Double,
-        val income: Double,
-        val currencyId: Long,
-    )
+            val (incomeList, expenseList) = listByMonth.partition { it.type == TypeCategory.Income }
 
-    private fun initialUiState() {
-        combine(getMonthReport(), getCategoryList()) { monthReport, categoryReport ->
-            allTransactionUi = monthReport.list.map {
+            val incomeByMonth = incomeList.sumOf { it.amount }.toDouble() / 100
+
+            val expenseByMonth = expenseList.sumOf { it.amount }.toDouble() / 100
+
+            allTransactionUi = listByMonth.map {
                 TransactionUi(
                     id = it.id,
                     timestamp = it.timestamp,
@@ -142,11 +125,12 @@ class ReportsViewModels @Inject constructor(
 
             uiState.value = uiState.value.copy(
                 transactionList = allTransactionUi,
-                currentBalance = monthReport.currentBalance / 100,
-                expense = monthReport.expense / 100,
-                income = monthReport.income / 100,
-                expenseIncome = (monthReport.income - monthReport.expense) / 100,
-                currency = currencyUseCases.getCurrencyByIdUseCase(monthReport.currencyId).symbol,
+                currentBalance = currentBalance,
+                expense = expenseByMonth,
+                income = incomeByMonth,
+                expenseIncome = incomeByMonth - expenseByMonth,
+//                previousBalance = currentBalance - (incomeByMonth - expenseByMonth),
+                currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
                 expenseList = categoryReport
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
