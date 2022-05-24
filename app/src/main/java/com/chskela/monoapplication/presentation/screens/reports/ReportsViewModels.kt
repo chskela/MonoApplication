@@ -31,7 +31,7 @@ class ReportsViewModels @Inject constructor(
     private val categoryUseCases: CategoryUseCases,
 ) : ViewModel() {
 
-    private var calendar = Calendar.getInstance()
+    private var currentCalendar = Calendar.getInstance()
     private var allTransactionUi: List<TransactionUi> = emptyList()
     private var expenseTransactionUi: List<TransactionUi> = emptyList()
     private var incomeTransactionUi: List<TransactionUi> = emptyList()
@@ -39,7 +39,7 @@ class ReportsViewModels @Inject constructor(
     var uiState: MutableState<ReportsUiState> = mutableStateOf(
         ReportsUiState(
             title = R.string.month_report,
-            currentData = formatDate(calendar.time)
+            currentData = formatDate(currentCalendar.time)
         )
     )
         private set
@@ -62,13 +62,13 @@ class ReportsViewModels @Inject constructor(
                 )
             }
             is ReportsEvent.PreviousMonth -> {
-                calendar.add(Calendar.MONTH, -1)
-                uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+                currentCalendar.add(Calendar.MONTH, -1)
+                uiState.value = uiState.value.copy(currentData = formatDate(currentCalendar.time))
                 initialUiState()
             }
             is ReportsEvent.NextMonth -> {
-                calendar.add(Calendar.MONTH, 1)
-                uiState.value = uiState.value.copy(currentData = formatDate(calendar.time))
+                currentCalendar.add(Calendar.MONTH, 1)
+                uiState.value = uiState.value.copy(currentData = formatDate(currentCalendar.time))
                 initialUiState()
             }
             is ReportsEvent.SelectReport -> {
@@ -93,18 +93,23 @@ class ReportsViewModels @Inject constructor(
 
     private fun getMonthReport(): Flow<MonthReport> {
         return combine(
-            reportsUseCases.getAllTransactionsByMonthUseCase(calendar.get(Calendar.MONTH)),
-            reportsUseCases.getCurrentBalanceUseCase(),
-            reportsUseCases.getExpenseUseCase(),
-            reportsUseCases.getIncomeUseCase(),
+            reportsUseCases.getAllTransactionsUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
-        ) { list, currentBalance, expense, income, id ->
+        ) { allTransactions, currencyId ->
+            val currentBalance =
+                allTransactions.sumOf { if (it.type == TypeCategory.Expense) -it.amount else it.amount }
+            val (incomeList, expenseList) = allTransactions.partition { it.type == TypeCategory.Income }
+            val calendar = Calendar.getInstance()
+            val listByMonth = allTransactions.filter {
+                calendar.timeInMillis = it.timestamp
+                calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)
+            }
             MonthReport(
-                list = list,
-                currentBalance = currentBalance,
-                expense = expense,
-                income = income,
-                id = id
+                list = listByMonth,
+                currentBalance = currentBalance.toDouble(),
+                income = incomeList.sumOf { it.amount }.toDouble(),
+                expense = expenseList.sumOf { it.amount }.toDouble(),
+                currencyId = currencyId
             )
         }
     }
@@ -114,7 +119,7 @@ class ReportsViewModels @Inject constructor(
         val currentBalance: Double,
         val expense: Double,
         val income: Double,
-        val id: Long,
+        val currencyId: Long,
     )
 
     private fun initialUiState() {
@@ -141,7 +146,7 @@ class ReportsViewModels @Inject constructor(
                 expense = monthReport.expense / 100,
                 income = monthReport.income / 100,
                 expenseIncome = (monthReport.income - monthReport.expense) / 100,
-                currency = currencyUseCases.getCurrencyByIdUseCase(monthReport.id).symbol,
+                currency = currencyUseCases.getCurrencyByIdUseCase(monthReport.currencyId).symbol,
                 expenseList = categoryReport
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
