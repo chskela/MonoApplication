@@ -101,6 +101,15 @@ class ReportsViewModels @Inject constructor(
                 calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)
             }
 
+            val listByPrevMonth = allTransactions.filter {
+                calendar.timeInMillis = it.timestamp
+                calendar.get(Calendar.MONTH) < currentCalendar.get(Calendar.MONTH)
+            }
+
+            val previousBalance =
+                listByPrevMonth.sumOf { if (it.type == TypeCategory.Expense) -it.amount else it.amount }
+                    .toDouble() / 100
+
             val (incomeList, expenseList) = listByMonth.partition { it.type == TypeCategory.Income }
 
             val incomeByMonth = incomeList.sumOf { it.amount }.toDouble() / 100
@@ -129,7 +138,7 @@ class ReportsViewModels @Inject constructor(
                 expense = expenseByMonth,
                 income = incomeByMonth,
                 expenseIncome = incomeByMonth - expenseByMonth,
-//                previousBalance = currentBalance - (incomeByMonth - expenseByMonth),
+                previousBalance = previousBalance,
                 currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
                 expenseList = categoryReport
                     .filter { category -> category.type == TypeCategory.Expense }
