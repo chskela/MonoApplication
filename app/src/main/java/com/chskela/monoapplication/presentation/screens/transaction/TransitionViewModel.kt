@@ -115,7 +115,7 @@ class TransitionViewModel @Inject constructor(
             .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, id ->
                 expenseList = list
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map { mapToUi(it) }
+                    .map(::mapCategoryToUi)
                     .also { item ->
                         uiState.value = uiState.value.copy(
                             listCategory = item,
@@ -125,12 +125,12 @@ class TransitionViewModel @Inject constructor(
 
                 incomeList = list
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map { mapToUi(it) }
+                    .map(::mapCategoryToUi)
             }
             .launchIn(viewModelScope)
     }
 
-    private fun mapToUi(item: Category) =
+    private fun mapCategoryToUi(item: Category) =
         CategoryUi(id = item.id, icon = item.icon, title = item.name)
 
     private fun isEnabled() = with(uiState.value) {
