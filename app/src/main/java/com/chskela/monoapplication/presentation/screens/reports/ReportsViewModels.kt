@@ -115,17 +115,7 @@ class ReportsViewModels @Inject constructor(
 
             val expenseByMonth = expenseTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
 
-            allTransactionUi = transactionsByMonth.map {
-                TransactionUi(
-                    id = it.id,
-                    timestamp = it.timestamp,
-                    amount = it.amount / 100.0,
-                    note = it.note,
-                    type = if (it.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
-                    category = it.name,
-                    icon = it.icon,
-                )
-            }
+            allTransactionUi = transactionsByMonth.map(::mapTransactionToUi)
 
             expenseTransactionUi = allTransactionUi.filter { it.type == TypeTransaction.Expense }
 
@@ -141,10 +131,10 @@ class ReportsViewModels @Inject constructor(
                 currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
                 expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
+                    .map(::mapCategoryToUi),
                 incomeList = allCategories
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
+                    .map(::mapCategoryToUi),
             )
         }.launchIn(viewModelScope)
     }
@@ -158,5 +148,18 @@ class ReportsViewModels @Inject constructor(
         } else {
             transaction.amount
         }
-    }
+
+    private fun mapCategoryToUi(item: Category) =
+        CategoryUi(id = item.id, icon = item.icon, title = item.name)
+
+    private fun mapTransactionToUi(transactionWithCategory: TransactionWithCategory) =
+        TransactionUi(
+            id = transactionWithCategory.id,
+            timestamp = transactionWithCategory.timestamp,
+            amount = transactionWithCategory.amount / 100.0,
+            note = transactionWithCategory.note,
+            type = if (transactionWithCategory.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
+            category = transactionWithCategory.name,
+            icon = transactionWithCategory.icon,
+        )
 }
