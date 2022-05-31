@@ -48,17 +48,7 @@ class ReportsViewModels @Inject constructor(
 
     fun onEvent(event: ReportsEvent) {
         when (event) {
-            is ReportsEvent.SelectTab -> {
-                val transactionList = when (event.tab) {
-                    1 -> expenseTransactionUi
-                    2 -> incomeTransactionUi
-                    else -> allTransactionUi
-                }
-                uiState.value = uiState.value.copy(
-                    currentTab = event.tab,
-                    transactionList = transactionList
-                )
-            }
+            is ReportsEvent.SelectTab -> onSelectTab(event)
             is ReportsEvent.PreviousMonth -> {
                 currentCalendar.add(Calendar.MONTH, -1)
                 uiState.value = uiState.value.copy(currentData = formatDate(currentCalendar.time))
@@ -83,6 +73,18 @@ class ReportsViewModels @Inject constructor(
             ReportsEvent.ToggleVisible -> uiState.value =
                 uiState.value.copy(isVisibleModal = !uiState.value.isVisibleModal)
         }
+    }
+
+    private fun onSelectTab(event: ReportsEvent.SelectTab) {
+        val transactionList = when (event.tab) {
+            1 -> expenseTransactionUi
+            2 -> incomeTransactionUi
+            else -> allTransactionUi
+        }
+        uiState.value = uiState.value.copy(
+            currentTab = event.tab,
+            transactionList = transactionList
+        )
     }
 
     private fun initialUiState() {
