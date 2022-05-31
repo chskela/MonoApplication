@@ -8,6 +8,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
+import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
@@ -89,34 +90,30 @@ class ReportsViewModels @Inject constructor(
             getAllTransactionsUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
             categoryUseCases.getAllCategoryUseCase()
-        ) { allTransactions, currencyId, categoryReport ->
+        ) { allTransactions, currencyId, allCategories ->
             val calendar = Calendar.getInstance()
 
-            val currentBalance =
-                allTransactions.sumOf { if (it.type == TypeCategory.Expense) -it.amount else it.amount }
-                    .toDouble() / 100
+            val currentBalance = allTransactions.sumOf(::calculateBalance).toDouble() / 100
 
-            val listByMonth = allTransactions.filter {
-                calendar.timeInMillis = it.timestamp
+            val transactionsByMonth = allTransactions.filter { transaction ->
+                calendar.timeInMillis = transaction.timestamp
                 calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)
             }
 
-            val listByPrevMonth = allTransactions.filter {
-                calendar.timeInMillis = it.timestamp
+            val listByPrevMonth = allTransactions.filter { transaction ->
+                calendar.timeInMillis = transaction.timestamp
                 calendar.get(Calendar.MONTH) < currentCalendar.get(Calendar.MONTH)
             }
 
-            val previousBalance =
-                listByPrevMonth.sumOf { if (it.type == TypeCategory.Expense) -it.amount else it.amount }
-                    .toDouble() / 100
+            val previousBalance = listByPrevMonth.sumOf(::calculateBalance).toDouble() / 100
 
-            val (incomeList, expenseList) = listByMonth.partition { it.type == TypeCategory.Income }
+            val (incomeTransactionsByMonth, expenseTransactionsByMonth) = transactionsByMonth.partition { it.type == TypeCategory.Income }
 
-            val incomeByMonth = incomeList.sumOf { it.amount }.toDouble() / 100
+            val incomeByMonth = incomeTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
 
-            val expenseByMonth = expenseList.sumOf { it.amount }.toDouble() / 100
+            val expenseByMonth = expenseTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
 
-            allTransactionUi = listByMonth.map {
+            allTransactionUi = transactionsByMonth.map {
                 TransactionUi(
                     id = it.id,
                     timestamp = it.timestamp,
@@ -140,10 +137,10 @@ class ReportsViewModels @Inject constructor(
                 expenseIncome = incomeByMonth - expenseByMonth,
                 previousBalance = previousBalance,
                 currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
-                expenseList = categoryReport
+                expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
-                incomeList = categoryReport
+                incomeList = allCategories
                     .filter { category -> category.type == TypeCategory.Income }
                     .map { item -> CategoryUi(id = item.id, icon = item.icon, title = item.name) },
             )
@@ -152,4 +149,12 @@ class ReportsViewModels @Inject constructor(
 
     private fun formatDate(date: Date) =
         SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(date)
+
+    private fun calculateBalance(transaction: TransactionWithCategory): Long {
+        return if (transaction.type == TypeCategory.Expense) {
+            -transaction.amount
+        } else {
+            transaction.amount
+        }
+    }
 }
