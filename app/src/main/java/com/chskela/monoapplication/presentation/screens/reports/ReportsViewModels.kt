@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
@@ -109,7 +110,8 @@ class ReportsViewModels @Inject constructor(
 
             val previousBalance = listByPrevMonth.sumOf(::calculateBalance).toDouble() / 100
 
-            val (incomeTransactionsByMonth, expenseTransactionsByMonth) = transactionsByMonth.partition { it.type == TypeCategory.Income }
+            val (incomeTransactionsByMonth, expenseTransactionsByMonth) = transactionsByMonth
+                .partition { it.type == TypeCategory.Income }
 
             val incomeByMonth = incomeTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
 
@@ -117,9 +119,11 @@ class ReportsViewModels @Inject constructor(
 
             allTransactionUi = transactionsByMonth.map(::mapTransactionToUi)
 
-            expenseTransactionUi = allTransactionUi.filter { it.type == TypeTransaction.Expense }
+            val (incomeTransaction, expenseTransaction) = allTransactionUi
+                .partition { it.type == TypeTransaction.Income }
 
-            incomeTransactionUi = allTransactionUi.filter { it.type == TypeTransaction.Income }
+            incomeTransactionUi = incomeTransaction
+            expenseTransactionUi = expenseTransaction
 
             uiState.value = uiState.value.copy(
                 transactionList = allTransactionUi,
@@ -142,8 +146,8 @@ class ReportsViewModels @Inject constructor(
     private fun formatDate(date: Date) =
         SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(date)
 
-    private fun calculateBalance(transaction: TransactionWithCategory): Long {
-        return if (transaction.type == TypeCategory.Expense) {
+    private fun calculateBalance(transaction: TransactionWithCategory) =
+        if (transaction.type == TypeCategory.Expense) {
             -transaction.amount
         } else {
             transaction.amount
