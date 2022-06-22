@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
+import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
@@ -20,10 +21,11 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryReportDetailsViewModels @Inject constructor(
     private val categoryUseCases: CategoryUseCases,
+    private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private var calendar = Calendar.getInstance()
+    private var currentCalendar = Calendar.getInstance()
 
     var uiState: MutableState<CategoryReportDetailsUiState> =
         mutableStateOf(CategoryReportDetailsUiState())
@@ -32,7 +34,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
     init {
         savedStateHandle.get<Long>("categoryId")?.let { categoryId ->
             if (categoryId != -1L) {
-                onEvent(CategoryReportDetailsEvent.GetCategory(categoryId))
+                onEvent(CategoryReportDetailsEvent.GetData(categoryId))
             }
         }
     }
@@ -46,14 +48,20 @@ class CategoryReportDetailsViewModels @Inject constructor(
                 )
             }
 
-            is CategoryReportDetailsEvent.GetCategory -> {
+            is CategoryReportDetailsEvent.GetData -> {
                 combine(
+//                    getAllTransactionsUseCase(),
                     categoryUseCases.getCategoryByIdUseCase(event.categoryId),
                     getAllTransactionsByMonthAndCategoryUseCase(
                         categoryId = event.categoryId,
-                        month = calendar.get(Calendar.MONTH)
-                    )
+                        month = currentCalendar.get(Calendar.MONTH)
+                    ),
                 ) { category, list ->
+                    val calendar = Calendar.getInstance()
+                    calendar.add(Calendar.MONTH, -1)
+                    calendar.get(Calendar.MONTH)
+
+//                    val reportsList: List<ReportUi> =
                     uiState.value = uiState.value.copy(
                         currentCategory = category.id,
                         categoryName = category.name,
