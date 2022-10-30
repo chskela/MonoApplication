@@ -72,14 +72,15 @@ class TransitionViewModel @Inject constructor(
                 uiState.value = uiState.value.copy(enabledButton = isEnabled())
             }
             is TransitionEvent.Submit -> viewModelScope.launch {
-                val transaction = Transaction(
-                    id = 0,
-                    timestamp = currentDate.timeInMillis,
-                    amount = (uiState.value.amount.toDouble() * 100).toLong(),
-                    note = uiState.value.note,
-                    categoryId = uiState.value.currentCategory,
+                transactionUseCases.addTransactionUseCase(
+                    Transaction(
+                        id = 0,
+                        timestamp = currentDate.timeInMillis,
+                        amount = (uiState.value.amount.toDouble() * 100).toLong(),
+                        note = uiState.value.note,
+                        categoryId = uiState.value.currentCategory,
+                    )
                 )
-                transactionUseCases.addTransactionUseCase(transaction)
                 uiState.value = uiState.value.copy(
                     amount = "",
                     note = "",
