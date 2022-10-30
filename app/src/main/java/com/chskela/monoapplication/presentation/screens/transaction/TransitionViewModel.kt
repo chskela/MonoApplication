@@ -98,16 +98,18 @@ class TransitionViewModel @Inject constructor(
         }
     }
 
-    private fun validateAmount(value: String): Boolean {
-        val symbols = listOf('.').plus('0'..'9')
-        val partsOfNumber = value.split('.')
+    private fun validateAmount(value: String) =
+        value.isBlank() || isNumber(value) && isFraction(value)
 
-        return value.isBlank()
-                || (value.last() in symbols && value.first() != '.' && value.take(2) != "00")
-                && (
-                (partsOfNumber.last().length <= 2 && partsOfNumber.size == 2)
-                        || partsOfNumber.size < 2
-                )
+    private fun isFraction(value: String): Boolean {
+        val partsOfNumber = value.split('.')
+        val size = partsOfNumber.size
+        return (partsOfNumber.last().length <= 2 && size == 2) || size < 2
+    }
+
+    private fun isNumber(value: String): Boolean {
+        val symbols = listOf('.').plus('0'..'9')
+        return value.last() in symbols && value.first() != '.' && value.take(2) != "00"
     }
 
     private fun initialUiStateFromStore() {
