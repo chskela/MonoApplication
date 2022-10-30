@@ -10,7 +10,7 @@ import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
-import com.chskela.monoapplication.mappers.mapCategoryToUi
+import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
@@ -134,10 +134,10 @@ class ReportsViewModels @Inject constructor(
                 currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
                 expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map{ it.mapCategoryToUi() },
+                    .map{ it.mapToCategoryUi() },
                 incomeList = allCategories
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map{ it.mapCategoryToUi() },
+                    .map{ it.mapToCategoryUi() },
             )
         }.launchIn(viewModelScope)
     }

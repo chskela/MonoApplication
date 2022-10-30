@@ -10,7 +10,7 @@ import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.usercase.TransactionUseCases
-import com.chskela.monoapplication.mappers.mapCategoryToUi
+import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -119,7 +119,7 @@ class TransitionViewModel @Inject constructor(
             .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, id ->
                 expenseList = list
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map{ it.mapCategoryToUi() }
+                    .map{ it.mapToCategoryUi() }
                     .also { item ->
                         uiState.value = uiState.value.copy(
                             listCategory = item,
@@ -129,7 +129,7 @@ class TransitionViewModel @Inject constructor(
 
                 incomeList = list
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map { it.mapCategoryToUi() }
+                    .map { it.mapToCategoryUi() }
             }
             .launchIn(viewModelScope)
     }
