@@ -102,7 +102,7 @@ class TransitionViewModel @Inject constructor(
         val symbols = listOf('.').plus('0'..'9')
         val partsOfNumber = value.split('.')
 
-        return value == ""
+        return value.isBlank()
                 || (value.last() in symbols && value.first() != '.' && value.take(2) != "00")
                 && (
                 (partsOfNumber.last().length <= 2 && partsOfNumber.size == 2)
