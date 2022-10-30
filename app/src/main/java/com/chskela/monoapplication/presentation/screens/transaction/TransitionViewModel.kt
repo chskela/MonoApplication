@@ -4,17 +4,18 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.usercase.TransactionUseCases
+import com.chskela.monoapplication.mappers.mapCategoryToUi
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -118,7 +119,7 @@ class TransitionViewModel @Inject constructor(
             .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, id ->
                 expenseList = list
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map(::mapCategoryToUi)
+                    .map{ it.mapCategoryToUi() }
                     .also { item ->
                         uiState.value = uiState.value.copy(
                             listCategory = item,
@@ -128,13 +129,10 @@ class TransitionViewModel @Inject constructor(
 
                 incomeList = list
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map(::mapCategoryToUi)
+                    .map { it.mapCategoryToUi() }
             }
             .launchIn(viewModelScope)
     }
-
-    private fun mapCategoryToUi(item: Category) =
-        CategoryUi(id = item.id, icon = item.icon, title = item.name)
 
     private fun isEnabled() = with(uiState.value) {
         amount.isNotEmpty() && currentCategory != 0L

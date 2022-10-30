@@ -5,17 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
+import com.chskela.monoapplication.mappers.mapCategoryToUi
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -135,10 +134,10 @@ class ReportsViewModels @Inject constructor(
                 currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
                 expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map(::mapCategoryToUi),
+                    .map{ it.mapCategoryToUi() },
                 incomeList = allCategories
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map(::mapCategoryToUi),
+                    .map{ it.mapCategoryToUi() },
             )
         }.launchIn(viewModelScope)
     }
@@ -152,9 +151,6 @@ class ReportsViewModels @Inject constructor(
         } else {
             transaction.amount
         }
-
-    private fun mapCategoryToUi(item: Category) =
-        CategoryUi(id = item.id, icon = item.icon, title = item.name)
 
     private fun mapTransactionToUi(transactionWithCategory: TransactionWithCategory) =
         TransactionUi(
