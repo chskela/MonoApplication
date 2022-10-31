@@ -99,25 +99,27 @@ fun ReportChart(
                 close()
             }
 
-        drawPath(
-            path = fillPath,
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    transparentGraphColor,
-                    Color.Transparent
-                ),
-                endY = size.height - spacing
+        if (reportsList.isNotEmpty()) {
+            drawPath(
+                path = fillPath,
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        transparentGraphColor,
+                        Color.Transparent
+                    ),
+                    endY = size.height - spacing
+                )
             )
-        )
 
-        drawPath(
-            path = strokePath,
-            color = graphColor,
-            style = Stroke(
-                width = 2.dp.toPx(),
-                cap = StrokeCap.Round
+            drawPath(
+                path = strokePath,
+                color = graphColor,
+                style = Stroke(
+                    width = 2.dp.toPx(),
+                    cap = StrokeCap.Round
+                )
             )
-        )
+        }
     }
 }
 
@@ -162,6 +164,21 @@ fun PreviewReportChartIncome() {
                 ReportUi(signatures = "Nov", amount = 14),
                 ReportUi(signatures = "Dec", amount = 7)
             ),
+            graphColor = Income
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light ReportChartIncome", showSystemUi = false)
+@Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewReportChartIncomeEmpty() {
+    MonoApplicationTheme {
+        ReportChart(
+            Modifier
+                .fillMaxWidth()
+                .height(124.dp),
+            reportsList = listOf(),
             graphColor = Income
         )
     }
