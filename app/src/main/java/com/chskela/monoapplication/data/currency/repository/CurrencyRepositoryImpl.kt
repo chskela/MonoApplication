@@ -1,10 +1,11 @@
 package com.chskela.monoapplication.data.currency.repository
 
 import com.chskela.monoapplication.data.currency.storage.dao.CurrencyDao
-import com.chskela.monoapplication.data.currency.storage.models.CurrencyEntity
 import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
+import com.chskela.monoapplication.mappers.mapToCurrency
+import com.chskela.monoapplication.mappers.mapToCurrencyEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,12 +16,12 @@ class CurrencyRepositoryImpl(
 
     override fun getListCurrency(): Flow<List<Currency>> {
         return currencyDao.getListCurrency().map { list ->
-            list.map { mapToDomain(it) }
+            list.map { it.mapToCurrency() }
         }
     }
 
     override suspend fun getCurrencyById(id: Long): Currency {
-        return mapToDomain(currencyDao.getCurrencyById(id))
+        return currencyDao.getCurrencyById(id).mapToCurrency()
     }
 
     override fun getDefaultCurrency(): Flow<Long> {
@@ -28,32 +29,18 @@ class CurrencyRepositoryImpl(
     }
 
     override suspend fun insertCurrency(currency: Currency) {
-        currencyDao.insertCurrency(mapToStorage(currency))
+        currencyDao.insertCurrency(currency.mapToCurrencyEntity())
     }
 
     override suspend fun updateCurrency(currency: Currency) {
-        currencyDao.updateCurrency(mapToStorage(currency))
+        currencyDao.updateCurrency(currency.mapToCurrencyEntity())
     }
 
     override suspend fun deleteCurrency(currency: Currency) {
-        currencyDao.deleteCurrency(mapToStorage(currency))
+        currencyDao.deleteCurrency(currency.mapToCurrencyEntity())
     }
 
     override suspend fun setDefaultCurrency(id: Long) {
         currencyStore.saveDefaultCurrency(id)
     }
-
-    private fun mapToDomain(currencyEntity: CurrencyEntity) = Currency(
-        id = currencyEntity.id ?: 0,
-        name = currencyEntity.name,
-        letterCode = currencyEntity.letterCode,
-        symbol = currencyEntity.symbol
-    )
-
-    private fun mapToStorage(currency: Currency) = CurrencyEntity(
-        id = currency.id,
-        name = currency.name,
-        letterCode = currency.letterCode,
-        symbol = currency.symbol
-    )
 }
