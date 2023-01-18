@@ -4,12 +4,12 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun MonoButton(
@@ -27,15 +27,15 @@ fun MonoButton(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (isPrimary) MaterialTheme.colors.primary else MaterialTheme.colors.error,
-            disabledBackgroundColor = MaterialTheme.colors.secondaryVariant,
-            disabledContentColor = MaterialTheme.colors.secondary
+            containerColor = if (isPrimary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+            disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            disabledContentColor = MaterialTheme.colorScheme.secondary
         )
     ) {
         text?.let {
             Text(
                 text = it,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
             )
         } ?: content.invoke(this)
     }
@@ -45,7 +45,7 @@ fun MonoButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButton() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         Surface {
             MonoButton(text = "Submit")
         }
@@ -57,7 +57,7 @@ fun PreviewMonoButton() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonError() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         Surface {
             MonoButton(text = "Submit", isPrimary = false)
         }
@@ -68,7 +68,7 @@ fun PreviewMonoButtonError() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonDisable() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         Surface {
             MonoButton(text = "Submit", enabled = false)
         }

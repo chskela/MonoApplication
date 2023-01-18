@@ -46,24 +46,20 @@ private val LightColorPalette = lightColors(
 
 private val DarkColorScheme = darkColorScheme(
     primary = Branding,
+    onPrimary = White,
     secondary = SecondaryDark,
-    tertiary = BlackDark
+    tertiary = BlackDark,
+    error = Red,
+    onError = White,
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Branding,
+    onPrimary = White,
     secondary = Secondary,
-    tertiary = White
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    tertiary = White,
+    error = Red,
+    onError = White,
 )
 
 @Composable
@@ -90,7 +86,7 @@ fun MonoApplicationTheme(
 fun MonoApplicationTheme3(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -112,6 +108,7 @@ fun MonoApplicationTheme3(
     MaterialTheme3(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes3,
         content = content
     )
 }
