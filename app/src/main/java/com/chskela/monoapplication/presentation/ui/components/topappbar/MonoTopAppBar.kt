@@ -2,15 +2,17 @@ package com.chskela.monoapplication.presentation.ui.components.topappbar
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MonoTopAppBar(
     title: String,
@@ -25,32 +27,29 @@ fun MonoTopAppBar(
     onNavigation: () -> Unit = {},
     navigationIcon: @Composable () -> Unit = {
         IconButton(onClick = onNavigation) {
-            Text(
-                text = "Back",
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.secondary,
-                modifier = Modifier.padding(horizontal = 12.dp)
+            Icon(
+                imageVector = Icons.Rounded.ArrowBack,
+                contentDescription = "Back",
+                tint = MaterialTheme.colorScheme.secondary
             )
         }
     },
-    backgroundColor: Color = MaterialTheme.colors.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    elevation: Dp = 0.dp,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 text = title,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxWidth()
             )
         },
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        elevation = elevation
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = backgroundColor,
+        ),
     )
 }
 
