@@ -3,7 +3,7 @@ package com.chskela.monoapplication.presentation.screens.add_edit_category.model
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 
-data class AddEditCategoryUiState(
+data class AddAndEditCategoryUiState(
     val id: Long = 0,
     val currentTab: Int = 0,
     val categoryName: String = "",

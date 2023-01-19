@@ -9,7 +9,7 @@ import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
-import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddEditCategoryUiState
+import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddAndEditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -32,8 +32,8 @@ class AddEditCategoryViewModel @Inject constructor(
             )
         }
 
-    var uiState: MutableState<AddEditCategoryUiState> = mutableStateOf(
-        AddEditCategoryUiState(
+    var uiState: MutableState<AddAndEditCategoryUiState> = mutableStateOf(
+        AddAndEditCategoryUiState(
             icons = icons
         )
     )
@@ -42,15 +42,15 @@ class AddEditCategoryViewModel @Inject constructor(
     init {
         savedStateHandle.get<Long>("categoryId")?.let { categoryId ->
             if (categoryId != -1L) {
-                onEvent(AddEditCategoryEvent.GetCategory(categoryId))
+                onEvent(AddAndEditCategoryEvent.GetCategoryAnd(categoryId))
             }
         }
     }
 
 
-    fun onEvent(eventEdit: AddEditCategoryEvent) {
+    fun onEvent(eventEdit: AddAndEditCategoryEvent) {
         when (eventEdit) {
-            is AddEditCategoryEvent.SelectTab -> {
+            is AddAndEditCategoryEvent.SelectTab -> {
                 val typeCategory =
                     if (eventEdit.tab == 0) TypeCategory.Expense else TypeCategory.Income
                 uiState.value = uiState.value.copy(
@@ -59,18 +59,18 @@ class AddEditCategoryViewModel @Inject constructor(
                 )
             }
 
-            is AddEditCategoryEvent.ChangeCategoryName -> {
+            is AddAndEditCategoryEvent.ChangeCategoryNameAnd -> {
                 uiState.value = uiState.value.copy(categoryName = eventEdit.value)
             }
 
-            is AddEditCategoryEvent.ChangeCategoryIcon -> {
+            is AddAndEditCategoryEvent.ChangeCategoryIconAnd -> {
                 val icon = icons[eventEdit.iconId.toInt()].icon
                 icon?.let {
                     uiState.value = uiState.value.copy(icon = icon)
                 }
             }
 
-            is AddEditCategoryEvent.GetCategory -> {
+            is AddAndEditCategoryEvent.GetCategoryAnd -> {
                 categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
                     .onEach { category ->
                         uiState.value = uiState.value.copy(
@@ -83,7 +83,7 @@ class AddEditCategoryViewModel @Inject constructor(
                     }.launchIn(viewModelScope)
             }
 
-            is AddEditCategoryEvent.UpdateCategory -> {
+            is AddAndEditCategoryEvent.UpdateCategoryAnd -> {
                 viewModelScope.launch {
                     categoryUseCases.updateCategoryUseCase(
                         Category(
@@ -96,7 +96,7 @@ class AddEditCategoryViewModel @Inject constructor(
                 }
             }
 
-            is AddEditCategoryEvent.AddCategory -> {
+            is AddAndEditCategoryEvent.AddAndCategory -> {
                 viewModelScope.launch {
                     categoryUseCases.addCategoryUseCase(
                         Category(

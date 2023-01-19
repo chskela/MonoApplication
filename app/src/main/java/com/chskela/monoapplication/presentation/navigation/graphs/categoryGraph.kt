@@ -9,7 +9,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.add_edit_category.AddEditCategoryViewModel
-import com.chskela.monoapplication.presentation.screens.add_edit_category.EditCategoryScreen
+import com.chskela.monoapplication.presentation.screens.add_edit_category.AddAndEditCategoryScreen
 import com.chskela.monoapplication.presentation.screens.category.CategoryScreen
 import com.chskela.monoapplication.presentation.screens.category.CategoryViewModel
 
@@ -42,7 +42,7 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
         ) {
             val addEditCategoryViewModel: AddEditCategoryViewModel = hiltViewModel()
 
-            EditCategoryScreen(
+            AddAndEditCategoryScreen(
                 uiState = addEditCategoryViewModel.uiState.value,
                 onEvent = addEditCategoryViewModel::onEvent,
                 onBack = { navController.navigateUp() })

@@ -4,10 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,18 +12,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddEditCategoryUiState
+import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddAndEditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditCategoryScreen(
-    uiState: AddEditCategoryUiState,
-    onEvent: (AddEditCategoryEvent) -> Unit = {},
+fun AddAndEditCategoryScreen(
+    uiState: AddAndEditCategoryUiState,
+    onEvent: (AddAndEditCategoryEvent) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
@@ -43,9 +41,9 @@ fun EditCategoryScreen(
                     IconButton(onClick = {
                         onEvent(
                             if (uiState.isNewCategory) {
-                                AddEditCategoryEvent.AddCategory
+                                AddAndEditCategoryEvent.AddAndCategory
                             } else {
-                                AddEditCategoryEvent.UpdateCategory
+                                AddAndEditCategoryEvent.UpdateCategoryAnd
                             }
                         )
                         onBack()
@@ -59,7 +57,7 @@ fun EditCategoryScreen(
                 onNavigation = onBack
             )
         },
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         Column(
             modifier = Modifier
@@ -72,20 +70,20 @@ fun EditCategoryScreen(
             MonoTabs(
                 state = uiState.currentTab,
                 titles = titles,
-                onSelect = { onEvent(AddEditCategoryEvent.SelectTab(it)) }
+                onSelect = { onEvent(AddAndEditCategoryEvent.SelectTab(it)) }
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonoTextField(
                 label = stringResource(id = R.string.category_name),
                 value = uiState.categoryName,
-                onValueChange = { onEvent(AddEditCategoryEvent.ChangeCategoryName(it)) }
+                onValueChange = { onEvent(AddAndEditCategoryEvent.ChangeCategoryNameAnd(it)) }
             )
             Spacer(modifier = Modifier.height(40.dp))
             MonoCategorySurface(
                 listCategoryUi = uiState.icons,
                 title = stringResource(id = R.string.icon),
                 selectedCategory = uiState.icons.firstOrNull { it.icon == uiState.icon }?.id ?: -1,
-                onClickItem = { onEvent(AddEditCategoryEvent.ChangeCategoryIcon(it)) }
+                onClickItem = { onEvent(AddAndEditCategoryEvent.ChangeCategoryIconAnd(it)) }
             )
             Spacer(modifier = Modifier.height(40.dp))
         }
@@ -96,9 +94,9 @@ fun EditCategoryScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewEditCategoryScreen() {
-    MonoApplicationTheme {
-        EditCategoryScreen(
-            uiState = AddEditCategoryUiState(
+    MonoApplicationTheme3 {
+        AddAndEditCategoryScreen(
+            uiState = AddAndEditCategoryUiState(
                 icons = listOf(
                     CategoryUi(
                         id = 0,
