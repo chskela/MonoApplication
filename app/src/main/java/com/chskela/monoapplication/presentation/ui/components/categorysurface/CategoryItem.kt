@@ -3,9 +3,7 @@ package com.chskela.monoapplication.presentation.ui.components.categorysurface
 import android.content.res.Configuration
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -27,10 +25,19 @@ fun CategoryItem(
     onClick: (Long) -> Unit = {},
     onLongClick: (Long) -> Unit = {},
 ) {
-    val borderColor =
-        if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
-    val contentColor =
-        if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
+    val (id, icon, title) = categoryUi
+
+    val borderColor = if (selected) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.secondary
+    }
+
+    val contentColor = if (selected) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.onSurface
+    }
 
     Box(
         modifier = modifier
@@ -40,32 +47,38 @@ fun CategoryItem(
                 color = borderColor,
                 shape = MaterialTheme.shapes.large
             )
-            .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.large)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = MaterialTheme.shapes.large
+            )
             .combinedClickable(
                 enabled = true,
-                onClick = { onClick(categoryUi.id) },
-                onLongClick = { onLongClick(categoryUi.id) },
+                onClick = { onClick(id) },
+                onLongClick = { onLongClick(id) },
                 onDoubleClick = {}
-                ),
+            ),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            categoryUi.icon?.let {
+            icon?.let {
                 Icon(
                     imageVector = ImageVector.vectorResource(
                         iconsMap.getOrDefault(it, R.drawable.category_bank)
                     ),
-                    contentDescription = categoryUi.title,
+                    contentDescription = title,
                     tint = contentColor
                 )
             }
 
-            categoryUi.title?.let {
+            if (icon != null && title != null) {
                 Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            title?.let {
                 Text(
-                    text = categoryUi.title,
-                    style = MaterialTheme.typography.caption,
+                    text = title,
+                    style = MaterialTheme.typography.bodySmall,
                     color = contentColor
                 )
             }
@@ -77,7 +90,7 @@ fun CategoryItem(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryItem() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         CategoryItem(
             categoryUi = CategoryUi(
                 id = 0,
@@ -93,7 +106,7 @@ fun PreviewCategoryItem() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryItemNoIcon() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         CategoryItem(categoryUi = CategoryUi(id = 0, title = "Add more"))
     }
 }
