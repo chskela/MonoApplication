@@ -4,8 +4,8 @@ import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -29,8 +29,8 @@ fun MonoCategorySurface(
         Column {
             Text(
                 text = title,
-                style = MaterialTheme.typography.body1.copy(fontSize = 14.sp),
-                color = MaterialTheme.colors.secondary,
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             if (listCategoryUi.isNotEmpty()) {
@@ -56,7 +56,7 @@ fun MonoCategorySurface(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewMonoCategorySurface() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         MonoCategorySurface(
             listCategoryUi = listOf(
                 CategoryUi(
