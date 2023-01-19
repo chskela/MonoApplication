@@ -1,7 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.bottomnavigation
 
 import android.content.res.Configuration
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,17 +21,17 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun MonoBottomNavigation(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.surface,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = contentColorFor(backgroundColor),
-    elevation: Dp = BottomNavigationDefaults.Elevation,
+    elevation: Dp = NavigationBarDefaults.Elevation,
     items: List<BottomMenuScreens> = emptyList(),
     navController: NavHostController,
 ) {
-    BottomNavigation(
+    NavigationBar(
         modifier = modifier,
-        backgroundColor = backgroundColor,
+        containerColor = backgroundColor,
         contentColor = contentColor,
-        elevation = elevation,
+        tonalElevation = elevation,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -40,8 +40,10 @@ fun MonoBottomNavigation(
             val label = stringResource(screen.label)
             val isSelected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
-            BottomNavigationItem(
-                unselectedContentColor = contentColor,
+            NavigationBarItem(
+                colors = NavigationBarItemDefaults.colors(
+                    unselectedTextColor = contentColor,
+                ),
                 icon = {
                     Icon(
                         imageVector = ImageVector.vectorResource(
@@ -50,7 +52,7 @@ fun MonoBottomNavigation(
                         contentDescription = label,
                     )
                 },
-                label = { Text(text = label, style = MaterialTheme.typography.overline) },
+                label = { Text(text = label, style = MaterialTheme.typography.labelSmall) },
                 selected = isSelected,
                 onClick = {
                     try {
