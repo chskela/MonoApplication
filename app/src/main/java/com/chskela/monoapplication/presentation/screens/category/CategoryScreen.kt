@@ -5,10 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreen(
     uiState: CategoryUiState,
@@ -33,13 +35,13 @@ fun CategoryScreen(
     onAddMore: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
-    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     fun onDeleteCategory(categoryId: Long) {
         onEvent(CategoryEvent.DeleteCategory(categoryId))
         scope.launch {
-            val result = scaffoldState.snackbarHostState.showSnackbar(
+            val result = snackbarHostState.showSnackbar(
                 message = "Category deleted",
                 actionLabel = "Undo"
             )
@@ -50,15 +52,14 @@ fun CategoryScreen(
     }
 
     Scaffold(
-        scaffoldState = scaffoldState,
         snackbarHost = {
-            SnackbarHost(hostState = it) { data ->
+            SnackbarHost(hostState = snackbarHostState) { data ->
                 Snackbar(
                     modifier = Modifier.padding(16.dp),
                     shape = MaterialTheme.shapes.large,
-                    backgroundColor = MaterialTheme.colors.background,
+                    containerColor = MaterialTheme.colorScheme.background,
                     action = {
-                        data.actionLabel?.let { it ->
+                        data.visuals.actionLabel?.let { it ->
                             Text(
                                 modifier = Modifier
                                     .clickable {
@@ -66,17 +67,17 @@ fun CategoryScreen(
                                     }
                                     .padding(8.dp),
                                 text = it.uppercase(),
-                                style = MaterialTheme.typography.body1
+                                style = MaterialTheme.typography.bodyLarge
                                     .copy(fontWeight = FontWeight.Bold),
-                                color = MaterialTheme.colors.primary
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
                 ) {
                     Text(
-                        text = data.message,
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.onBackground
+                        text = data.visuals.message,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
@@ -91,7 +92,7 @@ fun CategoryScreen(
                 Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_more))
             }
         },
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         Column(
             modifier = Modifier
