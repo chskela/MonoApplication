@@ -3,9 +3,9 @@ package com.chskela.monoapplication.presentation.ui.components.transactionList
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,14 +47,14 @@ fun MonoTransactionList(
                             Spacer(modifier = Modifier.size(12.dp))
                             Text(
                                 text = transactionUi.category,
-                                style = MaterialTheme.typography.body1,
-                                color = MaterialTheme.colors.onSurface,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
                             if (transactionUi.note.isNotBlank()) {
                                 Text(
                                     text = " (${transactionUi.note})",
-                                    style = MaterialTheme.typography.caption,
-                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                                     overflow = TextOverflow.Ellipsis,
                                     maxLines = 1
                                 )
@@ -77,7 +77,7 @@ fun MonoTransactionList(
 
                         Text(
                             text = "$prefix${currency}${transactionUi.amount}",
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             color = color
                         )
                     }
