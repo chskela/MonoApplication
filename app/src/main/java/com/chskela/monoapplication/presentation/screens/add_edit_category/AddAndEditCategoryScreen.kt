@@ -4,6 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +36,8 @@ fun AddAndEditCategoryScreen(
         topBar = {
             val titleId =
                 if (uiState.isNewCategory) R.string.add_category else R.string.edit_category
-            val actionTitleId = if (uiState.isNewCategory) R.string.add else R.string.save
+            val contentDescription = if (uiState.isNewCategory) R.string.add else R.string.save
+            val imageVector = if (uiState.isNewCategory) Icons.Default.Add else Icons.Default.Edit
 
             MonoTopAppBar(
                 title = stringResource(id = titleId),
@@ -48,9 +52,9 @@ fun AddAndEditCategoryScreen(
                         )
                         onBack()
                     }) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 12.dp),
-                            text = stringResource(id = actionTitleId)
+                        Icon(
+                            imageVector = imageVector,
+                            contentDescription = stringResource(id = contentDescription)
                         )
                     }
                 },
