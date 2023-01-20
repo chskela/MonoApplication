@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -25,7 +25,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -86,19 +86,19 @@ fun TransactionScreen(
                         stringResource(id = R.string.income)
                     },
                     value = uiState.amount,
-                    textStyle = MaterialTheme.typography.h1,
+                    textStyle = MaterialTheme.typography.displayLarge,
                     trailingIcon = {
                         Text(
                             text = uiState.currentCurrency.symbol,
-                            style = MaterialTheme.typography.h1,
-                            color = MaterialTheme.colors.onSurface
+                            style = MaterialTheme.typography.displayLarge,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     },
                     placeholder = {
                         Text(
                             text = "0.00",
-                            style = MaterialTheme.typography.h1,
-                            color = MaterialTheme.colors.secondaryVariant
+                            style = MaterialTheme.typography.displayLarge,
+                            color = MaterialTheme.colorScheme.secondary
                         )
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -113,8 +113,8 @@ fun TransactionScreen(
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.please_input),
-                            style = MaterialTheme.typography.subtitle2,
-                            color = MaterialTheme.colors.secondaryVariant
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.secondary
                         )
                     },
                     singleLine = false,
@@ -161,7 +161,7 @@ fun TransactionScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewTransactionScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         TransactionScreen(
             uiState = TransitionUiState(
                 listCategory = listOf(
