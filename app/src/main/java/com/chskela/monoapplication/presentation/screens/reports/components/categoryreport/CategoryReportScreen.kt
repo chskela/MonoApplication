@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun CategoryReportScreen(
@@ -48,7 +48,7 @@ fun CategoryReportScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryReportScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         CategoryReportScreen()
     }
 }
