@@ -4,13 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun BorderRow(
@@ -21,10 +21,13 @@ fun BorderRow(
         modifier = modifier
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = MaterialTheme.shapes.medium
             )
-            .background(color = MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = MaterialTheme.shapes.medium
+            )
             .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Column {
@@ -45,7 +48,7 @@ fun BorderRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewBorderRow() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         BorderRow(content = listOf {
             Text(text = "Current balance")
             Text(text = "\$40,710.00")
