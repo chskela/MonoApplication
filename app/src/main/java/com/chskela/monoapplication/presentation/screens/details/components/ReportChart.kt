@@ -5,7 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 import android.graphics.Color as AGColor
 import android.graphics.Paint as AGPaint
 import android.graphics.Path as AGPath
@@ -27,8 +27,8 @@ fun ReportChart(
     modifier: Modifier = Modifier,
     reportsList: List<ReportUi> = emptyList(),
     graphColor: Color = Expense,
-    textColor: Color = MaterialTheme.colors.secondary,
-    textStyle: TextStyle = MaterialTheme.typography.body1
+    textColor: Color = MaterialTheme.colorScheme.secondary,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge
 ) {
     val spacing = 50f
     val transparentGraphColor = remember {
@@ -132,7 +132,7 @@ data class ReportUi(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChart() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         ReportChart(
             Modifier.size(width = 300.dp, height = 150.dp),
             reportsList = listOf(
@@ -151,7 +151,7 @@ fun PreviewReportChart() {
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChartIncome() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         ReportChart(
             Modifier
                 .fillMaxWidth()
@@ -173,7 +173,7 @@ fun PreviewReportChartIncome() {
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChartIncomeEmpty() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         ReportChart(
             Modifier
                 .fillMaxWidth()
