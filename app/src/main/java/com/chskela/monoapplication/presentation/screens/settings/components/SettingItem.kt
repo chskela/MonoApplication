@@ -5,9 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.settings.models.SettingUiItem
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun SettingItem(
@@ -30,11 +30,11 @@ fun SettingItem(
             .height(height = 48.dp)
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = MaterialTheme.shapes.medium
             )
             .background(
-                color = MaterialTheme.colors.surface,
+                color = MaterialTheme.colorScheme.surface,
                 shape = MaterialTheme.shapes.medium
             )
             .clickable { settingUiItem.onClick() }
@@ -48,10 +48,12 @@ fun SettingItem(
                 contentDescription = "Category",
                 tint = settingUiItem.color
             )
-            Text(text = settingUiItem.title,
-                style = MaterialTheme.typography.body1,
+            Text(
+                text = settingUiItem.title,
+                style = MaterialTheme.typography.bodyLarge,
                 color = settingUiItem.color,
-                modifier = modifier.padding(start = 12.dp))
+                modifier = modifier.padding(start = 12.dp)
+            )
         }
 
         if (settingUiItem.rightIcon != null) {
@@ -69,13 +71,13 @@ fun SettingItem(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItem() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Category",
                 leftIcon = R.drawable.settings_squares_four,
                 rightIcon = R.drawable.settings_caret_circle_right,
-                color = MaterialTheme.colors.onSurface
+                color = MaterialTheme.colorScheme.onSurface
             )
         )
     }
@@ -85,27 +87,28 @@ fun PreviewSettingItem() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItemMode() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Dark mode",
                 leftIcon = R.drawable.settings_mode,
                 rightIcon = R.drawable.toggle_right,
-                color = MaterialTheme.colors.onSurface
+                color = MaterialTheme.colorScheme.onSurface
             )
         )
     }
 }
+
 @Preview(showBackground = true, name = "Light SettingItem - Delete")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItemDelete() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Delete All Data",
                 leftIcon = R.drawable.settings_trash,
-                color = MaterialTheme.colors.error
+                color = MaterialTheme.colorScheme.error
             )
         )
     }
