@@ -2,9 +2,10 @@ package com.chskela.monoapplication.presentation.screens.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,8 +25,9 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryReportDetailsScreen(
     uiState: CategoryReportDetailsUiState,
@@ -44,7 +46,7 @@ fun CategoryReportDetailsScreen(
                 onNavigation = onBack
             )
         },
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         Column(
             modifier = Modifier
@@ -72,15 +74,15 @@ fun CategoryReportDetailsScreen(
 
             Text(
                 text = stringResource(id = R.string.this_month),
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.secondary
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 text = "${uiState.currency}${uiState.sumThisMonth}",
-                style = MaterialTheme.typography.h1,
+                style = MaterialTheme.typography.displayLarge,
                 color = color
             )
 
@@ -108,7 +110,7 @@ fun CategoryReportDetailsScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryReportDetailsScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         CategoryReportDetailsScreen(
             uiState = CategoryReportDetailsUiState(
                 transactionList = listOf(
