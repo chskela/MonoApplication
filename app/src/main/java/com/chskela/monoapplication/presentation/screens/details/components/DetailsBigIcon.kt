@@ -3,9 +3,9 @@ package com.chskela.monoapplication.presentation.screens.details.components
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,8 +48,8 @@ fun DetailsBigIcon(
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.subtitle1,
-                color = MaterialTheme.colors.secondary
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }
