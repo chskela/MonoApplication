@@ -2,8 +2,8 @@ package com.chskela.monoapplication.presentation.screens.reports.components.mont
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,7 +17,7 @@ import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 import kotlin.math.absoluteValue
 
 @Composable
@@ -54,7 +54,7 @@ fun MonthReportScreen(
                     Text(text = stringResource(id = R.string.current_balance))
                     Text(
                         text = "${sign(currentBalance)}$currency${currentBalance.absoluteValue}",
-                        color = MaterialTheme.colors.primary
+                        color = MaterialTheme.colorScheme.primary
                     )
                 })
 
@@ -106,7 +106,7 @@ fun MonthReportScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonthReportScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         MonthReportScreen(
             currentData = "February, 2022",
             currency = "$",
