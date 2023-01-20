@@ -7,10 +7,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -29,21 +29,21 @@ fun DetailsTabs(
 ) {
     TabRow(
         modifier = Modifier
-            .size(height = 48.dp, width = 199.dp)
+            .size(height = 56.dp, width = 199.dp)
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = MaterialTheme.shapes.small
             )
             .background(
-                color = MaterialTheme.colors.surface,
+                color = MaterialTheme.colorScheme.surface,
                 shape = MaterialTheme.shapes.small
             )
             .padding(4.dp),
         selectedTabIndex = 1,
         indicator = @Composable { },
         divider = {},
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) {
         listOf(
             stringResource(id = R.string.month),
@@ -52,16 +52,16 @@ fun DetailsTabs(
             val selected = state == index
             val color: Color by animateColorAsState(
                 targetValue = if (selected) {
-                    MaterialTheme.colors.onSurface
+                    MaterialTheme.colorScheme.onSurface
                 } else {
-                    MaterialTheme.colors.secondary
+                    MaterialTheme.colorScheme.secondary
                 }
             )
             val background: Color by animateColorAsState(
                 targetValue = if (selected) {
-                    MaterialTheme.colors.background
+                    MaterialTheme.colorScheme.background
                 } else {
-                    MaterialTheme.colors.surface
+                    MaterialTheme.colorScheme.surface
                 },
             )
             val shape = if (index == 0) {
@@ -78,7 +78,7 @@ fun DetailsTabs(
                 text = {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.body1,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = color
                     )
                 },
