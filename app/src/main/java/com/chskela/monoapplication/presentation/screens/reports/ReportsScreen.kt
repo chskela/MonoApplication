@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -26,8 +23,9 @@ import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.screens.reports.components.dropchoice.DropChoice
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportsScreen(
     uiState: ReportsUiState,
@@ -45,14 +43,14 @@ fun ReportsScreen(
                     IconButton(onClick = { onEvent(ReportsEvent.ToggleVisible) }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.caret_down),
-                            tint = MaterialTheme.colors.secondary,
-                            contentDescription = "caret down"
+                            tint = MaterialTheme.colorScheme.secondary,
+                            contentDescription = stringResource(R.string.caret_down)
                         )
                     }
                 }
             )
         },
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         ConstraintLayout(
             modifier = Modifier
@@ -88,11 +86,12 @@ fun ReportsScreen(
                 }
             }
 
-            AnimatedVisibility(modifier = Modifier
-                .constrainAs(modal) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end, margin = 16.dp)
-                }, visible = uiState.isVisibleModal
+            AnimatedVisibility(
+                modifier = Modifier
+                    .constrainAs(modal) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end, margin = 16.dp)
+                    }, visible = uiState.isVisibleModal
             ) {
                 DropChoice(
                     items = listOf(
@@ -114,7 +113,7 @@ fun ReportsScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportsScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         ReportsScreen(
             uiState = ReportsUiState()
         )

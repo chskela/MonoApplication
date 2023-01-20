@@ -106,5 +106,6 @@
     <string name="category_user">User</string>
     <string name="category_wallet">Wallet</string>
     <string name="category_wc">WC</string>
+    <string name="caret_down">caret down</string>
 
 </resources>
