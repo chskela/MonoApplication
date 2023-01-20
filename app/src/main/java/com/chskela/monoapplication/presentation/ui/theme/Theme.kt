@@ -4,45 +4,17 @@ package com.chskela.monoapplication.presentation.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
-import androidx.compose.material3.MaterialTheme as MaterialTheme3
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
-
-private val DarkColorPalette = darkColors(
-    primary = Branding,
-    onPrimary = White,
-    secondary = SecondaryDark,
-    background = BackgroundDark,
-    error = Red,
-    onError = White,
-    surface = BlackDark,
-    onSurface = PrimaryDark,
-    secondaryVariant = GrayDark
-)
-
-private val LightColorPalette = lightColors(
-    primary = Branding,
-    onPrimary = White,
-    secondary = Secondary,
-    background = Background,
-    error = Red,
-    onError = White,
-    surface = White,
-    onSurface = Primary,
-    secondaryVariant = Gray,
-
-    )
+import androidx.compose.material3.MaterialTheme as MaterialTheme3
 
 private val DarkColorScheme = darkColorScheme(
     primary = Branding,
@@ -61,26 +33,6 @@ private val LightColorScheme = lightColorScheme(
     error = Red,
     onError = White,
 )
-
-@Composable
-fun MonoApplicationTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
-) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
-    MaterialTheme(
-        colors = colors,
-        typography = TypographyRoboto,
-        shapes = Shapes,
-        content = content
-    )
-}
-
 
 @Composable
 fun MonoApplicationTheme3(
