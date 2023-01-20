@@ -7,8 +7,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun DropChoice(
@@ -33,11 +33,11 @@ fun DropChoice(
         modifier = modifier
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = shape
             )
             .background(
-                color = MaterialTheme.colors.surface,
+                color = MaterialTheme.colorScheme.surface,
                 shape = shape
             )
             .padding(horizontal = 24.dp),
@@ -49,9 +49,9 @@ fun DropChoice(
             val selected = state.info == index
             val color: Color by animateColorAsState(
                 targetValue = if (selected) {
-                    MaterialTheme.colors.primary
+                    MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colors.onSurface
+                    MaterialTheme.colorScheme.onSurface
                 }
             )
             Text(
@@ -69,7 +69,7 @@ fun DropChoice(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = false)
 @Composable
 fun PreviewDropChoice() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         DropChoice(
             items = listOf(
                 stringResource(id = R.string.monthly),
