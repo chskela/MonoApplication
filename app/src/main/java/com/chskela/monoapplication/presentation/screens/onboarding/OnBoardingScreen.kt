@@ -3,10 +3,10 @@ package com.chskela.monoapplication.presentation.screens.onboarding
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +22,7 @@ import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoar
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingUiState
 import com.chskela.monoapplication.presentation.screens.onboarding.models.Pages
 import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun OnBoardingActivityScreen(
@@ -63,8 +63,8 @@ fun OnBoardingScreen(
                 ) {
                     Text(
                         text = "${page.pageNumber}/3",
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.onSurface
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     if (uiState.skip) {
@@ -77,8 +77,8 @@ fun OnBoardingScreen(
                         ) {
                             Text(
                                 text = "Skip",
-                                style = MaterialTheme.typography.body1,
-                                color = MaterialTheme.colors.onSurface
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }
@@ -94,12 +94,12 @@ fun OnBoardingScreen(
                 )
                 Text(
                     text = stringResource(title),
-                    style = MaterialTheme.typography.h2,
-                    color = MaterialTheme.colors.onSurface
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = stringResource(id = body),
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
             MonoButton(
@@ -121,7 +121,7 @@ fun OnBoardingScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewOnBoardingScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         OnBoardingScreen(
             uiState = OnBoardingUiState(
                 onBoardingPage = OnBoardingPage(
