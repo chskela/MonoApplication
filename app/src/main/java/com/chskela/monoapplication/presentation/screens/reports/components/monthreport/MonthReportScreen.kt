@@ -17,6 +17,8 @@ import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
+import com.chskela.monoapplication.presentation.ui.theme.Expense
+import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 import kotlin.math.absoluteValue
 
@@ -51,10 +53,13 @@ fun MonthReportScreen(
                 Spacer(modifier = Modifier.size(24.dp))
 
                 BorderRow(content = listOf {
-                    Text(text = stringResource(id = R.string.current_balance))
+                    Text(
+                        text = stringResource(id = R.string.current_balance),
+                        color = MaterialTheme.colorScheme.secondary
+                    )
                     Text(
                         text = "${sign(currentBalance)}$currency${currentBalance.absoluteValue}",
-                        color = MaterialTheme.colorScheme.primary
+                        color = if (currentBalance >= 0) Income else Expense
                     )
                 })
 
@@ -62,12 +67,18 @@ fun MonthReportScreen(
 
                 BorderRow(content = listOf(
                     {
-                        Text(text = incomeStr)
+                        Text(
+                            text = incomeStr,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                         Text(text = "$currency$income")
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
-                        Text(text = expenseStr)
+                        Text(
+                            text = expenseStr,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                         Text(text = "-$currency$expense")
                     }
                 ))
@@ -76,12 +87,18 @@ fun MonthReportScreen(
 
                 BorderRow(content = listOf(
                     {
-                        Text(text = "$expenseStr/$incomeStr")
+                        Text(
+                            text = "$expenseStr/$incomeStr",
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                         Text(text = "${sign(expenseIncome)}$currency${expenseIncome.absoluteValue}")
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
-                        Text(text = stringResource(id = R.string.previous_balance))
+                        Text(
+                            text = stringResource(id = R.string.previous_balance),
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                         Text(text = "$currency${previousBalance}")
                     }
                 ))
