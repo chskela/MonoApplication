@@ -1,10 +1,11 @@
 package com.chskela.monoapplication.presentation
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -23,20 +24,21 @@ import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingAct
 import com.chskela.monoapplication.presentation.screens.transaction.TransactionScreen
 import com.chskela.monoapplication.presentation.screens.transaction.TransitionViewModel
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MonoApp(onBoardingIsSkip: Boolean) {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 
         val systemUiController = rememberSystemUiController()
-        val darkIcons = MaterialTheme.colors.isLight
-        val color = MaterialTheme.colors.surface
+        val darkIcons = !isSystemInDarkTheme()
+        val color = MaterialTheme.colorScheme.surface
         SideEffect {
             systemUiController.setSystemBarsColor(color, darkIcons = darkIcons)
         }
@@ -53,10 +55,7 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
             MonoScreens.Transaction.name
         }
 
-        val scaffoldState = rememberScaffoldState()
-
         Scaffold(
-            scaffoldState = scaffoldState,
             modifier = Modifier.fillMaxHeight(),
             bottomBar = {
                 when (currentDestination?.route) {
@@ -68,7 +67,7 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
                     )
                 }
             },
-            backgroundColor = MaterialTheme.colors.surface
+            containerColor = MaterialTheme.colorScheme.surface
         ) { padding ->
             NavHost(
                 modifier = Modifier.padding(padding),

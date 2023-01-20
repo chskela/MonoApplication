@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.chskela.monoapplication.presentation.navigation.BottomMenuScreens
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun MonoBottomNavigation(
@@ -75,7 +75,7 @@ fun MonoBottomNavigation(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoBottomNavigation() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         Surface {
             MonoBottomNavigation(navController = rememberNavController())
         }
