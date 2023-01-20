@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
 
 @Composable
 fun CurrencyActivityScreen(
@@ -35,6 +35,7 @@ fun CurrencyActivityScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrencyScreen(
     uiState: CurrencyUiState,
@@ -45,11 +46,13 @@ fun CurrencyScreen(
         topBar = {
             MonoTopAppBar(title = stringResource(id = R.string.currency), onNavigation = onBack)
         },
-        backgroundColor = MaterialTheme.colors.surface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
-        LazyColumn(modifier = Modifier
-            .padding(padding)
-            .selectableGroup()) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(padding)
+                .selectableGroup()
+        ) {
             items(uiState.currencyList) { currency ->
                 Row(
                     Modifier
@@ -66,7 +69,7 @@ fun CurrencyScreen(
                     RadioButton(
                         selected = (currency.id == uiState.selectedCurrency),
                         onClick = null,// null recommended for accessibility with screen readers
-                        colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary)
+                        colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary)
                     )
 
                     Box(
@@ -74,14 +77,14 @@ fun CurrencyScreen(
                             .padding(start = 16.dp)
                             .size(32.dp)
                             .border(
-                                width = 1.dp, color = MaterialTheme.colors.secondaryVariant,
+                                width = 1.dp, color = MaterialTheme.colorScheme.secondary,
                                 shape = RoundedCornerShape(4.dp)
                             ),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = currency.symbol,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     }
                     Row(
@@ -90,13 +93,13 @@ fun CurrencyScreen(
                     ) {
                         Text(
                             text = "${currency.symbol} 100.00",
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 16.dp)
                         )
 
                         Text(
                             text = currency.letterCode,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 16.dp)
                         )
                     }
@@ -111,7 +114,7 @@ fun CurrencyScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCurrencyScreen() {
-    MonoApplicationTheme {
+    MonoApplicationTheme3 {
         CurrencyScreen(
             uiState = CurrencyUiState(
                 currencyList = listOf(
