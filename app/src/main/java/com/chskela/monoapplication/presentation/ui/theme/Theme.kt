@@ -105,7 +105,7 @@ fun MonoApplicationTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        shapes = Shapes3,
+        shapes = Shapes,
         content = content
     )
 }
