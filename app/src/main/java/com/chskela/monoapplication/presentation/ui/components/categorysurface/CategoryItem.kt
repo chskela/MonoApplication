@@ -48,7 +48,7 @@ fun CategoryItem(
                 shape = MaterialTheme.shapes.large
             )
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.secondaryContainer,
                 shape = MaterialTheme.shapes.large
             )
             .combinedClickable(
