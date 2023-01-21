@@ -23,7 +23,7 @@ import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
 import com.chskela.monoapplication.presentation.screens.reports.components.dropchoice.DropChoice
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,7 +113,7 @@ fun ReportsScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportsScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         ReportsScreen(
             uiState = ReportsUiState()
         )

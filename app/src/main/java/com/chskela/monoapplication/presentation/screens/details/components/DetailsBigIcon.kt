@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.ui.theme.Expense
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DetailsBigIcon(
@@ -59,7 +59,7 @@ fun DetailsBigIcon(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewDetailsBigIcon() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         DetailsBigIcon(title = "Title", color = Expense)
     }
 }

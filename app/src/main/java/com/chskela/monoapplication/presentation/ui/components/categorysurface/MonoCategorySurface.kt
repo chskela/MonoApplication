@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -56,7 +56,7 @@ fun MonoCategorySurface(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewMonoCategorySurface() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         MonoCategorySurface(
             listCategoryUi = listOf(
                 CategoryUi(

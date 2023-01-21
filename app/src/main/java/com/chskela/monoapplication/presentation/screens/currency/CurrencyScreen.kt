@@ -21,7 +21,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun CurrencyActivityScreen(
@@ -114,7 +114,7 @@ fun CurrencyScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCurrencyScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CurrencyScreen(
             uiState = CurrencyUiState(
                 currencyList = listOf(

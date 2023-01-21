@@ -20,7 +20,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -78,7 +78,7 @@ fun MonoDateRange(currentDate: String, onPrevious: () -> Unit = {}, onNext: () -
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryItem() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         MonoDateRange(currentDate = "January, 2023")
     }
 }

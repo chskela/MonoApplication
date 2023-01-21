@@ -22,7 +22,7 @@ import com.chskela.monoapplication.presentation.screens.category.models.Category
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.MonoCategorySurface
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -122,7 +122,7 @@ fun CategoryScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CategoryScreen(
             uiState = CategoryUiState(
                 expenseList = listOf(

@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun BorderRow(
@@ -48,7 +48,7 @@ fun BorderRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewBorderRow() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         BorderRow(content = listOf {
             Text(text = "Current balance")
             Text(text = "\$40,710.00")

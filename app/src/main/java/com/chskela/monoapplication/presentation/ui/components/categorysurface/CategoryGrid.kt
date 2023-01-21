@@ -7,7 +7,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlin.math.ceil
 
 @Composable
@@ -45,7 +45,7 @@ fun CategoryGrid(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewCategoryGrid() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CategoryGrid {
             listOf(
                 CategoryUi(

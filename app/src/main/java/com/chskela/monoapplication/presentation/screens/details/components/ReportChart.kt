@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import android.graphics.Color as AGColor
 import android.graphics.Paint as AGPaint
 import android.graphics.Path as AGPath
@@ -132,7 +132,7 @@ data class ReportUi(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChart() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         ReportChart(
             Modifier.size(width = 300.dp, height = 150.dp),
             reportsList = listOf(
@@ -151,7 +151,7 @@ fun PreviewReportChart() {
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChartIncome() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         ReportChart(
             Modifier
                 .fillMaxWidth()
@@ -173,7 +173,7 @@ fun PreviewReportChartIncome() {
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewReportChartIncomeEmpty() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         ReportChart(
             Modifier
                 .fillMaxWidth()

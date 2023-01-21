@@ -15,7 +15,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.settings.components.SettingItem
 import com.chskela.monoapplication.presentation.screens.settings.models.SettingUiItem
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun SettingsActivityScreen(
@@ -87,7 +87,7 @@ fun SettingsScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingsScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         SettingsScreen()
     }
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.settings.models.SettingUiItem
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun SettingItem(
@@ -71,7 +71,7 @@ fun SettingItem(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItem() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Category",
@@ -87,7 +87,7 @@ fun PreviewSettingItem() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItemMode() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Dark mode",
@@ -103,7 +103,7 @@ fun PreviewSettingItemMode() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSettingItemDelete() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         SettingItem(
             settingUiItem = SettingUiItem(
                 title = "Delete All Data",

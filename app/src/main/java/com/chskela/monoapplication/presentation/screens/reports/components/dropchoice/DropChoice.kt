@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DropChoice(
@@ -69,7 +69,7 @@ fun DropChoice(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = false)
 @Composable
 fun PreviewDropChoice() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         DropChoice(
             items = listOf(
                 stringResource(id = R.string.monthly),

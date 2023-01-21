@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -90,7 +90,7 @@ fun CategoryItem(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryItem() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CategoryItem(
             categoryUi = CategoryUi(
                 id = 0,
@@ -106,7 +106,7 @@ fun PreviewCategoryItem() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryItemNoIcon() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CategoryItem(categoryUi = CategoryUi(id = 0, title = "Add more"))
     }
 }

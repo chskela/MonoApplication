@@ -25,7 +25,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -161,7 +161,7 @@ fun TransactionScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewTransactionScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         TransactionScreen(
             uiState = TransitionUiState(
                 listCategory = listOf(

@@ -19,7 +19,7 @@ import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import kotlin.math.absoluteValue
 
 @Composable
@@ -123,7 +123,7 @@ fun MonthReportScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonthReportScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         MonthReportScreen(
             currentData = "February, 2022",
             currency = "$",

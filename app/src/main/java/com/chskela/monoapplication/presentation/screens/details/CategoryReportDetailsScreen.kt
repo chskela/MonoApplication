@@ -25,7 +25,7 @@ import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopA
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,7 +110,7 @@ fun CategoryReportDetailsScreen(
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoryReportDetailsScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         CategoryReportDetailsScreen(
             uiState = CategoryReportDetailsUiState(
                 transactionList = listOf(

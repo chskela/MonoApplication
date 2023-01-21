@@ -24,13 +24,13 @@ import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingAct
 import com.chskela.monoapplication.presentation.screens.transaction.TransactionScreen
 import com.chskela.monoapplication.presentation.screens.transaction.TransitionViewModel
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MonoApp(onBoardingIsSkip: Boolean) {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()

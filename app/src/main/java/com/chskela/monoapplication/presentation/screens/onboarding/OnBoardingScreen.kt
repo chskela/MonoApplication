@@ -22,7 +22,7 @@ import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoar
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingUiState
 import com.chskela.monoapplication.presentation.screens.onboarding.models.Pages
 import com.chskela.monoapplication.presentation.ui.components.button.MonoButton
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun OnBoardingActivityScreen(
@@ -121,7 +121,7 @@ fun OnBoardingScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewOnBoardingScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         OnBoardingScreen(
             uiState = OnBoardingUiState(
                 onBoardingPage = OnBoardingPage(

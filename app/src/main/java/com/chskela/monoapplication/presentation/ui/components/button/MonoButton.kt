@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun MonoButton(
@@ -45,7 +45,7 @@ fun MonoButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButton() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         Surface {
             MonoButton(text = "Submit")
         }
@@ -57,7 +57,7 @@ fun PreviewMonoButton() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonError() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         Surface {
             MonoButton(text = "Submit", isPrimary = false)
         }
@@ -68,7 +68,7 @@ fun PreviewMonoButtonError() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoButtonDisable() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         Surface {
             MonoButton(text = "Submit", enabled = false)
         }

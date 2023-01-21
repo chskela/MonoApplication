@@ -21,7 +21,7 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Mo
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.textfield.MonoTextField
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,7 +98,7 @@ fun AddAndEditCategoryScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewEditCategoryScreen() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         AddAndEditCategoryScreen(
             uiState = AddAndEditCategoryUiState(
                 icons = listOf(

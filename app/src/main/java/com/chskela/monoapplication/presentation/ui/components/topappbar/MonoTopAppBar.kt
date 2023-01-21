@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme3
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +59,7 @@ fun MonoTopAppBar(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoTopAppBar() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         MonoTopAppBar(title = "Currency")
     }
 }
@@ -68,7 +68,7 @@ fun PreviewMonoTopAppBar() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMonoTopAppBarNoBack() {
-    MonoApplicationTheme3 {
+    MonoApplicationTheme {
         MonoTopAppBar(title = "Currency", navigationIcon = {
             Spacer(modifier = Modifier.size(48.dp))
         })
