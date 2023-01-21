@@ -97,7 +97,7 @@ fun MonoApplicationTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
+            (view.context as Activity).window.statusBarColor = colorScheme.secondaryContainer.toArgb()
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
     }
