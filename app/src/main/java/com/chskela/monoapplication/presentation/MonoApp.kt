@@ -1,14 +1,11 @@
 package com.chskela.monoapplication.presentation
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -25,7 +22,6 @@ import com.chskela.monoapplication.presentation.screens.transaction.TransactionS
 import com.chskela.monoapplication.presentation.screens.transaction.TransitionViewModel
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,13 +31,6 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-
-        val systemUiController = rememberSystemUiController()
-        val darkIcons = !isSystemInDarkTheme()
-        val color = MaterialTheme.colorScheme.surface
-        SideEffect {
-            systemUiController.setSystemBarsColor(color, darkIcons = darkIcons)
-        }
 
         val menuList = listOf(
             BottomMenuScreens.Transaction,

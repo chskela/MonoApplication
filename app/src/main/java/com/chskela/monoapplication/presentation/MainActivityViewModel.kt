@@ -6,12 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.onboarding.usecase.OnBoardingIsSkipUseCase
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-   onBoardingIsSkipUseCase: OnBoardingIsSkipUseCase
+    onBoardingIsSkipUseCase: OnBoardingIsSkipUseCase
 ) : ViewModel() {
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
@@ -21,9 +21,11 @@ class MainActivityViewModel @Inject constructor(
         private set
 
     init {
-        onBoardingIsSkipUseCase().onEach {
-            onBoardingIsSkip.value = it
+        viewModelScope.launch(Dispatchers.IO) {
+            onBoardingIsSkipUseCase().collect {
+              onBoardingIsSkip.value = it
+            }
             _isLoading.value = false
-        }.launchIn(viewModelScope)
+        }
     }
 }
