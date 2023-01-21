@@ -30,7 +30,7 @@ fun MonoDateRange(currentDate: String, onPrevious: () -> Unit = {}, onNext: () -
             .height(48.dp)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.secondaryContainer,
                 shape = MaterialTheme.shapes.small
             )
             .padding(4.dp),
