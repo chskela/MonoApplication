@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.ui.components.transactionList
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,12 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
+import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun MonoTransactionList(
@@ -28,19 +31,33 @@ fun MonoTransactionList(
     Row(modifier = modifier) {
         LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
             items(items = transactionList) { transactionUi ->
+                val prefix = when (transactionUi.type) {
+                    TypeTransaction.Expense -> "-"
+                    TypeTransaction.Income -> "+"
+                }
+                val color = when (transactionUi.type) {
+                    TypeTransaction.Expense -> Expense
+                    TypeTransaction.Income -> Income
+                }
+                val icon = iconsMap[transactionUi.icon]
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    // TODO настроить размер колонок
                     Column(modifier = Modifier.weight(0.7f)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            val icon = iconsMap[transactionUi.icon]
+                        Row(
+                            modifier = Modifier.height(32.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             icon?.let { id ->
                                 Icon(
                                     imageVector = ImageVector.vectorResource(id = id),
-                                    contentDescription = transactionUi.category
+                                    contentDescription = transactionUi.category,
+                                    tint = MaterialTheme.colorScheme.primary
                                 )
                             }
 
@@ -49,6 +66,7 @@ fun MonoTransactionList(
                                 text = transactionUi.category,
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurface,
+                                maxLines = 1
                             )
                             if (transactionUi.note.isNotBlank()) {
                                 Text(
@@ -61,28 +79,57 @@ fun MonoTransactionList(
                             }
                         }
                     }
+
                     Column(
-                        modifier = Modifier.weight(0.3f),
-                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.weight(0.4f),
                         horizontalAlignment = Alignment.End
                     ) {
-                        val prefix = when (transactionUi.type) {
-                            TypeTransaction.Expense -> "-"
-                            TypeTransaction.Income -> "+"
+                        Box(
+                            modifier = Modifier.height(32.dp),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            // TODO форматирование amount
+                            Text(
+                                text = "$prefix${transactionUi.amount} $currency",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = color,
+                                maxLines = 1
+                            )
                         }
-                        val color = when (transactionUi.type) {
-                            TypeTransaction.Expense -> Expense
-                            TypeTransaction.Income -> Income
-                        }
-
-                        Text(
-                            text = "$prefix${currency}${transactionUi.amount}",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = color
-                        )
                     }
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Light MonoTopAppBar")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewMonoTopAppBar() {
+    MonoApplicationTheme {
+        MonoTransactionList(
+            transactionList = listOf(
+                TransactionUi(
+                    id = 1,
+                    timestamp = 1,
+                    amount = 1053345.0,
+                    note = "test1sdgsdfgsdgsdfgsdafgsdfgsdfgsdfgsdfgsdfgsdfsdvsfdfvs",
+                    type = TypeTransaction.Expense,
+                    category = "test",
+                    icon = "baby"
+                ),
+                TransactionUi(
+                    id = 1,
+                    timestamp = 1,
+                    amount = 10.0,
+                    note = "test1",
+                    type = TypeTransaction.Income,
+                    category = "test",
+                    icon = "baby"
+                ),
+            ),
+            currency = "$"
+        )
     }
 }
