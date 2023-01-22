@@ -20,6 +20,10 @@ fun MonoButton(
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit = {},
 ) {
+    val (containerColor, contentColor) = if (isPrimary) {
+        MaterialTheme.colorScheme.primary to MaterialTheme.colorScheme.onPrimary
+    } else MaterialTheme.colorScheme.error to MaterialTheme.colorScheme.onError
+
     Button(
         modifier = modifier
             .height(48.dp)
@@ -27,9 +31,8 @@ fun MonoButton(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isPrimary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
-            disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            disabledContentColor = MaterialTheme.colorScheme.secondary
+            containerColor = containerColor,
+            contentColor = contentColor,
         )
     ) {
         text?.let {
