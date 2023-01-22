@@ -35,7 +35,7 @@ fun MonoDateRange(
             .height(48.dp)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
+                color = MaterialTheme.colorScheme.primary,
                 shape = MaterialTheme.shapes.small
             )
             .padding(4.dp),
@@ -47,7 +47,8 @@ fun MonoDateRange(
             contentDescription = stringResource(id = R.string.previous_day),
             modifier = Modifier
                 .clip(shape = CircleShape)
-                .clickable { onPrevious() }
+                .clickable { onPrevious() },
+            tint = MaterialTheme.colorScheme.onPrimary
         )
         AnimatedContent(
             targetState = currentDate,
@@ -66,7 +67,7 @@ fun MonoDateRange(
             Text(
                 text = currentDate,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
         Icon(
@@ -74,7 +75,8 @@ fun MonoDateRange(
             contentDescription = stringResource(id = R.string.next_day),
             modifier = Modifier
                 .clip(shape = CircleShape)
-                .clickable { onNext() }
+                .clickable { onNext() },
+            tint = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
