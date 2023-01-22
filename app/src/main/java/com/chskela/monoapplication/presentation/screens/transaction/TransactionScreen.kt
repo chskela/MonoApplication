@@ -59,6 +59,7 @@ fun TransactionScreen(
             MonoDateRange(
                 modifier = Modifier
                     .zIndex(100f)
+                    .padding(horizontal = 16.dp)
                     .constrainAs(dataRange) {
                         top.linkTo(tabs.bottom, margin = 16.dp)
                         start.linkTo(parent.start)
