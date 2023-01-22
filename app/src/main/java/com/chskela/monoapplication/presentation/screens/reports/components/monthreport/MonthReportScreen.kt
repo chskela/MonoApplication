@@ -31,7 +31,7 @@ fun MonthReportScreen(
     expense: Double = 0.0,
     expenseIncome: Double = 0.0,
     previousBalance: Double = 0.0,
-    currentTab: Int = 1,
+    currentTab: Int = 0,
     transactionList: List<TransactionUi> = emptyList(),
     onEvent: (ReportsEvent) -> Unit = {},
 ) {

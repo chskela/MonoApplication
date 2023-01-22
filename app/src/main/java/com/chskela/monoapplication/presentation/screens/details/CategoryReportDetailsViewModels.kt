@@ -82,7 +82,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
                             )
                         }
                     )
-                }.flowOn((Dispatchers.IO)).launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
             }
         }
     }
