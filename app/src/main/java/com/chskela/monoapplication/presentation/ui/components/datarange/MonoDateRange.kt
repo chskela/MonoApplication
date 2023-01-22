@@ -24,9 +24,14 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MonoDateRange(currentDate: String, onPrevious: () -> Unit = {}, onNext: () -> Unit = {}) {
+fun MonoDateRange(
+    modifier: Modifier = Modifier,
+    currentDate: String,
+    onPrevious: () -> Unit = {},
+    onNext: () -> Unit = {}
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .height(48.dp)
             .fillMaxWidth()
             .background(
