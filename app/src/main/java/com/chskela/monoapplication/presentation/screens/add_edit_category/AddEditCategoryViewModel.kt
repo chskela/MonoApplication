@@ -12,6 +12,8 @@ import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddAndEditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -72,6 +74,7 @@ class AddEditCategoryViewModel @Inject constructor(
 
             is AddAndEditCategoryEvent.GetCategoryAnd -> {
                 categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
+                    .flowOn(Dispatchers.IO)
                     .onEach { category ->
                         uiState.value = uiState.value.copy(
                             isNewCategory = false,
@@ -84,7 +87,7 @@ class AddEditCategoryViewModel @Inject constructor(
             }
 
             is AddAndEditCategoryEvent.UpdateCategoryAnd -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     categoryUseCases.updateCategoryUseCase(
                         Category(
                             id = uiState.value.id,
@@ -97,7 +100,7 @@ class AddEditCategoryViewModel @Inject constructor(
             }
 
             is AddAndEditCategoryEvent.AddAndCategory -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     categoryUseCases.addCategoryUseCase(
                         Category(
                             id = 0,

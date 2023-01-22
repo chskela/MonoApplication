@@ -14,7 +14,9 @@ import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.transaction.models.TransitionUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -72,7 +74,7 @@ class TransitionViewModel @Inject constructor(
                 uiState.value = uiState.value.copy(currentCategory = event.categoryId)
                 uiState.value = uiState.value.copy(enabledButton = isEnabled())
             }
-            is TransitionEvent.Submit -> viewModelScope.launch {
+            is TransitionEvent.Submit -> viewModelScope.launch(Dispatchers.IO) {
                 transactionUseCases.addTransactionUseCase(
                     Transaction(
                         id = 0,
@@ -116,6 +118,7 @@ class TransitionViewModel @Inject constructor(
 
     private fun initialUiStateFromStore() {
         categoryUseCases.getAllCategoryUseCase()
+            .flowOn(Dispatchers.IO)
             .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, id ->
                 expenseList = list
                     .filter { category -> category.type == TypeCategory.Expense }

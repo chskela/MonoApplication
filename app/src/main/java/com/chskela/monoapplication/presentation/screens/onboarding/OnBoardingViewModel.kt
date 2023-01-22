@@ -10,6 +10,7 @@ import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoar
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingUiState
 import com.chskela.monoapplication.presentation.screens.onboarding.models.Pages
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -67,7 +68,7 @@ class OnBoardingViewModel @Inject constructor(
     }
 
     private fun setOnBoardingIsSkip() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             setOnBoardingIsSkipUseCase()
         }
     }
