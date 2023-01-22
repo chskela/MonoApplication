@@ -77,7 +77,11 @@ fun MonoBottomNavigation(
 fun PreviewMonoBottomNavigation() {
     MonoApplicationTheme {
         Surface {
-            MonoBottomNavigation(navController = rememberNavController())
+            MonoBottomNavigation(navController = rememberNavController(),
+                items = List(3) {
+                    BottomMenuScreens.Transaction
+                }
+            )
         }
     }
 }
