@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.currency.models.Currency
@@ -35,15 +36,13 @@ fun TransactionScreen(
 ) {
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
-
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
 
     BoxWithConstraints {
-        val heightBottomBar = 48.dp
-        val heightScrollableColumn = maxHeight - heightBottomBar
+        val heightScrollableColumn = maxHeight
 
         ConstraintLayout {
-            val (tabs, rows, button) = createRefs()
+            val (tabs, dataRange, rows, button) = createRefs()
 
             MonoTabs(
                 modifier = Modifier
@@ -57,27 +56,32 @@ fun TransactionScreen(
                 onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
             )
 
+            MonoDateRange(
+                modifier = Modifier
+                    .zIndex(100f)
+                    .constrainAs(dataRange) {
+                        top.linkTo(tabs.bottom, margin = 16.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                currentDate = uiState.currentData,
+                onPrevious = { onEvent(TransitionEvent.PreviousData) },
+                onNext = { onEvent(TransitionEvent.NextData) }
+            )
+
             Column(modifier = Modifier
                 .height(height = heightScrollableColumn)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(scrollState)
                 .constrainAs(rows) {
-                    top.linkTo(tabs.bottom)
+                    top.linkTo(tabs.bottom, margin = 48.dp)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
             ) {
 
-                Spacer(modifier = Modifier.height(24.dp))
-
-                MonoDateRange(
-                    currentDate = uiState.currentData,
-                    onPrevious = { onEvent(TransitionEvent.PreviousData) },
-                    onNext = { onEvent(TransitionEvent.NextData) }
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(72.dp))
 
                 MonoTextField(
                     label = if (uiState.currentTab == 0) {
@@ -105,7 +109,7 @@ fun TransactionScreen(
                     onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 MonoTextField(
                     label = stringResource(id = R.string.note),
@@ -122,7 +126,7 @@ fun TransactionScreen(
                     onValueChange = { onEvent(TransitionEvent.ChangeNote(it)) },
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 MonoCategorySurface(
                     listCategoryUi = uiState.listCategory,
@@ -141,7 +145,7 @@ fun TransactionScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .constrainAs(button) {
-                        bottom.linkTo(parent.bottom, margin = 18.dp)
+                        bottom.linkTo(parent.bottom, margin = 16.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
@@ -154,7 +158,6 @@ fun TransactionScreen(
             )
         }
     }
-
 }
 
 @Preview(showBackground = true, name = "Light TransactionScreen", showSystemUi = true)
@@ -164,53 +167,13 @@ fun PreviewTransactionScreen() {
     MonoApplicationTheme {
         TransactionScreen(
             uiState = TransitionUiState(
-                listCategory = listOf(
+                listCategory = List(12) {
                     CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 1,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 2,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 3,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 4,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 5,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 6,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 7,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 8,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 9,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 10,
+                        id = it.toLong(),
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
                     )
-                ),
+                },
                 currentCurrency = Currency(
                     id = 1,
                     name = "Ruble",
