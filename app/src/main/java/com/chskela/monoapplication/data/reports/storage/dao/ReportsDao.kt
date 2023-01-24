@@ -14,4 +14,7 @@ interface ReportsDao {
 
     @Query("SELECT T.id, T.timestamp, T.amount, T.note, T.category_id FROM 'transaction' T WHERE T.category_id = :categoryId")
     fun getAllTransactionsByCategory(categoryId: Long): Flow<List<TransactionEntity>>
+
+    @Query("SELECT SUM(amount) FROM 'transaction' T WHERE T.category_id = :categoryId AND T.timestamp > :timeInMillis")
+    fun getAmountByCategoryPerMonth(categoryId: Long, timeInMillis: Long): Flow<Long>
 }
