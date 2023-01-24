@@ -5,6 +5,7 @@ import com.chskela.monoapplication.domain.transaction.models.Transaction
 
 fun Transaction.mapToTransactionEntity(): TransactionEntity =
     TransactionEntity(
+        id = id,
         timestamp = timestamp,
         amount = amount,
         note = note,
@@ -13,7 +14,7 @@ fun Transaction.mapToTransactionEntity(): TransactionEntity =
 
 fun TransactionEntity.mapToTransaction(): Transaction =
     Transaction(
-        id = id ?: 0,
+        id = id,
         timestamp = timestamp,
         amount = amount,
         note = note,

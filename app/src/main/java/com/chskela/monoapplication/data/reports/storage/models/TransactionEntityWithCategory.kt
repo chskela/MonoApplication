@@ -6,7 +6,7 @@ import com.chskela.monoapplication.data.category.storage.models.Type
 
 data class TransactionEntityWithCategory(
     @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    val id: Long,
     val timestamp: Long,
     val amount: Long,
     val note: String,
