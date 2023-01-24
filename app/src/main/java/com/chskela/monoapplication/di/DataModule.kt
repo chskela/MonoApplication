@@ -36,7 +36,6 @@ object DataModule {
             AppDatabase::class.java,
             AppDatabase.DATABASE_NAME
         )
-            .fallbackToDestructiveMigration()
             .createFromAsset("database/mono.db")
             .build()
     }

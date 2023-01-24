@@ -12,8 +12,8 @@ import com.chskela.monoapplication.data.transaction.storage.models.TransactionEn
 
 @Database(
     entities = [CurrencyEntity::class, CategoryEntity::class, TransactionEntity::class],
-    version = 4,
-    exportSchema = false
+    version = 1,
+    exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract val currencyDao: CurrencyDao
