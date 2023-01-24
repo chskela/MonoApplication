@@ -68,7 +68,7 @@ class AddEditCategoryViewModel @Inject constructor(
             is AddAndEditCategoryEvent.ChangeCategoryIconAnd -> {
                 val icon = icons[eventEdit.iconId.toInt()].icon
                 icon?.let {
-                    uiState.value = uiState.value.copy(icon = icon)
+                    uiState.value = uiState.value.copy(currentIcon = icon)
                 }
             }
 
@@ -78,9 +78,9 @@ class AddEditCategoryViewModel @Inject constructor(
                     .onEach { category ->
                         uiState.value = uiState.value.copy(
                             isNewCategory = false,
-                            id = category.id,
+                            categoryId = category.id,
                             categoryName = category.name,
-                            icon = category.icon,
+                            currentIcon = category.icon,
                             typeCategory = category.type,
                         )
                     }.launchIn(viewModelScope)
@@ -90,9 +90,9 @@ class AddEditCategoryViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     categoryUseCases.updateCategoryUseCase(
                         Category(
-                            id = uiState.value.id,
+                            id = uiState.value.categoryId,
                             name = uiState.value.categoryName,
-                            icon = uiState.value.icon,
+                            icon = uiState.value.currentIcon,
                             type = uiState.value.typeCategory,
                         )
                     )
@@ -105,7 +105,7 @@ class AddEditCategoryViewModel @Inject constructor(
                         Category(
                             id = 0,
                             name = uiState.value.categoryName,
-                            icon = uiState.value.icon,
+                            icon = uiState.value.currentIcon,
                             type = uiState.value.typeCategory
                         )
                     )
