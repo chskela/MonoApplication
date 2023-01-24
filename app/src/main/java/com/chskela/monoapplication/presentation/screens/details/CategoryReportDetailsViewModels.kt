@@ -9,13 +9,12 @@ import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
+import com.chskela.monoapplication.domain.reports.usecase.GetAmountByCategoryPerMonthUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +24,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
     private val categoryUseCases: CategoryUseCases,
     private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
+    private val getAmountByCategoryPerMonthUseCase: GetAmountByCategoryPerMonthUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private var currentCalendar = Calendar.getInstance()
@@ -58,7 +58,8 @@ class CategoryReportDetailsViewModels @Inject constructor(
                         categoryId = event.categoryId,
                         month = currentCalendar.get(Calendar.MONTH)
                     ),
-                ) { category, list ->
+                    getAmountByCategoryPerMonthUseCase(event.categoryId)
+                ) { category, list, sumThisMonth ->
                     val calendar = Calendar.getInstance()
                     calendar.add(Calendar.MONTH, -1)
                     calendar.get(Calendar.MONTH)
@@ -69,7 +70,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
                         categoryName = category.name,
                         icon = category.icon,
                         typeCategory = category.type,
-                        sumThisMonth = list.sumOf { it.amount } / 100.0,
+                        sumThisMonth = sumThisMonth / 100.0,
                         transactionList = list.map {
                             TransactionUi(
                                 id = it.id,
