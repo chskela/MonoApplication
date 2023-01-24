@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class GetAllTransactionsUseCase(private val reportsRepository: ReportsRepository) {
 
     operator fun invoke(): Flow<List<TransactionWithCategory>> =
-        reportsRepository.getAllTransactions()
+        reportsRepository.getAllTransactionsWithCategory()
 }
