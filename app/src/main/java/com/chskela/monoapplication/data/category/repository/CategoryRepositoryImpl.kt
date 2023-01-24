@@ -6,18 +6,23 @@ import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.mappers.mapToCategory
 import com.chskela.monoapplication.mappers.mapToCategoryEntity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRepository {
 
-    override fun getAllCategory(): Flow<List<Category>> {
-        return categoryDao.getAllCategory().map { list ->
-            list.map { it.mapToCategory() }
-        }
+    override suspend fun getAllCategory(): Flow<List<Category>> {
+        return categoryDao.getAllCategory()
+            .distinctUntilChanged()
+            .map { list ->
+                list.map { it.mapToCategory() }
+            }
     }
 
-    override fun getCategoryById(id: Long): Flow<Category> {
-        return categoryDao.getCategoryById(id).map { it.mapToCategory()}
+    override suspend fun getCategoryById(id: Long): Flow<Category> {
+        return categoryDao.getCategoryById(id)
+            .distinctUntilChanged()
+            .map { it.mapToCategory() }
     }
 
     override suspend fun insertCategory(category: Category) {
