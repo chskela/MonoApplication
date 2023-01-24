@@ -52,14 +52,14 @@ fun DetailsTabs(
             val selected = state == index
             val color: Color by animateColorAsState(
                 targetValue = if (selected) {
-                    MaterialTheme.colorScheme.onSurface
+                    MaterialTheme.colorScheme.onPrimary
                 } else {
-                    MaterialTheme.colorScheme.secondary
+                    MaterialTheme.colorScheme.onSurfaceVariant
                 }
             )
             val background: Color by animateColorAsState(
                 targetValue = if (selected) {
-                    MaterialTheme.colorScheme.background
+                    MaterialTheme.colorScheme.primary
                 } else {
                     MaterialTheme.colorScheme.surface
                 },
@@ -70,10 +70,7 @@ fun DetailsTabs(
 
             Tab(
                 modifier = Modifier
-                    .background(
-                        color = background,
-                        shape = shape
-                    )
+                    .background(color = background, shape = shape)
                     .clip(shape = shape),
                 text = {
                     Text(
