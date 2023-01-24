@@ -1,9 +1,8 @@
 package com.chskela.monoapplication.presentation.ui.components.textfield
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +21,7 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun MonoTextField(
+    modifier: Modifier = Modifier,
     label: String = "",
     value: String = "",
     textStyle: TextStyle = MaterialTheme.typography.titleSmall,
@@ -34,29 +34,35 @@ fun MonoTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    Text(
-        text = label,
-        style = MaterialTheme.typography.titleLarge,
-        color = MaterialTheme.colorScheme.secondary
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        trailingIcon = trailingIcon,
-        leadingIcon = leadingIcon,
-        textStyle = textStyle.copy(color = MaterialTheme.colorScheme.onSurface),
-        shape = MaterialTheme.shapes.medium,
-        placeholder = placeholder,
-        singleLine = singleLine,
-        maxLines = maxLines,
-        value = value,
-        onValueChange = { onValueChange(it) },
-        keyboardOptions = keyboardOptions,
-        keyboardActions = KeyboardActions(
-            onDone = { keyboardController?.hide() }
-        ),
-    )
+    Column(modifier = modifier) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.secondary
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = MaterialTheme.shapes.medium
+                ),
+            trailingIcon = trailingIcon,
+            leadingIcon = leadingIcon,
+            textStyle = textStyle.copy(color = MaterialTheme.colorScheme.onSurface),
+            shape = MaterialTheme.shapes.medium,
+            placeholder = placeholder,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            value = value,
+            onValueChange = { onValueChange(it) },
+            keyboardOptions = keyboardOptions,
+            keyboardActions = KeyboardActions(
+                onDone = { keyboardController?.hide() }
+            ),
+        )
+    }
 }
 
 @Preview(showBackground = true, name = "Light CategoryScreen")
