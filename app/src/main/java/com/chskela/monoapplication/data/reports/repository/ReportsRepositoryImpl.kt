@@ -7,20 +7,25 @@ import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.mappers.mapToTransaction
 import com.chskela.monoapplication.mappers.mapToTransactionWithCategory
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 class ReportsRepositoryImpl(private val reportsDao: ReportsDao) :
     ReportsRepository {
 
-    override fun getAllTransactions(): Flow<List<TransactionWithCategory>> {
-        return reportsDao.getAllTransactions().map { list ->
-            list.map { it.mapToTransactionWithCategory() }
-        }
+    override fun getAllTransactionsWithCategory(): Flow<List<TransactionWithCategory>> {
+        return reportsDao.getAllTransactionsEntityWithCategory()
+            .distinctUntilChanged()
+            .map { list ->
+                list.map { it.mapToTransactionWithCategory() }
+            }
     }
 
     override fun getAllTransactionsByCategory(categoryId: Long): Flow<List<Transaction>> {
-        return reportsDao.getAllTransactionsByCategory(categoryId).map { list ->
-            list.map { it.mapToTransaction() }
-        }
+        return reportsDao.getAllTransactionsByCategory(categoryId)
+            .distinctUntilChanged()
+            .map { list ->
+                list.map { it.mapToTransaction() }
+            }
     }
 }
