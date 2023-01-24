@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 
 class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRepository {
 
-    override suspend fun getAllCategory(): Flow<List<Category>> {
+    override fun getAllCategory(): Flow<List<Category>> {
         return categoryDao.getAllCategory()
             .distinctUntilChanged()
             .map { list ->
@@ -19,7 +19,7 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
             }
     }
 
-    override suspend fun getCategoryById(id: Long): Flow<Category> {
+    override fun getCategoryById(id: Long): Flow<Category> {
         return categoryDao.getCategoryById(id)
             .distinctUntilChanged()
             .map { it.mapToCategory() }
