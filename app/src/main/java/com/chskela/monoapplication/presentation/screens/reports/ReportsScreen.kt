@@ -52,11 +52,9 @@ fun ReportsScreen(
         },
         containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
-        ConstraintLayout(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-        ) {
+        ConstraintLayout(modifier = Modifier
+            .padding(padding)
+            .fillMaxSize()) {
             val (content, modal) = createRefs()
             Crossfade(
                 modifier = Modifier.constrainAs(content) {

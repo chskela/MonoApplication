@@ -43,8 +43,6 @@ fun MonthReportScreen(
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
             Column {
 
-                Spacer(modifier = Modifier.size(24.dp))
-
                 MonoDateRange(
                     currentDate = currentData,
                     onPrevious = { onEvent(ReportsEvent.PreviousMonth) },
