@@ -7,6 +7,7 @@ import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.mappers.mapToCurrency
 import com.chskela.monoapplication.mappers.mapToCurrencyEntity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 class CurrencyRepositoryImpl(
@@ -15,9 +16,11 @@ class CurrencyRepositoryImpl(
 ) : CurrencyRepository {
 
     override fun getListCurrency(): Flow<List<Currency>> {
-        return currencyDao.getListCurrency().map { list ->
-            list.map { it.mapToCurrency() }
-        }
+        return currencyDao.getListCurrency()
+            .distinctUntilChanged()
+            .map { list ->
+                list.map { it.mapToCurrency() }
+            }
     }
 
     override suspend fun getCurrencyById(id: Long): Currency {
@@ -25,7 +28,7 @@ class CurrencyRepositoryImpl(
     }
 
     override fun getDefaultCurrency(): Flow<Long> {
-        return currencyStore.getDefaultCurrency
+        return currencyStore.getDefaultCurrency.distinctUntilChanged()
     }
 
     override suspend fun insertCurrency(currency: Currency) {
