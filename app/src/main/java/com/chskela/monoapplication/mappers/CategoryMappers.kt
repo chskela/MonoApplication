@@ -7,14 +7,14 @@ import com.chskela.monoapplication.presentation.ui.components.categorysurface.Ca
 fun Category.mapToCategoryUi(): CategoryUi = CategoryUi(id = id, icon = icon, title = name)
 
 fun Category.mapToCategoryEntity(): CategoryEntity = CategoryEntity(
-    id = if (id == 0L) null else id,
+    id = id,
     name = name,
     icon = icon,
     type = type.mapToType()
 )
 
 fun CategoryEntity.mapToCategory(): Category = Category(
-    id = id ?: 0,
+    id = id,
     name = name,
     icon = icon,
     type = type.mapToTypeCategory()
