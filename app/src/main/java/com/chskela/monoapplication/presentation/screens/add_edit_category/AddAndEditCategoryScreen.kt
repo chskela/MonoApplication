@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddAndEditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
@@ -32,24 +34,26 @@ fun AddAndEditCategoryScreen(
 ) {
     val scrollState = rememberScrollState()
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
+    val (_, currentTab, categoryName, currentIcon, _, icons, isNewCategory) = uiState
+    val titleId = if (isNewCategory) R.string.add_category else R.string.edit_category
+
+    val (imageVector, contentDescription) = if (isNewCategory) {
+        Icons.Default.Add to R.string.add
+    } else Icons.Default.Edit to R.string.save
+
+    val addAndEditCategoryEvent = if (isNewCategory) {
+        AddAndEditCategoryEvent.AddAndCategory
+    } else {
+        AddAndEditCategoryEvent.UpdateCategoryAnd
+    }
+
     Scaffold(
         topBar = {
-            val titleId =
-                if (uiState.isNewCategory) R.string.add_category else R.string.edit_category
-            val contentDescription = if (uiState.isNewCategory) R.string.add else R.string.save
-            val imageVector = if (uiState.isNewCategory) Icons.Default.Add else Icons.Default.Edit
-
             MonoTopAppBar(
                 title = stringResource(id = titleId),
                 actions = {
                     IconButton(onClick = {
-                        onEvent(
-                            if (uiState.isNewCategory) {
-                                AddAndEditCategoryEvent.AddAndCategory
-                            } else {
-                                AddAndEditCategoryEvent.UpdateCategoryAnd
-                            }
-                        )
+                        onEvent(addAndEditCategoryEvent)
                         onBack()
                     }) {
                         Icon(
@@ -63,33 +67,60 @@ fun AddAndEditCategoryScreen(
         },
         containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(horizontal = 16.dp)
-                .verticalScroll(scrollState),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Top
-        ) {
-            MonoTabs(
-                state = uiState.currentTab,
+        ConstraintLayout(modifier = Modifier.padding(padding)) {
+            val (column, tabs, textField) = createRefs()
+
+            MonoTabs(modifier = Modifier
+                .zIndex(100f)
+                .constrainAs(tabs) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+                state = currentTab,
                 titles = titles,
                 onSelect = { onEvent(AddAndEditCategoryEvent.SelectTab(it)) }
             )
-            Spacer(modifier = Modifier.height(24.dp))
+
             MonoTextField(
+                modifier = Modifier
+                    .zIndex(100f)
+                    .padding(horizontal = 16.dp)
+                    .constrainAs(textField) {
+                        top.linkTo(tabs.bottom, margin = 16.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
                 label = stringResource(id = R.string.category_name),
-                value = uiState.categoryName,
+                value = categoryName,
                 onValueChange = { onEvent(AddAndEditCategoryEvent.ChangeCategoryNameAnd(it)) }
             )
-            Spacer(modifier = Modifier.height(40.dp))
-            MonoCategorySurface(
-                listCategoryUi = uiState.icons,
-                title = stringResource(id = R.string.icon),
-                selectedCategory = uiState.icons.firstOrNull { it.icon == uiState.icon }?.id ?: -1,
-                onClickItem = { onEvent(AddAndEditCategoryEvent.ChangeCategoryIconAnd(it)) }
-            )
-            Spacer(modifier = Modifier.height(40.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .padding(start = 16.dp, top = 104.dp, end = 16.dp)
+                    .constrainAs(column) {
+                        top.linkTo(tabs.bottom)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Top
+            ) {
+
+                Spacer(modifier = Modifier.height(40.dp))
+                MonoCategorySurface(
+                    listCategoryUi = icons,
+                    title = stringResource(id = R.string.icon),
+                    selectedCategory = icons
+                        .firstOrNull { it.icon == currentIcon }?.id ?: -1,
+                    onClickItem = { onEvent(AddAndEditCategoryEvent.ChangeCategoryIconAnd(it)) }
+                )
+                Spacer(modifier = Modifier.height(40.dp))
+            }
         }
     }
 }
@@ -101,47 +132,14 @@ fun PreviewEditCategoryScreen() {
     MonoApplicationTheme {
         AddAndEditCategoryScreen(
             uiState = AddAndEditCategoryUiState(
-                icons = listOf(
+                icons = List(20) {
                     CategoryUi(
-                        id = 0,
+                        id = it.toLong(),
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ),
-                    CategoryUi(id = 0, title = "Add more")
-                ),
-            )
+                    )
+                }
+            ),
         )
     }
 }
