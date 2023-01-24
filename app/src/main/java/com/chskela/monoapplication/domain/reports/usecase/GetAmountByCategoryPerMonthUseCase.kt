@@ -14,7 +14,7 @@ class GetAmountByCategoryPerMonthUseCase(private val reportsRepository: ReportsR
         calendar.set(SECOND, 0)
         calendar.set(MILLISECOND, 0)
         val startOfMonthInMilliseconds = calendar.timeInMillis
-        return reportsRepository.getAmountByCategoryPerMonthUseCase(
+        return reportsRepository.getAmountByCategoryPerMonth(
             categoryId = categoryId,
             startOfMonthInMilliseconds = startOfMonthInMilliseconds
         )
