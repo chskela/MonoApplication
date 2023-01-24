@@ -68,10 +68,13 @@ object DomainModule {
         return GetAllTransactionsByMonthAndCategoryUseCase(repository)
     }
 
+    @Provides
+    fun provideGetAmountByCategoryPerMonthUseCase(repository: ReportsRepository): GetAmountByCategoryPerMonthUseCase {
+        return GetAmountByCategoryPerMonthUseCase(repository)
+    }
 
     @Provides
     fun provideSetOnBoardingIsSkipUseCase(repository: OnBoardingRepository): SetOnBoardingIsSkipUseCase {
         return SetOnBoardingIsSkipUseCase(repository)
     }
-
 }
