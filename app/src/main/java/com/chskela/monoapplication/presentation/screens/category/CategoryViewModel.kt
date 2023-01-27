@@ -11,7 +11,6 @@ import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,13 +31,13 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
     fun onEvent(event: CategoryEvent) {
         when (event) {
             is CategoryEvent.DeleteCategory -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     restoreCategory = categoryUseCases.getCategoryByIdUseCase(event.id).first()
                     categoryUseCases.deleteCategoryUseCase(event.id)
                 }
             }
             CategoryEvent.Restore -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     categoryUseCases.addCategoryUseCase(restoreCategory ?: return@launch)
                     restoreCategory = null
                 }
@@ -48,7 +47,6 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
 
     private fun getCategoryList() {
         categoryUseCases.getAllCategoryUseCase()
-            .flowOn((Dispatchers.IO))
             .onEach {
                 uiState.value = uiState.value.copy(
                     expenseList = it
