@@ -56,7 +56,7 @@ fun MonthReportScreen(
                         color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
-                        text = "${sign(currentBalance)}$currency${currentBalance.absoluteValue}",
+                        text = "${sign(currentBalance)}${currentBalance.absoluteValue} $currency",
                         color = if (currentBalance >= 0) Income else Expense
                     )
                 })
@@ -69,7 +69,7 @@ fun MonthReportScreen(
                             text = incomeStr,
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "$currency$income")
+                        Text(text = "$income $currency")
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
@@ -77,7 +77,7 @@ fun MonthReportScreen(
                             text = expenseStr,
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "-$currency$expense")
+                        Text(text = "-$expense $currency")
                     }
                 ))
 
@@ -89,7 +89,7 @@ fun MonthReportScreen(
                             text = "$expenseStr/$incomeStr",
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "${sign(expenseIncome)}$currency${expenseIncome.absoluteValue}")
+                        Text(text = "${sign(expenseIncome)}${expenseIncome.absoluteValue} $currency")
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
@@ -97,7 +97,7 @@ fun MonthReportScreen(
                             text = stringResource(id = R.string.previous_balance),
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "$currency${previousBalance}")
+                        Text(text = "$previousBalance $currency")
                     }
                 ))
 
