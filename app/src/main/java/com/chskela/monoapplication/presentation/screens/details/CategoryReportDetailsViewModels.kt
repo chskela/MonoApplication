@@ -70,7 +70,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
                         categoryName = category.name,
                         icon = category.icon,
                         typeCategory = category.type,
-                        sumThisMonth = sumThisMonth / 100.0,
+                        sumThisMonth = sumThisMonth,
                         transactionList = list.map {
                             TransactionUi(
                                 id = it.id,
