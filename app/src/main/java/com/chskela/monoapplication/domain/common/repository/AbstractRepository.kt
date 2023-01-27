@@ -1,4 +1,4 @@
-package com.chskela.monoapplication.domain.common
+package com.chskela.monoapplication.domain.common.repository
 
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
