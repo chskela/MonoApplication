@@ -9,7 +9,7 @@ interface CurrencyRepository {
 
     suspend fun getCurrencyById(id: Long) : Currency
 
-    fun getDefaultCurrency() : Flow<Long>
+    fun getIdDefaultCurrency() : Flow<Long>
 
     suspend fun insertCurrency(currency: Currency)
 
