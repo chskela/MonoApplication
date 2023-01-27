@@ -10,5 +10,6 @@ data class AddAndEditCategoryUiState(
     val currentIcon: String = "",
     val typeCategory: TypeCategory = TypeCategory.Expense,
     val icons: List<CategoryUi> = emptyList(),
-    val isNewCategory: Boolean = true
+    val isNewCategory: Boolean = true,
+    val isEnableButton: Boolean = false
 )
