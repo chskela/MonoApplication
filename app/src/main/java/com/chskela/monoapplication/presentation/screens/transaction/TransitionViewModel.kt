@@ -62,7 +62,7 @@ class TransitionViewModel @Inject constructor(
             is TransitionEvent.ChangeAmount -> {
                 if (validateAmount(event.value)) {
                     uiState.value = uiState.value.copy(amount = event.value)
-                    uiState.value = uiState.value.copy(enabledButton = isEnabled())
+                    uiState.value = uiState.value.copy(isEnabledButton = isEnabled())
                 }
             }
             is TransitionEvent.ChangeNote -> {
@@ -70,7 +70,7 @@ class TransitionViewModel @Inject constructor(
             }
             is TransitionEvent.SelectCategory -> {
                 uiState.value = uiState.value.copy(currentCategory = event.categoryId)
-                uiState.value = uiState.value.copy(enabledButton = isEnabled())
+                uiState.value = uiState.value.copy(isEnabledButton = isEnabled())
             }
             is TransitionEvent.Submit -> viewModelScope.launch {
                 transactionUseCases.addTransactionUseCase(
@@ -86,7 +86,7 @@ class TransitionViewModel @Inject constructor(
                     amount = "",
                     note = "",
                     currentCategory = 0,
-                    enabledButton = false
+                    isEnabledButton = false
                 )
             }
             is TransitionEvent.PreviousData -> {

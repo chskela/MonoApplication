@@ -155,7 +155,7 @@ fun TransactionScreen(
                 onEvent(TransitionEvent.Submit)
             },
             text = stringResource(id = R.string.submit),
-            enabled = uiState.enabledButton
+            enabled = uiState.isEnabledButton
         )
     }
 }
@@ -180,7 +180,7 @@ fun PreviewTransactionScreen() {
                     letterCode = "RUB",
                     symbol = "₽",
                 ),
-                enabledButton = true
+                isEnabledButton = true
             )
         )
     }

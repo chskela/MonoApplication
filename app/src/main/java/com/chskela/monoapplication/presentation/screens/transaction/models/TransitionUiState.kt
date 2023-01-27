@@ -8,7 +8,7 @@ data class TransitionUiState(
     val currentData: String = "Feb 24, 2022 (Sat)",
     val amount: String = "",
     val note: String = "",
-    val enabledButton: Boolean = false,
+    val isEnabledButton: Boolean = false,
     val listCategory: List<CategoryUi> = emptyList(),
     val currentCategory: Long = 0,
     val currentCurrency: Currency,
