@@ -27,7 +27,7 @@ class CurrencyRepositoryImpl(
         return currencyDao.getCurrencyById(id).mapToCurrency()
     }
 
-    override fun getDefaultCurrency(): Flow<Long> {
+    override fun getIdDefaultCurrency(): Flow<Long> {
         return currencyStore.getDefaultCurrency.distinctUntilChanged()
     }
 
