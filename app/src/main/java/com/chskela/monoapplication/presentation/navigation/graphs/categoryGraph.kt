@@ -43,7 +43,7 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
             val addEditCategoryViewModel: AddEditCategoryViewModel = hiltViewModel()
 
             AddAndEditCategoryScreen(
-                uiState = addEditCategoryViewModel.uiState.value,
+                uiState = addEditCategoryViewModel.uiState,
                 onEvent = addEditCategoryViewModel::onEvent,
                 onBack = { navController.navigateUp() })
         }

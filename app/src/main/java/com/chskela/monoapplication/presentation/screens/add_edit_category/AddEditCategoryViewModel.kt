@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.screens.add_edit_category
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,7 +33,7 @@ class AddEditCategoryViewModel @Inject constructor(
             )
         }
 
-    var uiState: MutableState<AddAndEditCategoryUiState> = mutableStateOf(
+    var uiState: AddAndEditCategoryUiState by mutableStateOf(
         AddAndEditCategoryUiState(
             icons = icons
         )
@@ -42,7 +43,8 @@ class AddEditCategoryViewModel @Inject constructor(
     init {
         savedStateHandle.get<Long>("categoryId")?.let { categoryId ->
             if (categoryId != -1L) {
-                onEvent(AddAndEditCategoryEvent.GetCategoryAnd(categoryId))
+                uiState = uiState.copy(isEnableButton = true)
+                onEvent(AddAndEditCategoryEvent.GetCategory(categoryId))
             }
         }
     }
@@ -53,32 +55,32 @@ class AddEditCategoryViewModel @Inject constructor(
             is AddAndEditCategoryEvent.SelectTab -> {
                 val typeCategory =
                     if (eventEdit.tab == 0) TypeCategory.Expense else TypeCategory.Income
-                uiState.value = uiState.value.copy(
+                uiState = uiState.copy(
                     currentTab = eventEdit.tab,
                     typeCategory = typeCategory
                 )
             }
 
-            is AddAndEditCategoryEvent.ChangeCategoryNameAnd -> {
-                uiState.value = uiState.value.copy(categoryName = eventEdit.value)
+            is AddAndEditCategoryEvent.ChangeCategoryName -> {
+                uiState = uiState.copy(categoryName = eventEdit.value)
+                uiState = uiState.copy(isEnableButton = isEnable(uiState))
             }
 
-            is AddAndEditCategoryEvent.ChangeCategoryIconAnd -> {
+            is AddAndEditCategoryEvent.ChangeCategoryIcon -> {
                 val icon = icons[eventEdit.iconId.toInt()].icon
-                icon?.let {
-                    uiState.value = uiState.value.copy(currentIcon = icon)
-                }
+                uiState = uiState.copy(currentIcon = icon)
+                uiState = uiState.copy(isEnableButton = isEnable(uiState))
             }
 
-            is AddAndEditCategoryEvent.GetCategoryAnd -> {
+            is AddAndEditCategoryEvent.GetCategory -> {
                 categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
-                    .onEach { category ->
-                        uiState.value = uiState.value.copy(
+                    .onEach { (id, name, icon, type) ->
+                        uiState = uiState.copy(
                             isNewCategory = false,
-                            categoryId = category.id,
-                            categoryName = category.name,
-                            currentIcon = category.icon,
-                            typeCategory = category.type,
+                            categoryId = id,
+                            categoryName = name,
+                            currentIcon = icon,
+                            typeCategory = type,
                         )
                     }.launchIn(viewModelScope)
             }
@@ -87,27 +89,34 @@ class AddEditCategoryViewModel @Inject constructor(
                 viewModelScope.launch {
                     categoryUseCases.updateCategoryUseCase(
                         Category(
-                            id = uiState.value.categoryId,
-                            name = uiState.value.categoryName,
-                            icon = uiState.value.currentIcon,
-                            type = uiState.value.typeCategory,
+                            id = uiState.categoryId,
+                            name = uiState.categoryName,
+                            icon = uiState.currentIcon,
+                            type = uiState.typeCategory,
                         )
                     )
                 }
             }
 
-            is AddAndEditCategoryEvent.AddAndCategory -> {
+            is AddAndEditCategoryEvent.AddCategory -> {
                 viewModelScope.launch {
                     categoryUseCases.addCategoryUseCase(
                         Category(
                             id = 0,
-                            name = uiState.value.categoryName,
-                            icon = uiState.value.currentIcon,
-                            type = uiState.value.typeCategory
+                            name = uiState.categoryName,
+                            icon = uiState.currentIcon,
+                            type = uiState.typeCategory
                         )
                     )
                 }
             }
         }
     }
+
+    private fun isEnable(uiState: AddAndEditCategoryUiState): Boolean =
+        validateCategoryName(uiState.categoryName) && validateCategoryIcon(uiState.currentIcon)
+
+    private fun validateCategoryName(name: String): Boolean = name.isNotBlank()
+
+    private fun validateCategoryIcon(icon: String): Boolean = icon.isNotBlank()
 }
