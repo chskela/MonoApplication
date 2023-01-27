@@ -33,7 +33,7 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
 
     fun selectDefaultCurrency(id: Long) {
         uiState.value = uiState.value.copy(selectedCurrency = id)
-        viewModelScope.launch((Dispatchers.IO) ) {
+        viewModelScope.launch((Dispatchers.IO)) {
             currencyUseCases.setDefaultCurrencyUseCase(id)
         }
     }
@@ -42,9 +42,8 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
         combine(
             currencyUseCases.getListCurrencyUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase()
-        ) { list, id ->
-            uiState.value = uiState.value.copy(currencyList = list, selectedCurrency = id)
+        ) { list, currency ->
+            uiState.value = uiState.value.copy(currencyList = list, selectedCurrency = currency.id)
         }.flowOn((Dispatchers.IO)).launchIn(viewModelScope)
     }
-
 }
