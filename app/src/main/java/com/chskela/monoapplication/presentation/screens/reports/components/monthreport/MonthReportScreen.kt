@@ -20,24 +20,23 @@ import com.chskela.monoapplication.presentation.ui.components.transactionList.Mo
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
-import kotlin.math.absoluteValue
 
 @Composable
 fun MonthReportScreen(
     currentData: String = "February, 2022",
     currency: String = "",
-    currentBalance: Double = 0.0,
-    income: Double = 0.0,
-    expense: Double = 0.0,
-    expenseIncome: Double = 0.0,
-    previousBalance: Double = 0.0,
+    currentBalance: String = "0.00",
+    income: String = "0.00",
+    expense: String = "0.00",
+    expenseIncome: String = "0.00",
+    previousBalance: String = "0.00",
     currentTab: Int = 0,
     transactionList: List<TransactionUi> = emptyList(),
     onEvent: (ReportsEvent) -> Unit = {},
 ) {
     val incomeStr = stringResource(id = R.string.income)
     val expenseStr = stringResource(id = R.string.expense)
-    fun sign(value: Double) = if (value >= 0) "+" else "-"
+    val currentBalanceColor = if (currentBalance.startsWith('-')) Expense else Income
 
     Column {
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -46,7 +45,8 @@ fun MonthReportScreen(
                 MonoDateRange(
                     currentDate = currentData,
                     onPrevious = { onEvent(ReportsEvent.PreviousMonth) },
-                    onNext = { onEvent(ReportsEvent.NextMonth) })
+                    onNext = { onEvent(ReportsEvent.NextMonth) }
+                )
 
                 Spacer(modifier = Modifier.size(24.dp))
 
@@ -56,8 +56,8 @@ fun MonthReportScreen(
                         color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
-                        text = "${sign(currentBalance)}${currentBalance.absoluteValue} $currency",
-                        color = if (currentBalance >= 0) Income else Expense
+                        text = currentBalance,
+                        color = currentBalanceColor
                     )
                 })
 
@@ -69,7 +69,7 @@ fun MonthReportScreen(
                             text = incomeStr,
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "$income $currency")
+                        Text(text = income)
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
@@ -77,7 +77,7 @@ fun MonthReportScreen(
                             text = expenseStr,
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "-$expense $currency")
+                        Text(text = "-$expense")
                     }
                 ))
 
@@ -89,7 +89,7 @@ fun MonthReportScreen(
                             text = "$expenseStr/$incomeStr",
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "${sign(expenseIncome)}${expenseIncome.absoluteValue} $currency")
+                        Text(text = expenseIncome)
                     },
                     { Spacer(modifier = Modifier.size(12.dp)) },
                     {
@@ -97,7 +97,7 @@ fun MonthReportScreen(
                             text = stringResource(id = R.string.previous_balance),
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(text = "$previousBalance $currency")
+                        Text(text = previousBalance)
                     }
                 ))
 
@@ -125,11 +125,11 @@ fun PreviewMonthReportScreen() {
         MonthReportScreen(
             currentData = "February, 2022",
             currency = "$",
-            currentBalance = 40710.00,
-            income = 143100.00,
-            expense = 118150.00,
-            expenseIncome = 24950.00,
-            previousBalance = 15760.00,
+            currentBalance = "40710.00",
+            income = "143100.00",
+            expense = "118150.00",
+            expenseIncome = "24950.00",
+            previousBalance = "15760.00",
             currentTab = 0,
             transactionList = listOf(
                 TransactionUi(
