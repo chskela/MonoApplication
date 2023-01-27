@@ -119,14 +119,14 @@ class TransitionViewModel @Inject constructor(
     private fun initialUiStateFromStore() {
         categoryUseCases.getAllCategoryUseCase()
             .flowOn(Dispatchers.IO)
-            .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, id ->
+            .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, currency ->
                 expenseList = list
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map{ it.mapToCategoryUi() }
                     .also { item ->
                         uiState.value = uiState.value.copy(
                             listCategory = item,
-                            currentCurrency = currencyUseCases.getCurrencyByIdUseCase(id)
+                            currentCurrency = currency
                         )
                     }
 
