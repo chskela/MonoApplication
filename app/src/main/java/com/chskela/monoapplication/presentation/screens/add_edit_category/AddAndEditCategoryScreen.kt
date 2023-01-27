@@ -42,7 +42,7 @@ fun AddAndEditCategoryScreen(
     } else Icons.Default.Edit to R.string.save
 
     val addAndEditCategoryEvent = if (isNewCategory) {
-        AddAndEditCategoryEvent.AddAndCategory
+        AddAndEditCategoryEvent.AddCategory
     } else {
         AddAndEditCategoryEvent.UpdateCategoryAnd
     }
@@ -52,10 +52,13 @@ fun AddAndEditCategoryScreen(
             MonoTopAppBar(
                 title = stringResource(id = titleId),
                 actions = {
-                    IconButton(onClick = {
-                        onEvent(addAndEditCategoryEvent)
-                        onBack()
-                    }) {
+                    IconButton(
+                        onClick = {
+                            onEvent(addAndEditCategoryEvent)
+                            onBack()
+                        },
+                        enabled = uiState.isEnableButton
+                    ) {
                         Icon(
                             imageVector = imageVector,
                             contentDescription = stringResource(id = contentDescription)
@@ -93,7 +96,7 @@ fun AddAndEditCategoryScreen(
                     },
                 label = stringResource(id = R.string.category_name),
                 value = categoryName,
-                onValueChange = { onEvent(AddAndEditCategoryEvent.ChangeCategoryNameAnd(it)) }
+                onValueChange = { onEvent(AddAndEditCategoryEvent.ChangeCategoryName(it)) }
             )
 
             Column(
@@ -117,7 +120,7 @@ fun AddAndEditCategoryScreen(
                     title = stringResource(id = R.string.icon),
                     selectedCategory = icons
                         .firstOrNull { it.icon == currentIcon }?.id ?: -1,
-                    onClickItem = { onEvent(AddAndEditCategoryEvent.ChangeCategoryIconAnd(it)) }
+                    onClickItem = { onEvent(AddAndEditCategoryEvent.ChangeCategoryIcon(it)) }
                 )
                 Spacer(modifier = Modifier.height(40.dp))
             }
