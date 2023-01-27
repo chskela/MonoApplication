@@ -61,21 +61,21 @@ fun CategoryItem(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            icon?.let {
+            if (icon.isNotBlank()) {
                 Icon(
                     imageVector = ImageVector.vectorResource(
-                        iconsMap.getOrDefault(it, R.drawable.category_bank)
+                        iconsMap.getOrDefault(icon, R.drawable.category_bank)
                     ),
                     contentDescription = title,
                     tint = contentColor
                 )
             }
 
-            if (icon != null && title != null) {
+            if (icon.isNotBlank() && title.isNotBlank()) {
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            title?.let {
+            if (title.isNotBlank()) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.bodySmall,
@@ -108,5 +108,20 @@ fun PreviewCategoryItem() {
 fun PreviewCategoryItemNoIcon() {
     MonoApplicationTheme {
         CategoryItem(categoryUi = CategoryUi(id = 0, title = "Add more"))
+    }
+}
+
+@ExperimentalFoundationApi
+@Preview(showBackground = true, name = "Light CategoryScreen no icon")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewCategoryItemNoTitle() {
+    MonoApplicationTheme {
+        CategoryItem(
+            categoryUi = CategoryUi(
+                id = 0,
+                title = stringResource(id = R.string.category_bank)
+            )
+        )
     }
 }
