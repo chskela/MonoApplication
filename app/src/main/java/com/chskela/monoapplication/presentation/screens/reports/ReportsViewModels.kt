@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
@@ -29,6 +30,7 @@ class ReportsViewModels @Inject constructor(
     private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val currencyUseCases: CurrencyUseCases,
     private val categoryUseCases: CategoryUseCases,
+    private val currencyFormatUseCase: CurrencyFormatUseCase
 ) : ViewModel() {
 
     private var currentCalendar = Calendar.getInstance()
@@ -94,10 +96,12 @@ class ReportsViewModels @Inject constructor(
             getAllTransactionsUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
             categoryUseCases.getAllCategoryUseCase()
-        ) { allTransactions, currencyId, allCategories ->
+        ) { allTransactions, currentCurrency, allCategories ->
+            val currencyFormat = currencyFormatUseCase(currentCurrency.letterCode)
             val calendar = Calendar.getInstance()
 
-            val currentBalance = allTransactions.sumOf(::calculateBalance).toDouble() / 100
+            val currentBalance =
+                currencyFormat(allTransactions.sumOf(::calculateBalance).toDouble() / 100)
 
             val transactionsByMonth = allTransactions.filter { transaction ->
                 calendar.timeInMillis = transaction.timestamp
@@ -109,14 +113,19 @@ class ReportsViewModels @Inject constructor(
                 calendar.get(Calendar.MONTH) < currentCalendar.get(Calendar.MONTH)
             }
 
-            val previousBalance = listByPrevMonth.sumOf(::calculateBalance).toDouble() / 100
+            val previousBalance =
+                currencyFormat(listByPrevMonth.sumOf(::calculateBalance).toDouble() / 100)
 
             val (incomeTransactionsByMonth, expenseTransactionsByMonth) = transactionsByMonth
                 .partition { it.type == TypeCategory.Income }
 
             val incomeByMonth = incomeTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
-
             val expenseByMonth = expenseTransactionsByMonth.sumOf { it.amount }.toDouble() / 100
+            val expenseIncome = incomeByMonth - expenseByMonth
+
+            val incomeByMonthFormat = currencyFormat(incomeByMonth)
+            val expenseByMonthFormat = currencyFormat(expenseByMonth)
+            val expenseIncomeFormat = currencyFormat(expenseIncome)
 
             allTransactionUi = transactionsByMonth.map(::mapTransactionToUi)
 
@@ -129,19 +138,19 @@ class ReportsViewModels @Inject constructor(
             uiState.value = uiState.value.copy(
                 transactionList = allTransactionUi,
                 currentBalance = currentBalance,
-                expense = expenseByMonth,
-                income = incomeByMonth,
-                expenseIncome = incomeByMonth - expenseByMonth,
+                expense = expenseByMonthFormat,
+                income = incomeByMonthFormat,
+                expenseIncome = expenseIncomeFormat,
                 previousBalance = previousBalance,
-                currency = currencyUseCases.getCurrencyByIdUseCase(currencyId).symbol,
+                currency = currentCurrency.symbol,
                 expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
-                    .map{ it.mapToCategoryUi() },
+                    .map { it.mapToCategoryUi() },
                 incomeList = allCategories
                     .filter { category -> category.type == TypeCategory.Income }
-                    .map{ it.mapToCategoryUi() },
+                    .map { it.mapToCategoryUi() },
             )
-        }.flowOn((Dispatchers.IO) ).launchIn(viewModelScope)
+        }.flowOn((Dispatchers.IO)).launchIn(viewModelScope)
     }
 
     private fun formatDate(date: Date) =
