@@ -2,6 +2,7 @@ package com.chskela.monoapplication.di
 
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.category.usecase.*
+import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
 import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
@@ -76,5 +77,10 @@ object DomainModule {
     @Provides
     fun provideSetOnBoardingIsSkipUseCase(repository: OnBoardingRepository): SetOnBoardingIsSkipUseCase {
         return SetOnBoardingIsSkipUseCase(repository)
+    }
+
+    @Provides
+    fun provideCurrencyFormatUseCase(): CurrencyFormatUseCase {
+        return CurrencyFormatUseCase()
     }
 }
