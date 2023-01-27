@@ -17,9 +17,7 @@ import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
 import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import java.text.SimpleDateFormat
 import java.util.*
@@ -150,7 +148,7 @@ class ReportsViewModels @Inject constructor(
                     .filter { category -> category.type == TypeCategory.Income }
                     .map { it.mapToCategoryUi() },
             )
-        }.flowOn((Dispatchers.IO)).launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
     }
 
     private fun formatDate(date: Date) =
