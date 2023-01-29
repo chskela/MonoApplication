@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.screens.transaction
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
@@ -36,53 +37,53 @@ class TransitionViewModel @Inject constructor(
         initialUiStateFromStore()
     }
 
-    var uiState: MutableState<TransitionUiState> =
-        mutableStateOf(
-            TransitionUiState(
-                currentData = formatDate(currentDate.time),
-                listCategory = expenseList,
-                currentCurrency = Currency(
-                    id = 1,
-                    name = "Ruble",
-                    letterCode = "RUB",
-                    symbol = "₽",
-                )
+    var uiState: TransitionUiState by mutableStateOf(
+        TransitionUiState(
+            currentData = formatDate(currentDate.time),
+            listCategory = expenseList,
+            currentCurrency = Currency(
+                id = 1,
+                name = "Ruble",
+                letterCode = "RUB",
+                symbol = "₽",
             )
         )
+    )
         private set
 
     fun onEvent(event: TransitionEvent) {
         when (event) {
             is TransitionEvent.SelectTab -> {
-                uiState.value = uiState.value.copy(
+                uiState = uiState.copy(
                     currentTab = event.tab,
                     listCategory = if (event.tab == 0) expenseList else incomeList
                 )
             }
             is TransitionEvent.ChangeAmount -> {
                 if (validateAmount(event.value)) {
-                    uiState.value = uiState.value.copy(amount = event.value)
-                    uiState.value = uiState.value.copy(isEnabledButton = isEnabled())
+                    uiState = uiState.copy(amount = event.value)
+                    uiState = uiState.copy(isEnabledButton = isEnabled())
                 }
             }
             is TransitionEvent.ChangeNote -> {
-                uiState.value = uiState.value.copy(note = event.value)
+                uiState = uiState.copy(note = event.value)
             }
             is TransitionEvent.SelectCategory -> {
-                uiState.value = uiState.value.copy(currentCategory = event.categoryId)
-                uiState.value = uiState.value.copy(isEnabledButton = isEnabled())
+                uiState = uiState.copy(currentCategory = event.categoryId)
+                uiState = uiState.copy(isEnabledButton = isEnabled())
             }
             is TransitionEvent.Submit -> viewModelScope.launch {
+                val createdAt = Calendar.getInstance()
                 transactionUseCases.addTransactionUseCase(
                     Transaction(
                         id = 0,
-                        timestamp = currentDate.timeInMillis,
-                        amount = (uiState.value.amount.toDouble() * 100).toLong(),
-                        note = uiState.value.note,
-                        categoryId = uiState.value.currentCategory,
+                        timestamp = createdAt.timeInMillis,
+                        amount = (uiState.amount.toDouble() * 100).toLong(),
+                        note = uiState.note,
+                        categoryId = uiState.currentCategory,
                     )
                 )
-                uiState.value = uiState.value.copy(
+                uiState = uiState.copy(
                     amount = "",
                     note = "",
                     currentCategory = 0,
@@ -91,11 +92,11 @@ class TransitionViewModel @Inject constructor(
             }
             is TransitionEvent.PreviousData -> {
                 currentDate.add(Calendar.DAY_OF_MONTH, -1)
-                uiState.value = uiState.value.copy(currentData = formatDate(currentDate.time))
+                uiState = uiState.copy(currentData = formatDate(currentDate.time))
             }
             is TransitionEvent.NextData -> {
                 currentDate.add(Calendar.DAY_OF_MONTH, 1)
-                uiState.value = uiState.value.copy(currentData = formatDate(currentDate.time))
+                uiState = uiState.copy(currentData = formatDate(currentDate.time))
             }
         }
     }
@@ -121,7 +122,7 @@ class TransitionViewModel @Inject constructor(
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map { it.mapToCategoryUi() }
                     .also { item ->
-                        uiState.value = uiState.value.copy(
+                        uiState = uiState.copy(
                             listCategory = item,
                             currentCurrency = currency
                         )
@@ -134,7 +135,7 @@ class TransitionViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun isEnabled() = with(uiState.value) {
+    private fun isEnabled() = with(uiState) {
         amount.isNotEmpty() && currentCategory != 0L
     }
 

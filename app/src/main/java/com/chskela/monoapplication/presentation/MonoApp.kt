@@ -76,7 +76,7 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
                 composable(MonoScreens.Transaction.name) {
                     val transitionViewModel: TransitionViewModel = hiltViewModel()
                     TransactionScreen(
-                        uiState = transitionViewModel.uiState.value,
+                        uiState = transitionViewModel.uiState,
                         onEvent = transitionViewModel::onEvent,
                     )
                 }
