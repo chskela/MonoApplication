@@ -37,7 +37,15 @@ fun TransactionScreen(
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
-    val textFieldLabel = if (uiState.currentTab == 0) {
+    val (currentTab,
+        currentData,
+        amount,
+        note,
+        isEnabledButton,
+        listCategory,
+        currentCategory,
+        currentCurrency) = uiState
+    val textFieldLabel = if (currentTab == 0) {
         stringResource(id = R.string.expense)
     } else {
         stringResource(id = R.string.income)
@@ -54,7 +62,7 @@ fun TransactionScreen(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            state = uiState.currentTab,
+            state = currentTab,
             titles = titles,
             onSelect = { onEvent(TransitionEvent.SelectTab(it)) }
         )
@@ -68,7 +76,7 @@ fun TransactionScreen(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            currentDate = uiState.currentData,
+            currentDate = currentData,
             onPrevious = { onEvent(TransitionEvent.PreviousData) },
             onNext = { onEvent(TransitionEvent.NextData) }
         )
@@ -90,11 +98,11 @@ fun TransactionScreen(
 
             MonoTextField(
                 label = textFieldLabel,
-                value = uiState.amount,
+                value = amount,
                 textStyle = MaterialTheme.typography.displayLarge,
                 trailingIcon = {
                     Text(
-                        text = uiState.currentCurrency.symbol,
+                        text = currentCurrency.symbol,
                         style = MaterialTheme.typography.displayLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -114,7 +122,7 @@ fun TransactionScreen(
 
             MonoTextField(
                 label = stringResource(id = R.string.note),
-                value = uiState.note,
+                value = note,
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.please_input),
@@ -130,9 +138,9 @@ fun TransactionScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             MonoCategorySurface(
-                listCategoryUi = uiState.listCategory,
+                listCategoryUi = listCategory,
                 title = stringResource(id = R.string.category),
-                selectedCategory = uiState.currentCategory,
+                selectedCategory = currentCategory,
                 onClickItem = {
                     keyboardController?.hide()
                     onEvent(TransitionEvent.SelectCategory(it))
@@ -155,7 +163,7 @@ fun TransactionScreen(
                 onEvent(TransitionEvent.Submit)
             },
             text = stringResource(id = R.string.submit),
-            enabled = uiState.isEnabledButton
+            enabled = isEnabledButton
         )
     }
 }
