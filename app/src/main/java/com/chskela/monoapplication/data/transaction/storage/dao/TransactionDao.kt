@@ -7,7 +7,13 @@ import com.chskela.monoapplication.data.reports.storage.models.TransactionEntity
 @Dao
 interface TransactionDao {
 
-    @Query("SELECT T.id, T.timestamp, T.amount, T.note, T.category_id, C.name, C.icon, C.type  FROM 'transaction' T JOIN category C ON T.category_id=C.id WHERE T.id = :id")
+    @Query(
+        """
+        SELECT T.id, T.timestamp, T.amount, T.note, T.category_id, C.name, C.icon, C.type  FROM 'transaction' T 
+        JOIN category C ON T.category_id=C.id 
+        WHERE T.id = :id
+    """
+    )
     suspend fun getTransactionById(id: Long): TransactionEntityWithCategory
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
