@@ -10,7 +10,6 @@ data class CategoryReportDetailsUiState(
     val categoryName: String = "",
     val icon: String = "",
     val typeCategory: TypeCategory = TypeCategory.Expense,
-    val currency: String = "",
     val transactionList: List<TransactionListUi> = emptyList(),
     val reportsList: List<ReportUi> = emptyList()
 )
