@@ -20,6 +20,7 @@ import com.chskela.monoapplication.presentation.ui.components.transactionList.Mo
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
+import kotlin.random.Random
 
 @Composable
 fun MonthReportScreen(
@@ -131,22 +132,15 @@ fun PreviewMonthReportScreen() {
             expenseIncome = "24950.00",
             previousBalance = "15760.00",
             currentTab = 0,
-            transactionList = listOf(
+            transactionList = List(10){
                 TransactionListUi(
-                    amount = 10.0,
-                    note = "Note dfhgdfgdfdfgdsfdfgsdagfdfdfggdfgdfgdfgdfgdhfddfghhfddfgdfgh",
-                    type = TypeTransaction.Expense,
+                    amount = 10.0 * Random.nextInt(1, 20),
+                    note = "Note dfhgdfgdffgdfg",
+                    type = if (it % 2 == 0) TypeTransaction.Expense else TypeTransaction.Income,
                     category = "Food",
                     icon = "category_food"
-                ),
-                TransactionListUi(
-                    amount = 10.0,
-                    note = "Note",
-                    type = TypeTransaction.Income,
-                    category = "Pay",
-                    icon = "category_baby"
                 )
-            )
+            }
         )
     }
 }
