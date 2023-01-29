@@ -6,8 +6,7 @@ import com.chskela.monoapplication.presentation.ui.components.transactionList.mo
 
 data class CategoryReportDetailsUiState(
     val currentTab: Int = 0,
-    val currentCategory: Long = 0,
-    val sumThisMonth: Double = 0.0,
+    val sumThisMonth: String = "0.00 $",
     val categoryName: String = "",
     val icon: String = "",
     val typeCategory: TypeCategory = TypeCategory.Expense,
