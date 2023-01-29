@@ -4,8 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -24,12 +23,14 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DetailsTabs(
+    modifier: Modifier = Modifier,
     state: Int,
     onSelect: (Int) -> Unit = {}
 ) {
     TabRow(
-        modifier = Modifier
-            .size(height = 56.dp, width = 199.dp)
+        modifier = modifier
+            .heightIn(max = 56.dp)
+            .aspectRatio(3.57f)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.secondary,
