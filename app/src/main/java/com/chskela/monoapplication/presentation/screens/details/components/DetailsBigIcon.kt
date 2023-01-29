@@ -20,13 +20,14 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @Composable
 fun DetailsBigIcon(
+    modifier: Modifier = Modifier,
     title: String,
     icon: String = "",
     color: Color,
 ) {
     Box(
-        modifier = Modifier
-            .size(312.dp)
+        modifier = modifier
+            .aspectRatio(1f)
             .background(
                 color = color.copy(alpha = 0.2f),
                 shape = MaterialTheme.shapes.small
