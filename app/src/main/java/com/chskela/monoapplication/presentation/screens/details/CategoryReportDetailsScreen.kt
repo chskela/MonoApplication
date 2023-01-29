@@ -35,7 +35,8 @@ fun CategoryReportDetailsScreen(
     onEvent: (CategoryReportDetailsEvent) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
-    val color = when (uiState.typeCategory) {
+    val (_, sumThisMonth, categoryName, icon, typeCategory, transactionList, reportsList) = uiState
+    val color = when (typeCategory) {
         TypeCategory.Expense -> Expense
         TypeCategory.Income -> Income
     }
@@ -53,7 +54,7 @@ fun CategoryReportDetailsScreen(
             val heightScreen = maxHeight
 
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-                val (tabs, icon, column, chart, list) = createRefs()
+                val (tabs, bigIcon, column, chart, list) = createRefs()
                 val heightIcon = heightScreen * 0.3f
                 val heightChart = heightScreen * 0.2f
                 val heightColumn = 48.dp
@@ -68,28 +69,25 @@ fun CategoryReportDetailsScreen(
 //                        start.linkTo(parent.start)
 //                        end.linkTo(parent.end)
 //                    },
-//                    state = uiState.currentTab,
+//                    state = currentTab,
 //                    onSelect = { onEvent(CategoryReportDetailsEvent.SelectTab(it)) }
 //                )
 
                 DetailsBigIcon(
                     modifier = Modifier
                         .size(size = heightIcon)
-                        .constrainAs(ref = icon) {
+                        .constrainAs(ref = bigIcon) {
                             top.linkTo(anchor = parent.top, margin = margin16)
                             start.linkTo(anchor = parent.start)
                             end.linkTo(anchor = parent.end)
-                        },
-                    title = uiState.categoryName,
-                    icon = uiState.icon,
-                    color = color
+                        }, title = categoryName, icon = icon, color = color
                 )
 
                 Column(
-                    modifier = Modifier.constrainAs(column) {
-                        top.linkTo(icon.bottom, margin = margin16)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
+                    modifier = Modifier.constrainAs(ref = column) {
+                        top.linkTo(anchor = bigIcon.bottom, margin = margin16)
+                        start.linkTo(anchor = parent.start)
+                        end.linkTo(anchor = parent.end)
                     },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
@@ -103,7 +101,7 @@ fun CategoryReportDetailsScreen(
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = "${uiState.currency}${uiState.sumThisMonth}",
+                        text = sumThisMonth,
                         style = MaterialTheme.typography.displayLarge,
                         color = color
                     )
@@ -116,9 +114,7 @@ fun CategoryReportDetailsScreen(
                             top.linkTo(anchor = column.bottom, margin = margin8)
                             start.linkTo(anchor = parent.start)
                             end.linkTo(anchor = parent.end)
-                        },
-                    graphColor = color,
-                    reportsList = uiState.reportsList
+                        }, graphColor = color, reportsList = reportsList
                 )
 
                 MonoTransactionList(
@@ -130,8 +126,7 @@ fun CategoryReportDetailsScreen(
                             end.linkTo(anchor = parent.end)
                             bottom.linkTo(anchor = parent.bottom)
                         },
-                    transactionList = uiState.transactionList,
-                    currency = uiState.currency
+                    transactionList = transactionList,
                 )
             }
         }
@@ -147,7 +142,7 @@ fun PreviewCategoryReportDetailsScreen() {
             uiState = CategoryReportDetailsUiState(
                 transactionList = List(10) {
                     TransactionListUi(
-                        amount = 10.0 * Random.nextInt(1, 20),
+                        amount = "${10.0 * Random.nextInt(1, 20)} $",
                         note = "Note dfhgdfgdffgdfg",
                         type = if (it % 2 == 0) TypeTransaction.Expense else TypeTransaction.Income,
                         category = "Food",
