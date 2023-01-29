@@ -14,8 +14,8 @@ import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseC
 import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.reports.models.Report
 import com.chskela.monoapplication.presentation.screens.reports.models.ReportsUiState
-import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -32,9 +32,9 @@ class ReportsViewModels @Inject constructor(
 ) : ViewModel() {
 
     private var currentCalendar = Calendar.getInstance()
-    private var allTransactionUi: List<TransactionUi> = emptyList()
-    private var expenseTransactionUi: List<TransactionUi> = emptyList()
-    private var incomeTransactionUi: List<TransactionUi> = emptyList()
+    private var allTransactionListUi: List<TransactionListUi> = emptyList()
+    private var expenseTransactionListUi: List<TransactionListUi> = emptyList()
+    private var incomeTransactionListUi: List<TransactionListUi> = emptyList()
 
     var uiState: MutableState<ReportsUiState> = mutableStateOf(
         ReportsUiState(
@@ -79,9 +79,9 @@ class ReportsViewModels @Inject constructor(
 
     private fun onSelectTab(event: ReportsEvent.SelectTab) {
         val transactionList = when (event.tab) {
-            1 -> expenseTransactionUi
-            2 -> incomeTransactionUi
-            else -> allTransactionUi
+            1 -> expenseTransactionListUi
+            2 -> incomeTransactionListUi
+            else -> allTransactionListUi
         }
         uiState.value = uiState.value.copy(
             currentTab = event.tab,
@@ -125,16 +125,16 @@ class ReportsViewModels @Inject constructor(
             val expenseByMonthFormat = currencyFormat(expenseByMonth)
             val expenseIncomeFormat = currencyFormat(expenseIncome)
 
-            allTransactionUi = transactionsByMonth.map(::mapTransactionToUi)
+            allTransactionListUi = transactionsByMonth.map(::mapTransactionToUi)
 
-            val (incomeTransaction, expenseTransaction) = allTransactionUi
+            val (incomeTransaction, expenseTransaction) = allTransactionListUi
                 .partition { it.type == TypeTransaction.Income }
 
-            incomeTransactionUi = incomeTransaction
-            expenseTransactionUi = expenseTransaction
+            incomeTransactionListUi = incomeTransaction
+            expenseTransactionListUi = expenseTransaction
 
             uiState.value = uiState.value.copy(
-                transactionList = allTransactionUi,
+                transactionList = allTransactionListUi,
                 currentBalance = currentBalance,
                 expense = expenseByMonthFormat,
                 income = incomeByMonthFormat,
@@ -162,9 +162,7 @@ class ReportsViewModels @Inject constructor(
         }
 
     private fun mapTransactionToUi(transactionWithCategory: TransactionWithCategory) =
-        TransactionUi(
-            id = transactionWithCategory.id,
-            timestamp = transactionWithCategory.timestamp,
+        TransactionListUi(
             amount = transactionWithCategory.amount / 100.0,
             note = transactionWithCategory.note,
             type = if (transactionWithCategory.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,

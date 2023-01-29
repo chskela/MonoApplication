@@ -16,8 +16,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.data.icons.iconsMap
-import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -25,21 +25,21 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @Composable
 fun MonoTransactionList(
     modifier: Modifier = Modifier,
-    transactionList: List<TransactionUi>,
+    transactionList: List<TransactionListUi>,
     currency: String = ""
 ) {
     Row(modifier = modifier) {
         LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
-            items(items = transactionList) { transactionUi ->
-                val prefix = when (transactionUi.type) {
+            items(items = transactionList) { (amount, note, type, category, icon) ->
+                val prefix = when (type) {
                     TypeTransaction.Expense -> "-"
                     TypeTransaction.Income -> "+"
                 }
-                val color = when (transactionUi.type) {
+                val color = when (type) {
                     TypeTransaction.Expense -> Expense
                     TypeTransaction.Income -> Income
                 }
-                val icon = iconsMap[transactionUi.icon]
+                val categoryIcon = iconsMap[icon]
 
                 Row(
                     modifier = Modifier
@@ -53,24 +53,24 @@ fun MonoTransactionList(
                             modifier = Modifier.height(32.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            icon?.let { id ->
+                            categoryIcon?.let { id ->
                                 Icon(
                                     imageVector = ImageVector.vectorResource(id = id),
-                                    contentDescription = transactionUi.category,
+                                    contentDescription = category,
                                     tint = MaterialTheme.colorScheme.primary
                                 )
                             }
 
                             Spacer(modifier = Modifier.size(12.dp))
                             Text(
-                                text = transactionUi.category,
+                                text = category,
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 maxLines = 1
                             )
-                            if (transactionUi.note.isNotBlank()) {
+                            if (note.isNotBlank()) {
                                 Text(
-                                    text = " (${transactionUi.note})",
+                                    text = " (${note})",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                                     overflow = TextOverflow.Ellipsis,
@@ -90,7 +90,7 @@ fun MonoTransactionList(
                         ) {
                             // TODO форматирование amount
                             Text(
-                                text = "$prefix${transactionUi.amount} $currency",
+                                text = "$prefix${amount} $currency",
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = color,
                                 maxLines = 1
@@ -110,18 +110,14 @@ fun PreviewMonoTopAppBar() {
     MonoApplicationTheme {
         MonoTransactionList(
             transactionList = listOf(
-                TransactionUi(
-                    id = 1,
-                    timestamp = 1,
+                TransactionListUi(
                     amount = 1053345.0,
                     note = "test1sdgsdfgsdgsdfgsdafgsdfgsdfgsdfgsdfgsdfgsdfsdvsfdfvs",
                     type = TypeTransaction.Expense,
                     category = "test",
                     icon = "baby"
                 ),
-                TransactionUi(
-                    id = 1,
-                    timestamp = 1,
+                TransactionListUi(
                     amount = 10.0,
                     note = "test1",
                     type = TypeTransaction.Income,

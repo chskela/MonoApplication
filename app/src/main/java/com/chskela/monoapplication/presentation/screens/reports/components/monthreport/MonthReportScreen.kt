@@ -11,8 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.presentation.screens.reports.components.monthreport.components.BorderRow
-import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
@@ -31,7 +31,7 @@ fun MonthReportScreen(
     expenseIncome: String = "0.00",
     previousBalance: String = "0.00",
     currentTab: Int = 0,
-    transactionList: List<TransactionUi> = emptyList(),
+    transactionList: List<TransactionListUi> = emptyList(),
     onEvent: (ReportsEvent) -> Unit = {},
 ) {
     val incomeStr = stringResource(id = R.string.income)
@@ -132,18 +132,14 @@ fun PreviewMonthReportScreen() {
             previousBalance = "15760.00",
             currentTab = 0,
             transactionList = listOf(
-                TransactionUi(
-                    id = 0,
-                    timestamp = 16165163564,
+                TransactionListUi(
                     amount = 10.0,
                     note = "Note dfhgdfgdfdfgdsfdfgsdagfdfdfggdfgdfgdfgdfgdhfddfghhfddfgdfgh",
                     type = TypeTransaction.Expense,
                     category = "Food",
                     icon = "category_food"
                 ),
-                TransactionUi(
-                    id = 1,
-                    timestamp = 16165165465,
+                TransactionListUi(
                     amount = 10.0,
                     note = "Note",
                     type = TypeTransaction.Income,

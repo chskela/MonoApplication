@@ -1,8 +1,6 @@
-package com.chskela.monoapplication.presentation.screens.reports.models
+package com.chskela.monoapplication.presentation.ui.components.transactionList.model
 
-data class TransactionUi(
-    val id: Long,
-    val timestamp: Long,
+data class TransactionListUi(
     val amount: Double,
     val note: String,
     val type: TypeTransaction = TypeTransaction.Expense,

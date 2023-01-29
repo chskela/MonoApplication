@@ -1,6 +1,7 @@
 package com.chskela.monoapplication.presentation.screens.reports.models
 
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
 
 data class ReportsUiState(
     val report: Report = Report.Month,
@@ -15,7 +16,7 @@ data class ReportsUiState(
     val expenseIncome: String = "0.00",
     val previousBalance: String = "0.00",
     val currentTab: Int = 0,
-    val transactionList: List<TransactionUi> = emptyList(),
+    val transactionList: List<TransactionListUi> = emptyList(),
 //    CategoryReportUiState
     val expenseList: List<CategoryUi> = emptyList(),
     val incomeList: List<CategoryUi> = emptyList()

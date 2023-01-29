@@ -11,8 +11,8 @@ import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMo
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAmountByCategoryPerMonthUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
-import com.chskela.monoapplication.presentation.screens.reports.models.TransactionUi
-import com.chskela.monoapplication.presentation.screens.reports.models.TypeTransaction
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -72,9 +72,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
                         typeCategory = category.type,
                         sumThisMonth = sumThisMonth,
                         transactionList = list.map {
-                            TransactionUi(
-                                id = it.id,
-                                timestamp = it.timestamp,
+                            TransactionListUi(
                                 amount = it.amount / 100.0,
                                 note = it.note,
                                 type = if (category.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
