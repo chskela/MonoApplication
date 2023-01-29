@@ -9,7 +9,6 @@ data class ReportsUiState(
     val title: Int = 0,
 //    MonthReportUiState
     val currentData: String = "February, 2022",
-    val currency: String = "",
     val currentBalance: String = "0.00",
     val income: String = "0.00",
     val expense: String = "0.00",
