@@ -26,14 +26,9 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 fun MonoTransactionList(
     modifier: Modifier = Modifier,
     transactionList: List<TransactionListUi>,
-    currency: String = ""
 ) {
     LazyColumn(modifier = modifier.padding(vertical = 16.dp)) {
         items(items = transactionList) { (amount, note, type, category, icon) ->
-            val prefix = when (type) {
-                TypeTransaction.Expense -> "-"
-                TypeTransaction.Income -> "+"
-            }
             val color = when (type) {
                 TypeTransaction.Expense -> Expense
                 TypeTransaction.Income -> Income
@@ -89,7 +84,7 @@ fun MonoTransactionList(
                     ) {
                         // TODO форматирование amount
                         Text(
-                            text = "$prefix${amount} $currency",
+                            text = amount,
                             style = MaterialTheme.typography.bodyLarge,
                             color = color,
                             maxLines = 1
@@ -109,21 +104,20 @@ fun PreviewMonoTopAppBar() {
         MonoTransactionList(
             transactionList = listOf(
                 TransactionListUi(
-                    amount = 1053345.0,
+                    amount = "-1053345.00 $",
                     note = "test1sdgsdfgsdgsdfgsdafgsdfgsdfgsdfgsdfgsdfgsdfsdvsfdfvs",
                     type = TypeTransaction.Expense,
                     category = "test",
                     icon = "baby"
                 ),
                 TransactionListUi(
-                    amount = 10.0,
+                    amount = "10.00 $",
                     note = "test1",
                     type = TypeTransaction.Income,
                     category = "test",
                     icon = "baby"
-                ),
-            ),
-            currency = "$"
+                )
+            )
         )
     }
 }
