@@ -28,74 +28,72 @@ fun MonoTransactionList(
     transactionList: List<TransactionListUi>,
     currency: String = ""
 ) {
-    Row(modifier = modifier) {
-        LazyColumn(modifier = Modifier.padding(vertical = 16.dp)) {
-            items(items = transactionList) { (amount, note, type, category, icon) ->
-                val prefix = when (type) {
-                    TypeTransaction.Expense -> "-"
-                    TypeTransaction.Income -> "+"
-                }
-                val color = when (type) {
-                    TypeTransaction.Expense -> Expense
-                    TypeTransaction.Income -> Income
-                }
-                val categoryIcon = iconsMap[icon]
+    LazyColumn(modifier = modifier.padding(vertical = 16.dp)) {
+        items(items = transactionList) { (amount, note, type, category, icon) ->
+            val prefix = when (type) {
+                TypeTransaction.Expense -> "-"
+                TypeTransaction.Income -> "+"
+            }
+            val color = when (type) {
+                TypeTransaction.Expense -> Expense
+                TypeTransaction.Income -> Income
+            }
+            val categoryIcon = iconsMap[icon]
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    // TODO настроить размер колонок
-                    Column(modifier = Modifier.weight(0.7f)) {
-                        Row(
-                            modifier = Modifier.height(32.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            categoryIcon?.let { id ->
-                                Icon(
-                                    imageVector = ImageVector.vectorResource(id = id),
-                                    contentDescription = category,
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // TODO настроить размер колонок
+                Column(modifier = Modifier.weight(0.7f)) {
+                    Row(
+                        modifier = Modifier.height(32.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        categoryIcon?.let { id ->
+                            Icon(
+                                imageVector = ImageVector.vectorResource(id = id),
+                                contentDescription = category,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
 
-                            Spacer(modifier = Modifier.size(12.dp))
+                        Spacer(modifier = Modifier.size(12.dp))
+                        Text(
+                            text = category,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1
+                        )
+                        if (note.isNotBlank()) {
                             Text(
-                                text = category,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onSurface,
+                                text = " (${note})",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                                overflow = TextOverflow.Ellipsis,
                                 maxLines = 1
                             )
-                            if (note.isNotBlank()) {
-                                Text(
-                                    text = " (${note})",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                                    overflow = TextOverflow.Ellipsis,
-                                    maxLines = 1
-                                )
-                            }
                         }
                     }
+                }
 
-                    Column(
-                        modifier = Modifier.weight(0.4f),
-                        horizontalAlignment = Alignment.End
+                Column(
+                    modifier = Modifier.weight(0.4f),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Box(
+                        modifier = Modifier.height(32.dp),
+                        contentAlignment = Alignment.Center,
                     ) {
-                        Box(
-                            modifier = Modifier.height(32.dp),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            // TODO форматирование amount
-                            Text(
-                                text = "$prefix${amount} $currency",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = color,
-                                maxLines = 1
-                            )
-                        }
+                        // TODO форматирование amount
+                        Text(
+                            text = "$prefix${amount} $currency",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = color,
+                            maxLines = 1
+                        )
                     }
                 }
             }
