@@ -71,7 +71,6 @@ fun ReportsScreen(
                     )
                     Report.Month -> MonthReportScreen(
                         currentData = uiState.currentData,
-                        currency = uiState.currency,
                         currentBalance = uiState.currentBalance,
                         income = uiState.income,
                         expense = uiState.expense,
