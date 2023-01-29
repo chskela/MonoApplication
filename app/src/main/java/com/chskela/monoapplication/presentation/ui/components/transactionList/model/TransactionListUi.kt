@@ -1,7 +1,7 @@
 package com.chskela.monoapplication.presentation.ui.components.transactionList.model
 
 data class TransactionListUi(
-    val amount: Double,
+    val amount: String,
     val note: String,
     val type: TypeTransaction = TypeTransaction.Expense,
     val category: String,
