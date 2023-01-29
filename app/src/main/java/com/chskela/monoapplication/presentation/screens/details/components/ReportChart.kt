@@ -54,7 +54,7 @@ fun ReportChart(
         }
     }
 
-    Canvas(modifier = modifier) {
+    Canvas(modifier = modifier.fillMaxWidth()) {
         val height = size.height - spacing
         val spacePerX = size.width / (reportsList.size - 1)
         val ratioY = height / (upperValue - lowerValue)
