@@ -25,7 +25,6 @@ import kotlin.random.Random
 @Composable
 fun MonthReportScreen(
     currentData: String = "February, 2022",
-    currency: String = "",
     currentBalance: String = "0.00",
     income: String = "0.00",
     expense: String = "0.00",
@@ -114,7 +113,7 @@ fun MonthReportScreen(
                     onSelect = { onEvent(ReportsEvent.SelectTab(it)) })
             }
         }
-        MonoTransactionList(transactionList = transactionList, currency = currency)
+        MonoTransactionList(transactionList = transactionList)
     }
 }
 
@@ -125,16 +124,15 @@ fun PreviewMonthReportScreen() {
     MonoApplicationTheme {
         MonthReportScreen(
             currentData = "February, 2022",
-            currency = "$",
-            currentBalance = "40710.00",
-            income = "143100.00",
-            expense = "118150.00",
-            expenseIncome = "24950.00",
-            previousBalance = "15760.00",
+            currentBalance = "40710.00 $",
+            income = "143100.00 $",
+            expense = "118150.00 $",
+            expenseIncome = "24950.00 $",
+            previousBalance = "15760.00 $",
             currentTab = 0,
             transactionList = List(10){
                 TransactionListUi(
-                    amount = 10.0 * Random.nextInt(1, 20),
+                    amount = "${10.0 * Random.nextInt(1, 20)} $",
                     note = "Note dfhgdfgdffgdfg",
                     type = if (it % 2 == 0) TypeTransaction.Expense else TypeTransaction.Income,
                     category = "Food",
