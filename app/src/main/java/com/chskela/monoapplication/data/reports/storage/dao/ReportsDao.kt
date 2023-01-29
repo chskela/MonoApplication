@@ -9,12 +9,29 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ReportsDao {
 
-    @Query("SELECT T.id, T.timestamp, T.amount, T.note, T.category_id, C.name, C.icon, C.type  FROM 'transaction' T JOIN category C ON T.category_id=C.id")
+    @Query(
+        """
+        SELECT T.id, T.timestamp, T.amount, T.note, T.category_id, C.name, C.icon, C.type  FROM 'transaction' T 
+        JOIN category C ON T.category_id=C.id
+        ORDER BY T.timestamp DESC
+        """
+    )
     fun getAllTransactionsEntityWithCategory(): Flow<List<TransactionEntityWithCategory>>
 
-    @Query("SELECT T.id, T.timestamp, T.amount, T.note, T.category_id FROM 'transaction' T WHERE T.category_id = :categoryId")
+    @Query(
+        """
+            SELECT T.id, T.timestamp, T.amount, T.note, T.category_id FROM 'transaction' T 
+            WHERE T.category_id = :categoryId
+            ORDER BY T.timestamp DESC
+        """
+    )
     fun getAllTransactionsByCategory(categoryId: Long): Flow<List<TransactionEntity>>
 
-    @Query("SELECT SUM(amount) FROM 'transaction' T WHERE T.category_id = :categoryId AND T.timestamp > :timeInMillis")
+    @Query(
+        """
+        SELECT SUM(amount) FROM 'transaction' T 
+        WHERE T.category_id = :categoryId AND T.timestamp > :timeInMillis
+        """
+    )
     fun getAmountByCategoryPerMonth(categoryId: Long, timeInMillis: Long): Flow<Long>
 }
