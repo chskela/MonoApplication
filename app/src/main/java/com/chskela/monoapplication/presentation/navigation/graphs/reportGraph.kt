@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
-import android.util.Log
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -23,7 +22,7 @@ fun NavGraphBuilder.reportGraph(navController: NavController) {
         composable(MonoScreens.Reports.name) {
             val reportViewModels: ReportsViewModels = hiltViewModel()
             ReportsScreen(
-                uiState = reportViewModels.uiState.value,
+                uiState = reportViewModels.uiState,
                 onEvent = reportViewModels::onEvent,
                 onSelectCategory = { id ->
                     navController
@@ -42,7 +41,7 @@ fun NavGraphBuilder.reportGraph(navController: NavController) {
         ) {
             val categoryReportDetailsViewModels: CategoryReportDetailsViewModels = hiltViewModel()
             CategoryReportDetailsScreen(
-                uiState = categoryReportDetailsViewModels.uiState.value,
+                uiState = categoryReportDetailsViewModels.uiState,
                 onEvent = categoryReportDetailsViewModels::onEvent,
                 onBack = { navController.navigateUp() })
 
