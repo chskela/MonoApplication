@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.screens.reports
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
@@ -36,13 +37,12 @@ class ReportsViewModels @Inject constructor(
     private var expenseTransactionListUi: List<TransactionListUi> = emptyList()
     private var incomeTransactionListUi: List<TransactionListUi> = emptyList()
 
-    var uiState: MutableState<ReportsUiState> = mutableStateOf(
+    var uiState: ReportsUiState by mutableStateOf(
         ReportsUiState(
             title = R.string.month_report,
             currentData = formatDate(currentCalendar.time)
         )
     )
-        private set
 
     init {
         initialUiState()
@@ -53,12 +53,12 @@ class ReportsViewModels @Inject constructor(
             is ReportsEvent.SelectTab -> onSelectTab(event)
             is ReportsEvent.PreviousMonth -> {
                 currentCalendar.add(Calendar.MONTH, -1)
-                uiState.value = uiState.value.copy(currentData = formatDate(currentCalendar.time))
+                uiState = uiState.copy(currentData = formatDate(currentCalendar.time))
                 initialUiState()
             }
             is ReportsEvent.NextMonth -> {
                 currentCalendar.add(Calendar.MONTH, 1)
-                uiState.value = uiState.value.copy(currentData = formatDate(currentCalendar.time))
+                uiState = uiState.copy(currentData = formatDate(currentCalendar.time))
                 initialUiState()
             }
             is ReportsEvent.SelectReport -> {
@@ -70,10 +70,10 @@ class ReportsViewModels @Inject constructor(
                     Report.Category -> R.string.month_report
                     Report.Month -> R.string.category_report
                 }
-                uiState.value = uiState.value.copy(report = newReport, title = title)
+                uiState = uiState.copy(report = newReport, title = title)
             }
-            ReportsEvent.ToggleVisible -> uiState.value =
-                uiState.value.copy(isVisibleModal = !uiState.value.isVisibleModal)
+            ReportsEvent.ToggleVisible -> uiState =
+                uiState.copy(isVisibleModal = !uiState.isVisibleModal)
         }
     }
 
@@ -83,7 +83,7 @@ class ReportsViewModels @Inject constructor(
             2 -> incomeTransactionListUi
             else -> allTransactionListUi
         }
-        uiState.value = uiState.value.copy(
+        uiState = uiState.copy(
             currentTab = event.tab,
             transactionList = transactionList
         )
@@ -125,7 +125,9 @@ class ReportsViewModels @Inject constructor(
             val expenseByMonthFormat = currencyFormat(expenseByMonth)
             val expenseIncomeFormat = currencyFormat(expenseIncome)
 
-            allTransactionListUi = transactionsByMonth.map(::mapTransactionToUi)
+            allTransactionListUi = transactionsByMonth.map {
+                mapTransactionToUi(it, currencyFormat)
+            }
 
             val (incomeTransaction, expenseTransaction) = allTransactionListUi
                 .partition { it.type == TypeTransaction.Income }
@@ -133,14 +135,13 @@ class ReportsViewModels @Inject constructor(
             incomeTransactionListUi = incomeTransaction
             expenseTransactionListUi = expenseTransaction
 
-            uiState.value = uiState.value.copy(
+            uiState = uiState.copy(
                 transactionList = allTransactionListUi,
                 currentBalance = currentBalance,
                 expense = expenseByMonthFormat,
                 income = incomeByMonthFormat,
                 expenseIncome = expenseIncomeFormat,
                 previousBalance = previousBalance,
-                currency = currentCurrency.symbol,
                 expenseList = allCategories
                     .filter { category -> category.type == TypeCategory.Expense }
                     .map { it.mapToCategoryUi() },
@@ -161,12 +162,14 @@ class ReportsViewModels @Inject constructor(
             transaction.amount
         }
 
-    private fun mapTransactionToUi(transactionWithCategory: TransactionWithCategory) =
-        TransactionListUi(
-            amount = transactionWithCategory.amount / 100.0,
-            note = transactionWithCategory.note,
-            type = if (transactionWithCategory.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
-            category = transactionWithCategory.name,
-            icon = transactionWithCategory.icon,
-        )
+    private fun mapTransactionToUi(
+        transactionWithCategory: TransactionWithCategory,
+        format: (Double) -> String
+    ) = TransactionListUi(
+        amount = format(transactionWithCategory.amount / 100.0),
+        note = transactionWithCategory.note,
+        type = if (transactionWithCategory.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
+        category = transactionWithCategory.name,
+        icon = transactionWithCategory.icon,
+    )
 }
