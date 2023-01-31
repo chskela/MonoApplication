@@ -1,12 +1,14 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.screens.currency.CurrencyActivityScreen
-import com.chskela.monoapplication.presentation.screens.settings.SettingsActivityScreen
+import com.chskela.monoapplication.presentation.screens.settings.SettingsScreen
+import com.chskela.monoapplication.presentation.screens.settings.SettingsViewModel
 
 fun NavGraphBuilder.settingGraph(navController: NavController) {
     navigation(
@@ -15,9 +17,11 @@ fun NavGraphBuilder.settingGraph(navController: NavController) {
     ) {
 
         composable(MonoScreens.Setting.name) {
-            SettingsActivityScreen(
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+            SettingsScreen(
                 onCategory = { navController.navigate(MonoScreens.Category.name) },
-                onCurrency = { navController.navigate(MonoScreens.Currency.name) }
+                onCurrency = { navController.navigate(MonoScreens.Currency.name) },
+                deleteAllData = settingsViewModel::deleteAllData
             )
         }
 
