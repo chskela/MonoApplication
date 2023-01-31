@@ -5,7 +5,7 @@ import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 
 fun TransactionEntityWithCategory.mapToTransactionWithCategory(): TransactionWithCategory =
     TransactionWithCategory(
-        id = id ?: 0,
+        id = id,
         timestamp = timestamp,
         amount = amount,
         note = note,

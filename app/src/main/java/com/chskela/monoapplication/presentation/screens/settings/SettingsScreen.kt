@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.presentation.screens.settings.components.DeleteDialog
 import com.chskela.monoapplication.presentation.screens.settings.components.SettingItem
 import com.chskela.monoapplication.presentation.screens.settings.models.SettingUiItem
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
@@ -21,6 +22,14 @@ fun SettingsScreen(
     onCurrency: () -> Unit = {},
     deleteAllData: () -> Unit = {}
 ) {
+    var openDialog by remember { mutableStateOf(false) }
+    DeleteDialog(openDialog,
+        onDismiss = { openDialog = false },
+        onConfirm = {
+            openDialog = false
+            deleteAllData()
+        }
+    )
     Scaffold(
         topBar = {
             MonoTopAppBar(title = stringResource(id = R.string.settings), navigationIcon = {
@@ -60,7 +69,7 @@ fun SettingsScreen(
                     title = stringResource(id = R.string.delete_all_data),
                     leftIcon = R.drawable.settings_trash,
                     color = MaterialTheme.colorScheme.error,
-                    onClick = deleteAllData
+                    onClick = { openDialog = true }
                 )
             )
         }

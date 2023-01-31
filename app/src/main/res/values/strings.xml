@@ -107,5 +107,9 @@
     <string name="category_wallet">Wallet</string>
     <string name="category_wc">WC</string>
     <string name="caret_down">caret down</string>
+    <string name="attention">Attention:</string>
+    <string name="all_data_will_be_deleted">All data will be deleted!</string>
+    <string name="confirm">Confirm</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>
