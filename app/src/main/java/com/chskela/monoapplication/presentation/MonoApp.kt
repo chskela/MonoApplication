@@ -17,7 +17,8 @@ import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.navigation.graphs.categoryGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.reportGraph
 import com.chskela.monoapplication.presentation.navigation.graphs.settingGraph
-import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingActivityScreen
+import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingScreen
+import com.chskela.monoapplication.presentation.screens.onboarding.OnBoardingViewModel
 import com.chskela.monoapplication.presentation.screens.transaction.TransactionScreen
 import com.chskela.monoapplication.presentation.screens.transaction.TransitionViewModel
 import com.chskela.monoapplication.presentation.ui.components.bottomnavigation.MonoBottomNavigation
@@ -65,7 +66,10 @@ fun MonoApp(onBoardingIsSkip: Boolean) {
             ) {
 
                 composable(MonoScreens.OnBoarding.name) {
-                    OnBoardingActivityScreen(
+                    val onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
+                    OnBoardingScreen(
+                        uiState = onBoardingViewModel.uiState,
+                        onEvent = onBoardingViewModel::onEvent,
                         onMainScreen = {
                             navController.popBackStack()
                             navController.navigate(MonoScreens.Transaction.name)

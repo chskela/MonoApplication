@@ -49,7 +49,6 @@ class TransitionViewModel @Inject constructor(
             )
         )
     )
-        private set
 
     fun onEvent(event: TransitionEvent) {
         when (event) {

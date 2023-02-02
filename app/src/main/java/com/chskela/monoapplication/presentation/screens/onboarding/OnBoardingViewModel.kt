@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.screens.onboarding
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
@@ -40,13 +41,12 @@ class OnBoardingViewModel @Inject constructor(
         buttonTitle = R.string.on_boarding_get_started,
     )
 
-    var uiState: MutableState<OnBoardingUiState> = mutableStateOf(
+    var uiState: OnBoardingUiState by mutableStateOf(
         OnBoardingUiState(
             onBoardingPage = pageFirst,
             skip = true,
         )
     )
-        private set
 
 
     fun onEvent(event: OnBoardingEvent) {
@@ -54,10 +54,10 @@ class OnBoardingViewModel @Inject constructor(
             is OnBoardingEvent.NextPage -> {
                 when (event.page) {
                     is Pages.First -> {
-                        uiState.value = uiState.value.copy(onBoardingPage = pageSecond)
+                        uiState = uiState.copy(onBoardingPage = pageSecond)
                     }
                     is Pages.Second -> {
-                        uiState.value = uiState.value.copy(onBoardingPage = pageThird, skip = false)
+                        uiState = uiState.copy(onBoardingPage = pageThird, skip = false)
                     }
                     is Pages.Third -> setOnBoardingIsSkip()
                 }
