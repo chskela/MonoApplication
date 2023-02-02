@@ -31,13 +31,16 @@ fun DetailsBigIcon(
             .background(
                 color = color.copy(alpha = 0.2f),
                 shape = MaterialTheme.shapes.small
-            ),
+            )
+            .padding(vertical = 16.dp, horizontal = 32.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
             Icon(
-                modifier = Modifier.size(200.dp),
+                modifier = Modifier
+                    .weight(85f)
+                    .fillMaxSize(),
                 painter = painterResource(
                     id = iconsMap.getOrDefault(icon, R.drawable.category_bank)
                 ),
@@ -45,9 +48,10 @@ fun DetailsBigIcon(
                 tint = color
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
+                modifier = Modifier.weight(15f),
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.secondary
@@ -61,6 +65,6 @@ fun DetailsBigIcon(
 @Composable
 fun PreviewDetailsBigIcon() {
     MonoApplicationTheme {
-        DetailsBigIcon(title = "Title", color = Expense)
+        DetailsBigIcon(modifier = Modifier.size(size = 300.dp), title = "Title", color = Expense)
     }
 }
