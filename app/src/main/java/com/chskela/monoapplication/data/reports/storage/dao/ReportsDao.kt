@@ -29,7 +29,7 @@ interface ReportsDao {
 
     @Query(
         """
-        SELECT SUM(amount) FROM 'transaction' T 
+        SELECT COALESCE(SUM(amount), 0) FROM 'transaction' T 
         WHERE T.category_id = :categoryId AND T.timestamp > :timeInMillis
         """
     )
