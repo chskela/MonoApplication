@@ -6,7 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
-import com.chskela.monoapplication.presentation.screens.currency.CurrencyActivityScreen
+import com.chskela.monoapplication.presentation.screens.currency.CurrencyScreen
+import com.chskela.monoapplication.presentation.screens.currency.CurrencyViewModel
 import com.chskela.monoapplication.presentation.screens.settings.SettingsScreen
 import com.chskela.monoapplication.presentation.screens.settings.SettingsViewModel
 
@@ -26,7 +27,12 @@ fun NavGraphBuilder.settingGraph(navController: NavController) {
         }
 
         composable(MonoScreens.Currency.name) {
-            CurrencyActivityScreen(onBack = { navController.navigateUp() })
+            val currencyViewModel: CurrencyViewModel = hiltViewModel()
+            CurrencyScreen(
+                uiState = currencyViewModel.uiState,
+                onSelectedCurrency = currencyViewModel::selectDefaultCurrency,
+                onBack = { navController.navigateUp() }
+            )
         }
     }
 }

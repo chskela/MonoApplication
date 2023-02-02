@@ -1,7 +1,8 @@
 package com.chskela.monoapplication.presentation.screens.currency
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.currency.models.Currency
@@ -16,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrencyViewModel @Inject constructor(private val currencyUseCases: CurrencyUseCases) :
     ViewModel() {
-    var uiState: MutableState<CurrencyUiState> = mutableStateOf(CurrencyUiState())
-        private set
+    var uiState: CurrencyUiState by mutableStateOf(CurrencyUiState())
+
 
     init {
         getCurrency()
@@ -30,7 +31,7 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
     }
 
     fun selectDefaultCurrency(id: Long) {
-        uiState.value = uiState.value.copy(selectedCurrency = id)
+        uiState = uiState.copy(selectedCurrency = id)
         viewModelScope.launch {
             currencyUseCases.setDefaultCurrencyUseCase(id)
         }
@@ -41,7 +42,7 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
             currencyUseCases.getListCurrencyUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase()
         ) { list, currency ->
-            uiState.value = uiState.value.copy(currencyList = list, selectedCurrency = currency.id)
+            uiState = uiState.copy(currencyList = list, selectedCurrency = currency.id)
         }.launchIn(viewModelScope)
     }
 }
