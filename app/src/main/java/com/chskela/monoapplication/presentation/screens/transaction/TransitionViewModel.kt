@@ -117,19 +117,19 @@ class TransitionViewModel @Inject constructor(
     private fun initialUiStateFromStore() {
         categoryUseCases.getAllCategoryUseCase()
             .combine(currencyUseCases.getDefaultCurrencyUseCase()) { list, currency ->
-                expenseList = list
-                    .filter { category -> category.type == TypeCategory.Expense }
-                    .map { it.mapToCategoryUi() }
-                    .also { item ->
-                        uiState = uiState.copy(
-                            listCategory = item,
-                            currentCurrency = currency
-                        )
+                list.fold(listOf<CategoryUi>() to listOf<CategoryUi>()) { acc, category ->
+                    when (category.type) {
+                        TypeCategory.Expense -> acc.copy(second = acc.second + category.mapToCategoryUi())
+                        TypeCategory.Income -> acc.copy(first = acc.first + category.mapToCategoryUi())
                     }
-
-                incomeList = list
-                    .filter { category -> category.type == TypeCategory.Income }
-                    .map { it.mapToCategoryUi() }
+                }.also { (income, expense) ->
+                    incomeList = income
+                    expenseList = expense
+                    uiState = uiState.copy(
+                        listCategory = expense,
+                        currentCurrency = currency
+                    )
+                }
             }
             .launchIn(viewModelScope)
     }
