@@ -111,5 +111,6 @@
     <string name="all_data_will_be_deleted">All data will be deleted!</string>
     <string name="confirm">Confirm</string>
     <string name="dismiss">Dismiss</string>
+    <string name="skip">Skip</string>
 
 </resources>

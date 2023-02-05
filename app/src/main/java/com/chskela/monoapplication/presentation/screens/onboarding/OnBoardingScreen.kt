@@ -12,11 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
+import com.chskela.monoapplication.core.util.TestTags.ON_BOARDING_CONTINUE_BUTTON
+import com.chskela.monoapplication.core.util.TestTags.ON_BOARDING_PAGE_NUMBER
+import com.chskela.monoapplication.core.util.TestTags.ON_BOARDING_SKIP_BUTTON
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingPage
 import com.chskela.monoapplication.presentation.screens.onboarding.models.OnBoardingUiState
 import com.chskela.monoapplication.presentation.screens.onboarding.models.Pages
@@ -48,6 +52,7 @@ fun OnBoardingScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
+                        modifier = Modifier.testTag(ON_BOARDING_PAGE_NUMBER),
                         text = "${page.pageNumber}/3",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface
@@ -55,6 +60,7 @@ fun OnBoardingScreen(
 
                     if (uiState.skip) {
                         OutlinedButton(
+                            modifier = Modifier.testTag(ON_BOARDING_SKIP_BUTTON),
                             onClick = {
                                 onMainScreen()
                                 onEvent(OnBoardingEvent.Skip)
@@ -62,7 +68,7 @@ fun OnBoardingScreen(
                             contentPadding = PaddingValues(horizontal = 24.dp)
                         ) {
                             Text(
-                                text = "Skip",
+                                text = stringResource(R.string.skip),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -89,6 +95,7 @@ fun OnBoardingScreen(
                 )
             }
             MonoButton(
+                modifier = Modifier.testTag(ON_BOARDING_CONTINUE_BUTTON),
                 text = stringResource(id = buttonTitle),
                 onClick = {
                     when (page) {
