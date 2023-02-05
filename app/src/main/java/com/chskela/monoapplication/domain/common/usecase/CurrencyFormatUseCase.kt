@@ -3,7 +3,7 @@ package com.chskela.monoapplication.domain.common.usecase
 import java.text.NumberFormat
 import java.util.*
 
-class CurrencyFormatUseCase(locale: Locale = Locale("ru")) {
+class CurrencyFormatUseCase(locale: Locale = Locale.getDefault()) {
     private val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance(locale)
 
     @Throws(IllegalArgumentException::class)
@@ -13,7 +13,6 @@ class CurrencyFormatUseCase(locale: Locale = Locale("ru")) {
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException("letterCode is not a supported ISO 4217 code")
         }
-
 
         return { number -> numberFormat.format(number) }
     }
