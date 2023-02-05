@@ -3,7 +3,7 @@ package com.chskela.monoapplication.presentation.ui.components.button
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,9 +25,7 @@ fun MonoButton(
     } else MaterialTheme.colorScheme.error to MaterialTheme.colorScheme.onError
 
     Button(
-        modifier = modifier
-            .height(48.dp)
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
@@ -37,6 +35,7 @@ fun MonoButton(
     ) {
         text?.let {
             Text(
+                modifier = Modifier.padding(vertical = 6.dp),
                 text = it,
                 style = MaterialTheme.typography.bodyLarge,
             )
@@ -52,7 +51,6 @@ fun PreviewMonoButton() {
         Surface {
             MonoButton(text = "Submit")
         }
-
     }
 }
 
