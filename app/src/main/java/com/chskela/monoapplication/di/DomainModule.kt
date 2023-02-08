@@ -45,6 +45,11 @@ object DomainModule {
     }
 
     @Provides
+    fun provideGetAllCategoryByTypeUseCase(repository: CategoryRepository): GetAllCategoryByTypeUseCase {
+        return  GetAllCategoryByTypeUseCase(repository)
+    }
+
+    @Provides
     fun provideTransactionUseCases(repository: TransactionRepository): TransactionUseCases {
         return TransactionUseCases(
             addTransactionUseCase = AddTransactionUseCase(repository),
