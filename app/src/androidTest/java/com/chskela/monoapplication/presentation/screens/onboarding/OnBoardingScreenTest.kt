@@ -2,11 +2,8 @@ package com.chskela.monoapplication.presentation.screens.onboarding
 
 import android.content.Context
 import androidx.activity.compose.setContent
-import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -110,5 +107,112 @@ class OnBoardingScreenTest {
     fun firstPage_continueButton_clickAble() {
         val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
         node.assertHasClickAction()
+    }
+    @Test
+    fun secondPage_pageNumber_isVisible() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_PAGE_NUMBER)
+        node.assertIsDisplayed()
+    }
+
+    @Test
+    fun secondPage_pageNumber_hasText() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_PAGE_NUMBER)
+        node.assertTextEquals("2/3")
+    }
+
+    @Test
+    fun secondPage_skipButton_isVisible() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_SKIP_BUTTON)
+        node.assertIsDisplayed()
+    }
+
+    @Test
+    fun secondPage_skipButton_hasText() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_SKIP_BUTTON)
+        node.assertTextEquals(ctx.getString(R.string.skip))
+    }
+
+    @Test
+    fun secondPage_skipButton_clickAble() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_SKIP_BUTTON)
+        node.assertHasClickAction()
+    }
+
+    @Test
+    fun secondPage_continueButton_isVisible() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertIsDisplayed()
+    }
+
+    @Test
+    fun secondPage_continueButton_hasText() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertTextEquals(ctx.getString(R.string.on_boarding_continue))
+    }
+
+    @Test
+    fun secondPage_continueButton_clickAble() {
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertHasClickAction()
+    }
+
+    @Test
+    fun thirdPage_pageNumber_isVisible() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_PAGE_NUMBER)
+        node.assertIsDisplayed()
+    }
+
+    @Test
+    fun thirdPage_pageNumber_hasText() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_PAGE_NUMBER)
+        node.assertTextEquals("3/3")
+    }
+
+    @Test
+    fun thirdPage_skipButton_doesNotExist() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_SKIP_BUTTON)
+        node.assertDoesNotExist()
+    }
+
+    @Test
+    fun thirdPage_getStartedButton_isVisible() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertIsDisplayed()
+    }
+
+    @Test
+    fun thirdPage_getStartedButton_hasText() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertTextEquals(ctx.getString(R.string.on_boarding_get_started))
+    }
+
+    @Test
+    fun thirdPage_getStartedButton_clickAble() {
+        nextPage()
+        nextPage()
+        val node = composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON)
+        node.assertHasClickAction()
+    }
+
+    private fun nextPage() {
+        composeRule.onNodeWithTag(TestTags.ON_BOARDING_CONTINUE_BUTTON).performClick()
     }
 }
