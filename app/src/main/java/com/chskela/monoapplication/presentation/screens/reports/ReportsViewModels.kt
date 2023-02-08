@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
@@ -20,6 +20,7 @@ import com.chskela.monoapplication.presentation.ui.components.transactionList.mo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -28,7 +29,7 @@ import javax.inject.Inject
 class ReportsViewModels @Inject constructor(
     private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val currencyUseCases: CurrencyUseCases,
-    private val categoryUseCases: CategoryUseCases,
+    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
     private val currencyFormatUseCase: CurrencyFormatUseCase
 ) : ViewModel() {
 
@@ -36,6 +37,10 @@ class ReportsViewModels @Inject constructor(
     private var allTransactionListUi: List<TransactionListUi> = emptyList()
     private var expenseTransactionListUi: List<TransactionListUi> = emptyList()
     private var incomeTransactionListUi: List<TransactionListUi> = emptyList()
+
+    private val expenseListFlow = getListOfCategoryByType(TypeCategory.Expense)
+
+    private val incomeListFlow = getListOfCategoryByType(TypeCategory.Income)
 
     var uiState: ReportsUiState by mutableStateOf(
         ReportsUiState(
@@ -93,8 +98,9 @@ class ReportsViewModels @Inject constructor(
         combine(
             getAllTransactionsUseCase(),
             currencyUseCases.getDefaultCurrencyUseCase(),
-            categoryUseCases.getAllCategoryUseCase()
-        ) { allTransactions, currentCurrency, allCategories ->
+            expenseListFlow,
+            incomeListFlow
+        ) { allTransactions, currentCurrency, expenseList, incomeList ->
             val currencyFormat = currencyFormatUseCase(currentCurrency.letterCode)
             val calendar = Calendar.getInstance()
 
@@ -142,12 +148,8 @@ class ReportsViewModels @Inject constructor(
                 income = incomeByMonthFormat,
                 expenseIncome = expenseIncomeFormat,
                 previousBalance = previousBalance,
-                expenseList = allCategories
-                    .filter { category -> category.type == TypeCategory.Expense }
-                    .map { it.mapToCategoryUi() },
-                incomeList = allCategories
-                    .filter { category -> category.type == TypeCategory.Income }
-                    .map { it.mapToCategoryUi() },
+                expenseList = expenseList,
+                incomeList = incomeList,
             )
         }.launchIn(viewModelScope)
     }
@@ -172,4 +174,9 @@ class ReportsViewModels @Inject constructor(
         category = transactionWithCategory.name,
         icon = transactionWithCategory.icon,
     )
+
+    private fun getListOfCategoryByType(type: TypeCategory) = getAllCategoryByTypeUseCase(type)
+        .map { list ->
+            list.map { it.mapToCategoryUi() }
+        }
 }
