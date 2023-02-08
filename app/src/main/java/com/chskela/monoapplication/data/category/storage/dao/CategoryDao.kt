@@ -10,6 +10,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category")
     fun getAllCategory(): Flow<List<CategoryEntity>>
 
+    @Query("SELECT * FROM category WHERE type=:typeCategory")
+    fun getAllCategoryByType(typeCategory: String): Flow<List<CategoryEntity>>
+
     @Query("SELECT * FROM category WHERE id = :id")
     fun getCategoryById(id: Long): Flow<CategoryEntity>
 
@@ -21,5 +24,4 @@ interface CategoryDao {
 
     @Query("DELETE FROM category WHERE id = :id")
     suspend fun deleteCategory(id: Long)
-
 }
