@@ -34,6 +34,11 @@ object DomainModule {
     }
 
     @Provides
+    fun provideGetDefaultCurrencyUseCase(repository: CurrencyRepository): GetDefaultCurrencyUseCase {
+        return GetDefaultCurrencyUseCase(repository)
+    }
+
+    @Provides
     fun provideCategoryUseCases(repository: CategoryRepository): CategoryUseCases {
         return CategoryUseCases(
             getAllCategoryUseCase = GetAllCategoryUseCase(repository),
@@ -57,6 +62,11 @@ object DomainModule {
             getTransactionByIdUseCase = GetTransactionByIdUseCase(repository),
             updateTransactionUseCase = UpdateTransactionUseCase(repository)
         )
+    }
+
+    @Provides
+    fun provideAddTransactionUseCase(repository: TransactionRepository): AddTransactionUseCase {
+        return AddTransactionUseCase(repository)
     }
 
     @Provides

@@ -10,6 +10,6 @@ data class TransitionUiState(
     val note: String = "",
     val isEnabledButton: Boolean = false,
     val listCategory: List<CategoryUi> = emptyList(),
-    val currentCategory: Long = 0,
+    val currentCategory: Long = -1L,
     val currentCurrency: Currency,
 )

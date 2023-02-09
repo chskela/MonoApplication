@@ -6,6 +6,6 @@ sealed class TransitionEvent{
     data class ChangeNote(val value: String) : TransitionEvent()
     data class SelectCategory(val categoryId: Long) : TransitionEvent()
     object Submit : TransitionEvent()
-    object PreviousData: TransitionEvent()
-    object NextData: TransitionEvent()
+    object PreviousDate: TransitionEvent()
+    object NextDate: TransitionEvent()
 }

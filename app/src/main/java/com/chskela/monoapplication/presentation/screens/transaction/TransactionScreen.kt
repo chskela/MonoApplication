@@ -80,8 +80,8 @@ fun TransactionScreen(
                     end.linkTo(parent.end)
                 },
             currentDate = currentData,
-            onPrevious = { onEvent(TransitionEvent.PreviousData) },
-            onNext = { onEvent(TransitionEvent.NextData) }
+            onPrevious = { onEvent(TransitionEvent.PreviousDate) },
+            onNext = { onEvent(TransitionEvent.NextDate) }
         )
 
         Column(
