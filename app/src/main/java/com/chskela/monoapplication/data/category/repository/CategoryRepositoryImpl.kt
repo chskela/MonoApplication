@@ -25,7 +25,7 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
     }
 
     override fun getAllCategoryByType(type: TypeCategory): Flow<List<Category>> {
-        return categoryDao.getAllCategoryByType(typeCategory = type.mapToType().name)
+        return categoryDao.getAllCategoryByType(type = type.mapToType())
             .distinctUntilChanged()
             .map { list -> list.map { it.mapToCategory() } }
             .flowOn(coroutineContext)
