@@ -2,6 +2,7 @@ package com.chskela.monoapplication.data.category.storage.dao
 
 import androidx.room.*
 import com.chskela.monoapplication.data.category.storage.models.CategoryEntity
+import com.chskela.monoapplication.data.category.storage.models.Type
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,7 +12,7 @@ interface CategoryDao {
     fun getAllCategory(): Flow<List<CategoryEntity>>
 
     @Query("SELECT * FROM category WHERE type=:typeCategory")
-    fun getAllCategoryByType(typeCategory: String): Flow<List<CategoryEntity>>
+    fun getAllCategoryByType(type: Type): Flow<List<CategoryEntity>>
 
     @Query("SELECT * FROM category WHERE id = :id")
     fun getCategoryById(id: Long): Flow<CategoryEntity>
