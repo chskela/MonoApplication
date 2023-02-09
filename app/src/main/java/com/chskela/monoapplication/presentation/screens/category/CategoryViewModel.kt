@@ -1,7 +1,5 @@
 package com.chskela.monoapplication.presentation.screens.category
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.Category
@@ -11,10 +9,7 @@ import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeU
 import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,8 +20,8 @@ class CategoryViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    var uiState: MutableState<CategoryUiState> = mutableStateOf(CategoryUiState())
-        private set
+    private val _uiState = MutableStateFlow(CategoryUiState())
+    val uiState = _uiState.asStateFlow()
 
     private var restoreCategory: Category? = null
 
@@ -56,10 +51,9 @@ class CategoryViewModel @Inject constructor(
         val incomeListFlow = getListOfCategoryByType(TypeCategory.Income)
 
         combine(expenseListFlow, incomeListFlow) { expenseList, incomeList ->
-            uiState.value = uiState.value.copy(
-                expenseList = expenseList,
-                incomeList = incomeList,
-            )
+            _uiState.update {
+                it.copy(expenseList = expenseList, incomeList = incomeList)
+            }
         }.launchIn(viewModelScope)
     }
 

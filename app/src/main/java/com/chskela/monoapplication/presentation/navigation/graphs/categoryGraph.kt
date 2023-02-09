@@ -1,5 +1,7 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -21,8 +23,9 @@ fun NavGraphBuilder.categoryGraph(navController: NavController) {
 
         composable(MonoScreens.Category.name) {
             val categoryViewModel: CategoryViewModel = hiltViewModel()
+            val uiState by categoryViewModel.uiState.collectAsState()
             CategoryScreen(
-                uiState = categoryViewModel.uiState.value,
+                uiState  = uiState,
                 onEvent = categoryViewModel::onEvent,
                 onBack = { navController.navigateUp() },
                 onEdit = { id ->
