@@ -1,6 +1,5 @@
 package com.chskela.monoapplication.presentation.screens.category
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,15 +7,22 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
+import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
-import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val categoryUseCases: CategoryUseCases) :
+class CategoryViewModel @Inject constructor(
+    private val categoryUseCases: CategoryUseCases,
+    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
+) :
     ViewModel() {
 
     var uiState: MutableState<CategoryUiState> = mutableStateOf(CategoryUiState())
@@ -25,7 +31,7 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
     private var restoreCategory: Category? = null
 
     init {
-        getCategoryList()
+        initialUiState()
     }
 
     fun onEvent(event: CategoryEvent) {
@@ -45,31 +51,20 @@ class CategoryViewModel @Inject constructor(private val categoryUseCases: Catego
         }
     }
 
-    private fun getCategoryList() {
-        categoryUseCases.getAllCategoryUseCase()
-            .onEach {
-                uiState.value = uiState.value.copy(
-                    expenseList = it
-                        .filter { category -> category.type == TypeCategory.Expense }
-                        .map { item ->
-                            CategoryUi(
-                                id = item.id,
-                                icon = item.icon,
-                                title = item.name
-                            )
-                        },
-                    incomeList = it
-                        .filter { category -> category.type == TypeCategory.Income }
-                        .map { item ->
-                            CategoryUi(
-                                id = item.id,
-                                icon = item.icon,
-                                title = item.name
-                            )
-                        },
-                )
-            }
-            .catch { e -> Log.e("RESULT", "getCategoryList: $e") }
-            .launchIn(viewModelScope)
+    private fun initialUiState() {
+        val expenseListFlow = getListOfCategoryByType(TypeCategory.Expense)
+        val incomeListFlow = getListOfCategoryByType(TypeCategory.Income)
+
+        combine(expenseListFlow, incomeListFlow) { expenseList, incomeList ->
+            uiState.value = uiState.value.copy(
+                expenseList = expenseList,
+                incomeList = incomeList,
+            )
+        }.launchIn(viewModelScope)
     }
+
+    private fun getListOfCategoryByType(type: TypeCategory) = getAllCategoryByTypeUseCase(type)
+        .map { list ->
+            list.map { it.mapToCategoryUi() }
+        }
 }
