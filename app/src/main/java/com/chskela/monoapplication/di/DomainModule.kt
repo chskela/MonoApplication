@@ -5,10 +5,10 @@ import com.chskela.monoapplication.domain.category.usecase.*
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
-import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
-import com.chskela.monoapplication.domain.reports.usecase.*
 import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
 import com.chskela.monoapplication.domain.onboarding.usecase.SetOnBoardingIsSkipUseCase
+import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
+import com.chskela.monoapplication.domain.reports.usecase.*
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import com.chskela.monoapplication.domain.transaction.usercase.*
 import dagger.Module
@@ -41,19 +41,31 @@ object DomainModule {
     }
 
     @Provides
-    fun provideCategoryUseCases(repository: CategoryRepository): CategoryUseCases {
-        return CategoryUseCases(
-            getAllCategoryUseCase = GetAllCategoryUseCase(repository),
-            addCategoryUseCase = AddCategoryUseCase(repository),
-            deleteCategoryUseCase = DeleteCategoryUseCase(repository),
-            updateCategoryUseCase = UpdateCategoryUseCase(repository),
-            getCategoryByIdUseCase = GetCategoryByIdUseCase(repository)
-        )
+    fun provideUpdateCategoryUseCase(repository: CategoryRepository): UpdateCategoryUseCase {
+        return UpdateCategoryUseCase(repository)
+    }
+
+    @Provides
+    fun provideAddCategoryUseCase(repository: CategoryRepository): AddCategoryUseCase {
+        return AddCategoryUseCase(repository)
+
+    }
+
+    @Provides
+    fun provideDeleteCategoryUseCase(repository: CategoryRepository): DeleteCategoryUseCase {
+        return DeleteCategoryUseCase(repository)
+
+    }
+
+    @Provides
+    fun provideGetCategoryByIdUseCase(repository: CategoryRepository): GetCategoryByIdUseCase {
+        return GetCategoryByIdUseCase(repository)
+
     }
 
     @Provides
     fun provideGetAllCategoryByTypeUseCase(repository: CategoryRepository): GetAllCategoryByTypeUseCase {
-        return  GetAllCategoryByTypeUseCase(repository)
+        return GetAllCategoryByTypeUseCase(repository)
     }
 
     @Provides

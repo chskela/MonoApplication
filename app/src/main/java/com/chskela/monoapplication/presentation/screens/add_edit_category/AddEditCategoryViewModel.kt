@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.data.icons.iconsMap
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.category.usecase.AddCategoryUseCase
+import com.chskela.monoapplication.domain.category.usecase.GetCategoryByIdUseCase
+import com.chskela.monoapplication.domain.category.usecase.UpdateCategoryUseCase
 import com.chskela.monoapplication.presentation.screens.add_edit_category.models.AddAndEditCategoryUiState
 import com.chskela.monoapplication.presentation.ui.components.categorysurface.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +22,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditCategoryViewModel @Inject constructor(
-    private val categoryUseCases: CategoryUseCases,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val addCategoryUseCase: AddCategoryUseCase,
+    private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
+    private val updateCategoryUseCase: UpdateCategoryUseCase
 ) :
     ViewModel() {
 
@@ -73,7 +77,7 @@ class AddEditCategoryViewModel @Inject constructor(
             }
 
             is AddAndEditCategoryEvent.GetCategory -> {
-                categoryUseCases.getCategoryByIdUseCase(eventEdit.categoryId)
+                getCategoryByIdUseCase(eventEdit.categoryId)
                     .onEach { (id, name, icon, type) ->
                         uiState = uiState.copy(
                             isNewCategory = false,
@@ -87,7 +91,7 @@ class AddEditCategoryViewModel @Inject constructor(
 
             is AddAndEditCategoryEvent.UpdateCategoryAnd -> {
                 viewModelScope.launch {
-                    categoryUseCases.updateCategoryUseCase(
+                    updateCategoryUseCase(
                         Category(
                             id = uiState.categoryId,
                             name = uiState.categoryName,
@@ -100,7 +104,7 @@ class AddEditCategoryViewModel @Inject constructor(
 
             is AddAndEditCategoryEvent.AddCategory -> {
                 viewModelScope.launch {
-                    categoryUseCases.addCategoryUseCase(
+                    addCategoryUseCase(
                         Category(
                             id = 0,
                             name = uiState.categoryName,

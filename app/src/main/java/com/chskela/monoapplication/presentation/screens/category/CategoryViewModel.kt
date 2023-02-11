@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.category.usecase.AddCategoryUseCase
+import com.chskela.monoapplication.domain.category.usecase.DeleteCategoryUseCase
 import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
+import com.chskela.monoapplication.domain.category.usecase.GetCategoryByIdUseCase
 import com.chskela.monoapplication.mappers.mapToCategoryUi
 import com.chskela.monoapplication.presentation.screens.category.models.CategoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val categoryUseCases: CategoryUseCases,
+    private val addCategoryUseCase: AddCategoryUseCase,
+    private val deleteCategoryUseCase: DeleteCategoryUseCase,
+    private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
 ) :
     ViewModel() {
@@ -33,13 +37,13 @@ class CategoryViewModel @Inject constructor(
         when (event) {
             is CategoryEvent.DeleteCategory -> {
                 viewModelScope.launch {
-                    restoreCategory = categoryUseCases.getCategoryByIdUseCase(event.id).first()
-                    categoryUseCases.deleteCategoryUseCase(event.id)
+                    restoreCategory = getCategoryByIdUseCase(event.id).first()
+                    deleteCategoryUseCase(event.id)
                 }
             }
             CategoryEvent.Restore -> {
                 viewModelScope.launch {
-                    categoryUseCases.addCategoryUseCase(restoreCategory ?: return@launch)
+                    addCategoryUseCase(restoreCategory ?: return@launch)
                     restoreCategory = null
                 }
             }

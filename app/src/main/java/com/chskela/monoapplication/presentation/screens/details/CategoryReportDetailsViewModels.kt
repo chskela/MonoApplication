@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
-import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
+import com.chskela.monoapplication.domain.category.usecase.GetCategoryByIdUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
@@ -23,12 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryReportDetailsViewModels @Inject constructor(
-    private val categoryUseCases: CategoryUseCases,
-    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
+    savedStateHandle: SavedStateHandle,
     private val currencyFormatUseCase: CurrencyFormatUseCase,
-    private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
+    private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     private val getAmountByCategoryPerMonthUseCase: GetAmountByCategoryPerMonthUseCase,
-    savedStateHandle: SavedStateHandle
+    private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase
 ) : ViewModel() {
     private var currentCalendar = Calendar.getInstance()
 
@@ -53,7 +53,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
 
             is CategoryReportDetailsEvent.GetData -> {
                 combine(
-                    categoryUseCases.getCategoryByIdUseCase(event.categoryId),
+                    getCategoryByIdUseCase(event.categoryId),
                     getAllTransactionsByMonthAndCategoryUseCase(
                         categoryId = event.categoryId,
                         month = currentCalendar.get(Calendar.MONTH)
