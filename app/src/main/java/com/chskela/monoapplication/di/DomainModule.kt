@@ -21,16 +21,18 @@ import dagger.hilt.android.components.ViewModelComponent
 object DomainModule {
 
     @Provides
-    fun provideCurrencyUseCases(repository: CurrencyRepository): CurrencyUseCases {
-        return CurrencyUseCases(
-            addCurrencyUseCase = AddCurrencyUseCase(repository),
-            updateCurrencyUseCase = UpdateCurrencyUseCase(repository),
-            deleteCurrencyUseCase = DeleteCurrencyUseCase(repository),
-            getDefaultCurrencyUseCase = GetDefaultCurrencyUseCase(repository),
-            getListCurrencyUseCase = GetListCurrencyUseCase(repository),
-            setDefaultCurrencyUseCase = SetDefaultCurrencyUseCase(repository),
-            getCurrencyByIdUseCase = GetCurrencyByIdUseCase(repository)
-        )
+    fun provideGetListCurrencyUseCase(repository: CurrencyRepository): GetListCurrencyUseCase {
+        return GetListCurrencyUseCase(repository)
+    }
+
+    @Provides
+    fun provideSetDefaultCurrencyUseCase(repository: CurrencyRepository): SetDefaultCurrencyUseCase {
+        return SetDefaultCurrencyUseCase(repository)
+    }
+
+    @Provides
+    fun provideAddCurrencyUseCase(repository: CurrencyRepository): AddCurrencyUseCase {
+        return AddCurrencyUseCase(repository)
     }
 
     @Provides

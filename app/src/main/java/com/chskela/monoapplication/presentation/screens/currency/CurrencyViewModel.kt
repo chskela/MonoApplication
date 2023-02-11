@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.currency.models.Currency
-import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
+import com.chskela.monoapplication.domain.currency.usecase.*
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
@@ -15,7 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CurrencyViewModel @Inject constructor(private val currencyUseCases: CurrencyUseCases) :
+class CurrencyViewModel @Inject constructor(
+    private val addCurrencyUseCase: AddCurrencyUseCase,
+    private val setDefaultCurrencyUseCase: SetDefaultCurrencyUseCase,
+    private val getListCurrencyUseCase: GetListCurrencyUseCase,
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
+
+    ) :
     ViewModel() {
     var uiState: CurrencyUiState by mutableStateOf(CurrencyUiState())
 
@@ -26,21 +32,21 @@ class CurrencyViewModel @Inject constructor(private val currencyUseCases: Curren
 
     fun add(currency: Currency) {
         viewModelScope.launch {
-            currencyUseCases.addCurrencyUseCase(currency)
+            addCurrencyUseCase(currency)
         }
     }
 
     fun selectDefaultCurrency(id: Long) {
         uiState = uiState.copy(selectedCurrency = id)
         viewModelScope.launch {
-            currencyUseCases.setDefaultCurrencyUseCase(id)
+            setDefaultCurrencyUseCase(id)
         }
     }
 
     private fun getCurrency() {
         combine(
-            currencyUseCases.getListCurrencyUseCase(),
-            currencyUseCases.getDefaultCurrencyUseCase()
+            getListCurrencyUseCase(),
+            getDefaultCurrencyUseCase()
         ) { list, currency ->
             uiState = uiState.copy(currencyList = list, selectedCurrency = currency.id)
         }.launchIn(viewModelScope)

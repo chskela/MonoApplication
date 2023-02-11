@@ -9,7 +9,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
-import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
+import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
 import com.chskela.monoapplication.mappers.mapToCategoryUi
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ReportsViewModels @Inject constructor(
     private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
-    private val currencyUseCases: CurrencyUseCases,
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
     private val currencyFormatUseCase: CurrencyFormatUseCase
 ) : ViewModel() {
@@ -97,7 +97,7 @@ class ReportsViewModels @Inject constructor(
     private fun initialUiState() {
         combine(
             getAllTransactionsUseCase(),
-            currencyUseCases.getDefaultCurrencyUseCase(),
+            getDefaultCurrencyUseCase(),
             expenseListFlow,
             incomeListFlow
         ) { allTransactions, currentCurrency, expenseList, incomeList ->

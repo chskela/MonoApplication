@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.CategoryUseCases
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
-import com.chskela.monoapplication.domain.currency.usecase.CurrencyUseCases
+import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsByMonthAndCategoryUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAmountByCategoryPerMonthUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
@@ -24,9 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryReportDetailsViewModels @Inject constructor(
     private val categoryUseCases: CategoryUseCases,
-    private val currencyUseCases: CurrencyUseCases,
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     private val currencyFormatUseCase: CurrencyFormatUseCase,
-//    private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val getAllTransactionsByMonthAndCategoryUseCase: GetAllTransactionsByMonthAndCategoryUseCase,
     private val getAmountByCategoryPerMonthUseCase: GetAmountByCategoryPerMonthUseCase,
     savedStateHandle: SavedStateHandle
@@ -54,14 +53,13 @@ class CategoryReportDetailsViewModels @Inject constructor(
 
             is CategoryReportDetailsEvent.GetData -> {
                 combine(
-//                    getAllTransactionsUseCase(),
                     categoryUseCases.getCategoryByIdUseCase(event.categoryId),
                     getAllTransactionsByMonthAndCategoryUseCase(
                         categoryId = event.categoryId,
                         month = currentCalendar.get(Calendar.MONTH)
                     ),
                     getAmountByCategoryPerMonthUseCase(event.categoryId),
-                    currencyUseCases.getDefaultCurrencyUseCase(),
+                    getDefaultCurrencyUseCase(),
                 ) { category, list, sumThisMonth, currentCurrency ->
                     val currencyFormat = currencyFormatUseCase(currentCurrency.letterCode)
                     val calendar = Calendar.getInstance()
