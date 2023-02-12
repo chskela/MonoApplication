@@ -69,16 +69,6 @@ object DomainModule {
     }
 
     @Provides
-    fun provideTransactionUseCases(repository: TransactionRepository): TransactionUseCases {
-        return TransactionUseCases(
-            addTransactionUseCase = AddTransactionUseCase(repository),
-            deleteTransactionUseCase = DeleteTransactionUseCase(repository),
-            getTransactionByIdUseCase = GetTransactionByIdUseCase(repository),
-            updateTransactionUseCase = UpdateTransactionUseCase(repository)
-        )
-    }
-
-    @Provides
     fun provideAddTransactionUseCase(repository: TransactionRepository): AddTransactionUseCase {
         return AddTransactionUseCase(repository)
     }

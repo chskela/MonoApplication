@@ -21,37 +21,56 @@ import dagger.hilt.android.components.ViewModelComponent
 object TestDomainModule {
 
     @Provides
-    fun provideCurrencyUseCases(repository: CurrencyRepository): CurrencyUseCases {
-        return CurrencyUseCases(
-            addCurrencyUseCase = AddCurrencyUseCase(repository),
-            updateCurrencyUseCase = UpdateCurrencyUseCase(repository),
-            deleteCurrencyUseCase = DeleteCurrencyUseCase(repository),
-            getDefaultCurrencyUseCase = GetDefaultCurrencyUseCase(repository),
-            getListCurrencyUseCase = GetListCurrencyUseCase(repository),
-            setDefaultCurrencyUseCase = SetDefaultCurrencyUseCase(repository),
-            getCurrencyByIdUseCase = GetCurrencyByIdUseCase(repository)
-        )
+    fun provideGetListCurrencyUseCase(repository: CurrencyRepository): GetListCurrencyUseCase {
+        return GetListCurrencyUseCase(repository)
     }
 
     @Provides
-    fun provideCategoryUseCases(repository: CategoryRepository): CategoryUseCases {
-        return CategoryUseCases(
-            getAllCategoryUseCase = GetAllCategoryUseCase(repository),
-            addCategoryUseCase = AddCategoryUseCase(repository),
-            deleteCategoryUseCase = DeleteCategoryUseCase(repository),
-            updateCategoryUseCase = UpdateCategoryUseCase(repository),
-            getCategoryByIdUseCase = GetCategoryByIdUseCase(repository)
-        )
+    fun provideSetDefaultCurrencyUseCase(repository: CurrencyRepository): SetDefaultCurrencyUseCase {
+        return SetDefaultCurrencyUseCase(repository)
     }
 
     @Provides
-    fun provideTransactionUseCases(repository: TransactionRepository): TransactionUseCases {
-        return TransactionUseCases(
-            addTransactionUseCase = AddTransactionUseCase(repository),
-            deleteTransactionUseCase = DeleteTransactionUseCase(repository),
-            getTransactionByIdUseCase = GetTransactionByIdUseCase(repository),
-            updateTransactionUseCase = UpdateTransactionUseCase(repository)
-        )
+    fun provideAddCurrencyUseCase(repository: CurrencyRepository): AddCurrencyUseCase {
+        return AddCurrencyUseCase(repository)
+    }
+
+    @Provides
+    fun provideGetDefaultCurrencyUseCase(repository: CurrencyRepository): GetDefaultCurrencyUseCase {
+        return GetDefaultCurrencyUseCase(repository)
+    }
+
+    @Provides
+    fun provideUpdateCategoryUseCase(repository: CategoryRepository): UpdateCategoryUseCase {
+        return UpdateCategoryUseCase(repository)
+    }
+
+    @Provides
+    fun provideAddCategoryUseCase(repository: CategoryRepository): AddCategoryUseCase {
+        return AddCategoryUseCase(repository)
+
+    }
+
+    @Provides
+    fun provideDeleteCategoryUseCase(repository: CategoryRepository): DeleteCategoryUseCase {
+        return DeleteCategoryUseCase(repository)
+
+    }
+
+    @Provides
+    fun provideGetCategoryByIdUseCase(repository: CategoryRepository): GetCategoryByIdUseCase {
+        return GetCategoryByIdUseCase(repository)
+
+    }
+
+    @Provides
+    fun provideGetAllCategoryByTypeUseCase(repository: CategoryRepository): GetAllCategoryByTypeUseCase {
+        return GetAllCategoryByTypeUseCase(repository)
+    }
+
+    @Provides
+    fun provideAddTransactionUseCase(repository: TransactionRepository): AddTransactionUseCase {
+        return AddTransactionUseCase(repository)
     }
 
     @Provides
