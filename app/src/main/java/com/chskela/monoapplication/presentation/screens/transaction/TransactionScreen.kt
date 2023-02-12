@@ -100,6 +100,7 @@ fun TransactionScreen(
             Spacer(modifier = Modifier.height(72.dp))
 
             MonoTextField(
+                modifier = Modifier.testTag(TestTags.TRANSACTION_AMOUNT),
                 label = textFieldLabel,
                 value = amount,
                 textStyle = MaterialTheme.typography.displayLarge,

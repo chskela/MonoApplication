@@ -2,6 +2,8 @@ package com.chskela.monoapplication.presentation.screens.transaction
 
 import android.content.Context
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -9,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.test.core.app.ApplicationProvider
+import com.chskela.monoapplication.R
 import com.chskela.monoapplication.core.util.TestTags
 import com.chskela.monoapplication.di.TestDataModule
 import com.chskela.monoapplication.di.TestDomainModule
@@ -46,8 +49,9 @@ class TransactionScreenTest {
                 ) {
                     composable(MonoScreens.Transaction.name) {
                         val transitionViewModel: TransitionViewModel = hiltViewModel()
+                        val uiState by transitionViewModel.uiState.collectAsState()
                         TransactionScreen(
-                            uiState = transitionViewModel.uiState,
+                            uiState = uiState,
                             onEvent = transitionViewModel::onEvent,
                         )
                     }
@@ -69,11 +73,66 @@ class TransactionScreenTest {
     }
 
     @Test
+    fun tabs_hasText(){
+        val nodes = composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS).onChildren()
+        nodes.onFirst().assertTextContains(ctx.getString(R.string.expense))
+        nodes.onLast().assertTextContains(ctx.getString(R.string.income))
+    }
+
+    @Test
     fun firstTab_isSelected(){
         composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS)
             .onChildren()
             .onLast()
             .assertIsSelected()
+    }
+
+    @Test
+    fun amountTextField_isVisible(){
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT).assertIsDisplayed()
+    }
+
+    @Test
+    fun amountTextField_hasTextOnLabel(){
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
+            .onChildren()
+            .onFirst()
+            .assertTextContains(ctx.getString(R.string.expense))
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS)
+            .onChildren()
+            .onLast()
+            .performClick()
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
+            .onChildren()
+            .onFirst()
+            .assertTextContains(ctx.getString(R.string.income))
+    }
+
+    @Test
+    fun amountTextField_inputOnlyCurrencyValue(){
+        val node = composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
+            .onChildren()
+            .onLast()
+
+        node.performTextInput("test")
+        node.assertTextContains("0.00")
+
+        node.performTextInput("+-*/_~\'?><")
+        node.assertTextContains("0.00")
+
+        node.performTextInput("12345")
+        node.assertTextContains("12345")
+
+        node.performTextInput(".67")
+        node.assertTextContains("12345.67")
+
+        node.performTextInput("89")
+        node.assertTextContains("12345.67")
+
+        node.performTextInput(".89")
+        node.assertTextContains("12345.67")
     }
 
 }
