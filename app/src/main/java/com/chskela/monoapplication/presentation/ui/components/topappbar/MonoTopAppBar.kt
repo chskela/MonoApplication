@@ -43,7 +43,6 @@ fun MonoTopAppBar(
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.fillMaxWidth()
             )
         },
         modifier = modifier,
