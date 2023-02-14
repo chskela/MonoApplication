@@ -3,7 +3,7 @@ package com.chskela.monoapplication.mappers
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 
-fun Transaction.mapToTransactionEntity(): TransactionEntity =
+fun Transaction.mapToData(): TransactionEntity =
     TransactionEntity(
         id = id,
         timestamp = timestamp,
@@ -12,7 +12,7 @@ fun Transaction.mapToTransactionEntity(): TransactionEntity =
         categoryId = categoryId,
     )
 
-fun TransactionEntity.mapToTransaction(): Transaction =
+fun TransactionEntity.mapToDomain(): Transaction =
     Transaction(
         id = id,
         timestamp = timestamp,

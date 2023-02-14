@@ -12,5 +12,5 @@ fun TransactionEntityWithCategory.mapToTransactionWithCategory(): TransactionWit
         categoryId = categoryId,
         name = name,
         icon = icon,
-        type = type.mapToTypeCategory()
+        type = type.mapToDomain()
     )
