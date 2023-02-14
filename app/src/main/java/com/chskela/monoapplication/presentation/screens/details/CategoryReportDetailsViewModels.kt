@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.GetCategoryByIdUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
@@ -76,7 +77,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
                             TransactionListUi(
                                 amount = currencyFormat(it.amount / 100.0),
                                 note = it.note,
-                                type = if (category.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income,
+                                type = getTypeTransaction(category),
                                 category = category.name,
                                 icon = null
                             )
@@ -86,4 +87,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
             }
         }
     }
+
+    private fun getTypeTransaction(category: Category) =
+        if (category.type == TypeCategory.Expense) TypeTransaction.Expense else TypeTransaction.Income
 }
