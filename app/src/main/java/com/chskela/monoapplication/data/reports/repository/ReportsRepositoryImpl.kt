@@ -5,7 +5,7 @@ import com.chskela.monoapplication.domain.common.repository.AbstractRepository
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
 import com.chskela.monoapplication.domain.transaction.models.Transaction
-import com.chskela.monoapplication.mappers.mapToTransaction
+import com.chskela.monoapplication.mappers.mapToDomain
 import com.chskela.monoapplication.mappers.mapToTransactionWithCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,7 +27,7 @@ class ReportsRepositoryImpl(private val reportsDao: ReportsDao) : ReportsReposit
         return reportsDao.getAllTransactionsByCategory(categoryId)
             .distinctUntilChanged()
             .map { list ->
-                list.map { it.mapToTransaction() }
+                list.map { it.mapToDomain() }
             }.flowOn(coroutineContext)
     }
 

@@ -5,9 +5,8 @@ import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
-import com.chskela.monoapplication.mappers.mapToCategory
-import com.chskela.monoapplication.mappers.mapToCategoryEntity
-import com.chskela.monoapplication.mappers.mapToType
+import com.chskela.monoapplication.mappers.mapToDomain
+import com.chskela.monoapplication.mappers.mapToData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
@@ -20,33 +19,33 @@ class CategoryRepositoryImpl(private val categoryDao: CategoryDao) : CategoryRep
     override fun getAllCategory(): Flow<List<Category>> {
         return categoryDao.getAllCategory()
             .distinctUntilChanged()
-            .map { list -> list.map { it.mapToCategory() } }
+            .map { list -> list.map { it.mapToDomain() } }
             .flowOn(coroutineContext)
     }
 
     override fun getAllCategoryByType(type: TypeCategory): Flow<List<Category>> {
-        return categoryDao.getAllCategoryByType(type = type.mapToType())
+        return categoryDao.getAllCategoryByType(type = type.mapToData())
             .distinctUntilChanged()
-            .map { list -> list.map { it.mapToCategory() } }
+            .map { list -> list.map { it.mapToDomain() } }
             .flowOn(coroutineContext)
     }
 
     override fun getCategoryById(id: Long): Flow<Category> {
         return categoryDao.getCategoryById(id)
             .distinctUntilChanged()
-            .map { it.mapToCategory() }
+            .map { it.mapToDomain() }
             .flowOn(coroutineContext)
     }
 
     override suspend fun insertCategory(category: Category) {
         withContext(coroutineContext) {
-            categoryDao.insertCategory(category.mapToCategoryEntity())
+            categoryDao.insertCategory(category.mapToData())
         }
     }
 
     override suspend fun updateCategory(category: Category) {
         withContext(coroutineContext) {
-            categoryDao.updateCategory(category.mapToCategoryEntity())
+            categoryDao.updateCategory(category.mapToData())
         }
     }
 

@@ -5,8 +5,8 @@ import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
-import com.chskela.monoapplication.mappers.mapToCurrency
-import com.chskela.monoapplication.mappers.mapToCurrencyEntity
+import com.chskela.monoapplication.mappers.mapToDomain
+import com.chskela.monoapplication.mappers.mapToData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
@@ -21,12 +21,12 @@ class CurrencyRepositoryImpl(
     override fun getListCurrency(): Flow<List<Currency>> {
         return currencyDao.getListCurrency()
             .distinctUntilChanged()
-            .map { list -> list.map { it.mapToCurrency() } }
+            .map { list -> list.map { it.mapToDomain() } }
             .flowOn(coroutineContext)
     }
 
     override suspend fun getCurrencyById(id: Long): Currency = withContext(coroutineContext) {
-        currencyDao.getCurrencyById(id).mapToCurrency()
+        currencyDao.getCurrencyById(id).mapToDomain()
     }
 
     override fun getIdDefaultCurrency(): Flow<Long> {
@@ -37,19 +37,19 @@ class CurrencyRepositoryImpl(
 
     override suspend fun insertCurrency(currency: Currency) {
         withContext(coroutineContext) {
-            currencyDao.insertCurrency(currency.mapToCurrencyEntity())
+            currencyDao.insertCurrency(currency.mapToData())
         }
     }
 
     override suspend fun updateCurrency(currency: Currency) {
         withContext(coroutineContext) {
-            currencyDao.updateCurrency(currency.mapToCurrencyEntity())
+            currencyDao.updateCurrency(currency.mapToData())
         }
     }
 
     override suspend fun deleteCurrency(currency: Currency) {
         withContext(coroutineContext) {
-            currencyDao.deleteCurrency(currency.mapToCurrencyEntity())
+            currencyDao.deleteCurrency(currency.mapToData())
         }
     }
 

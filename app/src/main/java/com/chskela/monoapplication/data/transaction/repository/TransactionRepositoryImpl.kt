@@ -5,7 +5,7 @@ import com.chskela.monoapplication.data.reports.storage.models.TransactionEntity
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
-import com.chskela.monoapplication.mappers.mapToTransactionEntity
+import com.chskela.monoapplication.mappers.mapToData
 import kotlinx.coroutines.withContext
 
 class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
@@ -18,19 +18,19 @@ class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
 
     override suspend fun insertTransaction(transaction: Transaction) {
         withContext(coroutineContext) {
-            transactionDao.insertTransaction(transaction.mapToTransactionEntity())
+            transactionDao.insertTransaction(transaction.mapToData())
         }
     }
 
     override suspend fun updateTransaction(transaction: Transaction) {
         withContext(coroutineContext) {
-            transactionDao.updateTransaction(transaction.mapToTransactionEntity())
+            transactionDao.updateTransaction(transaction.mapToData())
         }
     }
 
     override suspend fun deleteTransaction(transaction: Transaction) {
         withContext(coroutineContext) {
-            transactionDao.deleteTransaction(transaction.mapToTransactionEntity())
+            transactionDao.deleteTransaction(transaction.mapToData())
         }
     }
 
