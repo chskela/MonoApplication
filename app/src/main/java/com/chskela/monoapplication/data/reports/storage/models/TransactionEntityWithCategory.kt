@@ -3,11 +3,12 @@ package com.chskela.monoapplication.data.reports.storage.models
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import com.chskela.monoapplication.data.category.storage.models.Type
+import java.util.Date
 
 data class TransactionEntityWithCategory(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val timestamp: Long,
+    val timestamp: Date,
     val amount: Long,
     val note: String,
     @ColumnInfo(name = "category_id")
