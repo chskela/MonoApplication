@@ -71,10 +71,10 @@ class CategoryReportDetailsViewModels @Inject constructor(
                             icon = category.icon,
                             typeCategory = category.type,
                             sumThisMonth = currencyFormat(sumThisMonth),
-                            transactionList = list.map {
+                            transactionList = list.map {transition ->
                                 TransactionListUi(
-                                    amount = currencyFormat(it.amount / 100.0),
-                                    note = it.note,
+                                    amount = currencyFormat(transition.amount / 100.0),
+                                    note = transition.note,
                                     type = getTypeTransaction(category),
                                     category = category.name,
                                     icon = null
