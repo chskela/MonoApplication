@@ -2,6 +2,7 @@ package com.chskela.monoapplication.di
 
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.category.usecase.*
+import com.chskela.monoapplication.domain.common.usecase.BeginningOfMonthUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.currency.usecase.*
@@ -84,13 +85,24 @@ object DomainModule {
     }
 
     @Provides
-    fun provideGetAllTransactionsByCategoryUseCase(repository: ReportsRepository): GetAllTransactionsByMonthAndCategoryUseCase {
-        return GetAllTransactionsByMonthAndCategoryUseCase(repository)
+    fun provideBeginningOfMonthUseCase(): BeginningOfMonthUseCase {
+        return BeginningOfMonthUseCase()
+    }
+    
+    @Provides
+    fun provideGetAllTransactionsByCategoryUseCase(
+        repository: ReportsRepository,
+        beginningOfMonthUseCase: BeginningOfMonthUseCase
+    ): GetAllTransactionsOfCategoryInThisMonthUseCase {
+        return GetAllTransactionsOfCategoryInThisMonthUseCase(repository, beginningOfMonthUseCase)
     }
 
     @Provides
-    fun provideGetAmountByCategoryPerMonthUseCase(repository: ReportsRepository): GetAmountByCategoryPerMonthUseCase {
-        return GetAmountByCategoryPerMonthUseCase(repository)
+    fun provideGetAmountByCategoryPerMonthUseCase(
+        repository: ReportsRepository,
+        beginningOfMonthUseCase: BeginningOfMonthUseCase
+    ): GetAmountByCategoryPerMonthUseCase {
+        return GetAmountByCategoryPerMonthUseCase(repository, beginningOfMonthUseCase)
     }
 
     @Provides
