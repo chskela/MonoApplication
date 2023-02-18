@@ -1,8 +1,5 @@
 package com.chskela.monoapplication.presentation.screens.details
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +14,7 @@ import com.chskela.monoapplication.presentation.screens.details.models.CategoryR
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
@@ -33,7 +29,8 @@ class CategoryReportDetailsViewModels @Inject constructor(
 ) : ViewModel() {
     private var currentCalendar = Calendar.getInstance()
 
-    var uiState: CategoryReportDetailsUiState by mutableStateOf(CategoryReportDetailsUiState())
+    private val _uiState = MutableStateFlow(CategoryReportDetailsUiState())
+    val uiState = _uiState.asStateFlow()
 
     init {
         savedStateHandle.get<Long>("categoryId")?.let { categoryId ->
@@ -47,18 +44,18 @@ class CategoryReportDetailsViewModels @Inject constructor(
         when (event) {
 
             is CategoryReportDetailsEvent.SelectTab -> {
-                uiState = uiState.copy(
-                    currentTab = event.tab,
-                )
+                _uiState.update {
+                    it.copy(currentTab = event.tab)
+                }
             }
 
             is CategoryReportDetailsEvent.GetData -> {
+                val categoryId = event.categoryId
+                val month = currentCalendar.get(Calendar.MONTH)
+
                 combine(
                     getCategoryByIdUseCase(event.categoryId),
-                    getAllTransactionsByMonthAndCategoryUseCase(
-                        categoryId = event.categoryId,
-                        month = currentCalendar.get(Calendar.MONTH)
-                    ),
+                    getAllTransactionsByMonthAndCategoryUseCase(categoryId, month),
                     getAmountByCategoryPerMonthUseCase(event.categoryId),
                     getDefaultCurrencyUseCase(),
                 ) { category, list, sumThisMonth, currentCurrency ->
@@ -68,21 +65,23 @@ class CategoryReportDetailsViewModels @Inject constructor(
                     calendar.get(Calendar.MONTH)
 
 //                    val reportsList: List<ReportUi> =
-                    uiState = uiState.copy(
-                        categoryName = category.name,
-                        icon = category.icon,
-                        typeCategory = category.type,
-                        sumThisMonth = currencyFormat(sumThisMonth),
-                        transactionList = list.map {
-                            TransactionListUi(
-                                amount = currencyFormat(it.amount / 100.0),
-                                note = it.note,
-                                type = getTypeTransaction(category),
-                                category = category.name,
-                                icon = null
-                            )
-                        }
-                    )
+                    _uiState.update {
+                        it.copy(
+                            categoryName = category.name,
+                            icon = category.icon,
+                            typeCategory = category.type,
+                            sumThisMonth = currencyFormat(sumThisMonth),
+                            transactionList = list.map {
+                                TransactionListUi(
+                                    amount = currencyFormat(it.amount / 100.0),
+                                    note = it.note,
+                                    type = getTypeTransaction(category),
+                                    category = category.name,
+                                    icon = null
+                                )
+                            }
+                        )
+                    }
                 }.launchIn(viewModelScope)
             }
         }

@@ -1,5 +1,7 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -40,11 +42,12 @@ fun NavGraphBuilder.reportGraph(navController: NavController) {
 
         ) {
             val categoryReportDetailsViewModels: CategoryReportDetailsViewModels = hiltViewModel()
+            val uiState by categoryReportDetailsViewModels.uiState.collectAsState()
+
             CategoryReportDetailsScreen(
-                uiState = categoryReportDetailsViewModels.uiState,
+                uiState = uiState,
                 onEvent = categoryReportDetailsViewModels::onEvent,
                 onBack = { navController.navigateUp() })
-
         }
     }
 }
