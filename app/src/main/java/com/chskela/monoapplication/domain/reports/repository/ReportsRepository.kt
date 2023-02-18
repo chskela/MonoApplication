@@ -10,6 +10,11 @@ interface ReportsRepository {
 
     fun getAllTransactionsByCategory(categoryId: Long): Flow<List<Transaction>>
 
+    fun getAllTransactionsOfCategoryInThisMonth(
+        categoryId: Long,
+        startOfMonth: Date
+    ): Flow<List<Transaction>>
+
     fun getAmountByCategoryPerMonth(
         categoryId: Long,
         startOfMonth: Date
