@@ -32,6 +32,17 @@ class ReportsRepositoryImpl(private val reportsDao: ReportsDao) : ReportsReposit
             }.flowOn(coroutineContext)
     }
 
+    override fun getAllTransactionsOfCategoryInThisMonth(
+        categoryId: Long,
+        startOfMonth: Date
+    ): Flow<List<Transaction>> {
+        return reportsDao.getAllTransactionsOfCategoryInThisMonth(categoryId, startOfMonth)
+            .distinctUntilChanged()
+            .map { list ->
+                list.map { it.mapToDomain() }
+            }.flowOn(coroutineContext)
+    }
+
     override fun getAmountByCategoryPerMonth(categoryId: Long, startOfMonth: Date): Flow<Long> {
         return reportsDao
             .getAmountByCategoryPerMonth(categoryId, startOfMonth)
