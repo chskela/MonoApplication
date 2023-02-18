@@ -5,7 +5,7 @@ import androidx.room.Query
 import com.chskela.monoapplication.data.reports.storage.models.TransactionEntityWithCategory
 import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 import kotlinx.coroutines.flow.Flow
-import java.util.Date
+import java.util.*
 
 @Dao
 interface ReportsDao {
@@ -30,9 +30,21 @@ interface ReportsDao {
 
     @Query(
         """
-        SELECT COALESCE(SUM(amount), 0) FROM 'transaction' T 
-        WHERE T.category_id = :categoryId AND T.timestamp > :timeInMillis
+            SELECT T.id, T.timestamp, T.amount, T.note, T.category_id FROM 'transaction' T 
+            WHERE T.category_id = :categoryId AND T.timestamp > :time
+            ORDER BY T.timestamp DESC
         """
     )
-    fun getAmountByCategoryPerMonth(categoryId: Long, timeInMillis: Date): Flow<Long>
+    fun getAllTransactionsOfCategoryInThisMonth(
+        categoryId: Long,
+        time: Date
+    ): Flow<List<TransactionEntity>>
+
+    @Query(
+        """
+        SELECT COALESCE(SUM(amount), 0) FROM 'transaction' T 
+        WHERE T.category_id = :categoryId AND T.timestamp > :time
+        """
+    )
+    fun getAmountByCategoryPerMonth(categoryId: Long, time: Date): Flow<Long>
 }
