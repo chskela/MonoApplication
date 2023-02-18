@@ -108,12 +108,12 @@ class ReportsViewModels @Inject constructor(
                 currencyFormat(allTransactions.sumOf(::calculateBalance).toDouble() / 100)
 
             val transactionsByMonth = allTransactions.filter { transaction ->
-                calendar.timeInMillis = transaction.timestamp
+                calendar.time = transaction.timestamp
                 calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)
             }
 
             val listByPrevMonth = allTransactions.filter { transaction ->
-                calendar.timeInMillis = transaction.timestamp
+                calendar.time = transaction.timestamp
                 calendar.get(Calendar.MONTH) < currentCalendar.get(Calendar.MONTH)
             }
 

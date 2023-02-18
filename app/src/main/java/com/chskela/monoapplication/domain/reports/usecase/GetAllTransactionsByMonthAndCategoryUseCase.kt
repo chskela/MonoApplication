@@ -12,7 +12,7 @@ class GetAllTransactionsByMonthAndCategoryUseCase(private val reportsRepository:
             val calendar = Calendar.getInstance()
             return reportsRepository.getAllTransactionsByCategory(categoryId).map { list ->
                 list.filter {
-                    calendar.timeInMillis = it.timestamp
+                    calendar.timeInMillis = it.timestamp.time
                     calendar.get(Calendar.MONTH) == month
                 }
             }

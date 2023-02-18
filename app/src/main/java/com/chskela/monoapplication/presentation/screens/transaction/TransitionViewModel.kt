@@ -78,7 +78,7 @@ class TransitionViewModel @Inject constructor(
                 addTransactionUseCase(
                     Transaction(
                         id = 0,
-                        timestamp = createdAt.timeInMillis,
+                        timestamp = createdAt.time,
                         amount = (_uiState.value.amount.toDouble() * 100).toLong(),
                         note = _uiState.value.note,
                         categoryId = _uiState.value.currentCategory,
