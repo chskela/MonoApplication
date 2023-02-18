@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import java.util.*
 
 class ReportsRepositoryImpl(private val reportsDao: ReportsDao) : ReportsRepository,
     AbstractRepository() {
@@ -31,12 +32,9 @@ class ReportsRepositoryImpl(private val reportsDao: ReportsDao) : ReportsReposit
             }.flowOn(coroutineContext)
     }
 
-    override fun getAmountByCategoryPerMonth(
-        categoryId: Long,
-        startOfMonthInMilliseconds: Long
-    ): Flow<Long> {
+    override fun getAmountByCategoryPerMonth(categoryId: Long, startOfMonth: Date): Flow<Long> {
         return reportsDao
-            .getAmountByCategoryPerMonth(categoryId, startOfMonthInMilliseconds)
+            .getAmountByCategoryPerMonth(categoryId, startOfMonth)
             .distinctUntilChanged()
             .flowOn(coroutineContext)
     }
