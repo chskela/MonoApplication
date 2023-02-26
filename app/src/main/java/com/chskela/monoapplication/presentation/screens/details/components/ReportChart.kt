@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.chskela.monoapplication.presentation.screens.details.models.ReportChartUi
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -25,7 +26,7 @@ import android.graphics.Path as AGPath
 @Composable
 fun ReportChart(
     modifier: Modifier = Modifier,
-    reportsList: List<ReportUi> = emptyList(),
+    reportsList: List<ReportChartUi> = emptyList(),
     graphColor: Color = Expense,
     textColor: Color = MaterialTheme.colorScheme.secondary,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge
@@ -123,11 +124,6 @@ fun ReportChart(
     }
 }
 
-data class ReportUi(
-    val signatures: String,
-    val amount: Long,
-)
-
 @Preview(showBackground = true, name = "Light ReportChart", showSystemUi = false)
 @Preview(showBackground = true, showSystemUi = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -136,12 +132,12 @@ fun PreviewReportChart() {
         ReportChart(
             Modifier.size(width = 300.dp, height = 150.dp),
             reportsList = listOf(
-                ReportUi(signatures = "Oct", amount = 2),
-                ReportUi(signatures = "Nov", amount = 10),
-                ReportUi(signatures = "Dec", amount = 4),
-                ReportUi(signatures = "Oct", amount = 1),
-                ReportUi(signatures = "Nov", amount = 14),
-                ReportUi(signatures = "Dec", amount = 7)
+                ReportChartUi(signatures = "Oct", amount = 2),
+                ReportChartUi(signatures = "Nov", amount = 10),
+                ReportChartUi(signatures = "Dec", amount = 4),
+                ReportChartUi(signatures = "Oct", amount = 1),
+                ReportChartUi(signatures = "Nov", amount = 14),
+                ReportChartUi(signatures = "Dec", amount = 7)
             )
         )
     }
@@ -157,12 +153,12 @@ fun PreviewReportChartIncome() {
                 .fillMaxWidth()
                 .height(124.dp),
             reportsList = listOf(
-                ReportUi(signatures = "Oct", amount = 2),
-                ReportUi(signatures = "Nov", amount = 10),
-                ReportUi(signatures = "Dec", amount = 4),
-                ReportUi(signatures = "Oct", amount = 1),
-                ReportUi(signatures = "Nov", amount = 14),
-                ReportUi(signatures = "Dec", amount = 7)
+                ReportChartUi(signatures = "Oct", amount = 2),
+                ReportChartUi(signatures = "Nov", amount = 10),
+                ReportChartUi(signatures = "Dec", amount = 4),
+                ReportChartUi(signatures = "Oct", amount = 1),
+                ReportChartUi(signatures = "Nov", amount = 14),
+                ReportChartUi(signatures = "Dec", amount = 7)
             ),
             graphColor = Income
         )

@@ -11,6 +11,7 @@ import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUse
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsOfCategoryInThisMonthUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAmountByCategoryPerMonthUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.details.models.ReportChartUi
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import dagger.hilt.android.lifecycle.HiltViewModel

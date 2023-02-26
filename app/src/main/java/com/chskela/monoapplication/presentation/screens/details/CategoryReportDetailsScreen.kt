@@ -17,8 +17,8 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.presentation.screens.details.components.DetailsBigIcon
 import com.chskela.monoapplication.presentation.screens.details.components.ReportChart
-import com.chskela.monoapplication.presentation.screens.details.components.ReportUi
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
+import com.chskela.monoapplication.presentation.screens.details.models.ReportChartUi
 import com.chskela.monoapplication.presentation.ui.components.topappbar.MonoTopAppBar
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
@@ -149,12 +149,12 @@ fun PreviewCategoryReportDetailsScreen() {
                         icon = "category_food"
                     )
                 }, reportsList = listOf(
-                    ReportUi(signatures = "Oct", amount = 2),
-                    ReportUi(signatures = "Nov", amount = 10),
-                    ReportUi(signatures = "Dec", amount = 4),
-                    ReportUi(signatures = "Oct", amount = 1),
-                    ReportUi(signatures = "Nov", amount = 14),
-                    ReportUi(signatures = "Dec", amount = 7)
+                    ReportChartUi(signatures = "Oct", amount = 2),
+                    ReportChartUi(signatures = "Nov", amount = 10),
+                    ReportChartUi(signatures = "Dec", amount = 4),
+                    ReportChartUi(signatures = "Oct", amount = 1),
+                    ReportChartUi(signatures = "Nov", amount = 14),
+                    ReportChartUi(signatures = "Dec", amount = 7)
                 )
             )
         )
