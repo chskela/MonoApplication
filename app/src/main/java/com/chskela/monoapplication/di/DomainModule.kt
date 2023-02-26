@@ -98,6 +98,14 @@ object DomainModule {
     }
 
     @Provides
+    fun provideGetAmountByMonthsInCategoryMonthUseCase(
+        repository: ReportsRepository,
+        beginningOfMonthUseCase: BeginningOfMonthUseCase
+    ): GetAmountByMonthsInCategoryMonthUseCase {
+        return GetAmountByMonthsInCategoryMonthUseCase(repository, beginningOfMonthUseCase)
+    }
+
+    @Provides
     fun provideGetAmountByCategoryPerMonthUseCase(
         repository: ReportsRepository,
         beginningOfMonthUseCase: BeginningOfMonthUseCase
