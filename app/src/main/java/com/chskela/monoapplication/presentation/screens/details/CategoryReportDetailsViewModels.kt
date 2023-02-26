@@ -10,6 +10,7 @@ import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
 import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsOfCategoryInThisMonthUseCase
 import com.chskela.monoapplication.domain.reports.usecase.GetAmountByCategoryPerMonthUseCase
+import com.chskela.monoapplication.domain.reports.usecase.GetAmountByMonthsInCategoryMonthUseCase
 import com.chskela.monoapplication.presentation.screens.details.models.CategoryReportDetailsUiState
 import com.chskela.monoapplication.presentation.screens.details.models.ReportChartUi
 import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
@@ -25,6 +26,7 @@ class CategoryReportDetailsViewModels @Inject constructor(
     private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     private val getAmountByCategoryPerMonthUseCase: GetAmountByCategoryPerMonthUseCase,
+    private val getAmountByMonthsInCategoryMonthUseCase: GetAmountByMonthsInCategoryMonthUseCase,
     private val getAllTransactionsOfCategoryInThisMonthUseCase: GetAllTransactionsOfCategoryInThisMonthUseCase
 ) : ViewModel() {
 
@@ -52,14 +54,14 @@ class CategoryReportDetailsViewModels @Inject constructor(
                 val categoryId = event.categoryId
 
                 combine(
-                    getCategoryByIdUseCase(categoryId),
-                    getAllTransactionsOfCategoryInThisMonthUseCase(categoryId),
-                    getAmountByCategoryPerMonthUseCase(categoryId),
                     getDefaultCurrencyUseCase(),
-                ) { category, list, sumThisMonth, currentCurrency ->
+                    getCategoryByIdUseCase(categoryId),
+                    getAmountByCategoryPerMonthUseCase(categoryId),
+                    getAmountByMonthsInCategoryMonthUseCase(categoryId),
+                    getAllTransactionsOfCategoryInThisMonthUseCase(categoryId)
+                ) { currentCurrency, category, sumThisMonth, report, list ->
                     val currencyFormat = currencyFormatUseCase(currentCurrency.letterCode)
 
-//                    val reportsList: List<ReportUi> =
                     _uiState.update {
                         it.copy(
                             categoryName = category.name,
@@ -74,7 +76,8 @@ class CategoryReportDetailsViewModels @Inject constructor(
                                     category = category.name,
                                     icon = null
                                 )
-                            }
+                            },
+                            reportsList = report.map { l -> ReportChartUi(l.first, l.second) }
                         )
                     }
                 }.launchIn(viewModelScope)
