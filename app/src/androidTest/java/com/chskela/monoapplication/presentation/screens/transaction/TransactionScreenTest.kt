@@ -61,39 +61,48 @@ class TransactionScreenTest {
     }
 
     @Test
-    fun tabs_isVisible(){
+    fun tabs_isVisible() {
         composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS).assertIsDisplayed()
     }
 
     @Test
-    fun tabs_isClickAble(){
+    fun tabs_isClickAble() {
         val nodes = composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS).onChildren()
         nodes.onFirst().assertHasClickAction()
         nodes.onLast().assertHasClickAction()
     }
 
     @Test
-    fun tabs_hasText(){
+    fun tabs_hasText() {
         val nodes = composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS).onChildren()
         nodes.onFirst().assertTextContains(ctx.getString(R.string.expense))
         nodes.onLast().assertTextContains(ctx.getString(R.string.income))
     }
 
     @Test
-    fun firstTab_isSelected(){
+    fun firstTab_isSelected() {
         composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS)
             .onChildren()
-            .onLast()
+            .onFirst()
             .assertIsSelected()
     }
 
     @Test
-    fun amountTextField_isVisible(){
+    fun secondTab_isSelected() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS)
+            .onChildren()
+            .onLast()
+            .performClick()
+            .assertIsSelected()
+    }
+
+    @Test
+    fun amountTextField_isVisible() {
         composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT).assertIsDisplayed()
     }
 
     @Test
-    fun amountTextField_hasTextOnLabel(){
+    fun amountTextField_hasTextOnLabel() {
         composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
             .onChildren()
             .onFirst()
@@ -111,7 +120,7 @@ class TransactionScreenTest {
     }
 
     @Test
-    fun amountTextField_inputOnlyCurrencyValue(){
+    fun amountTextField_inputOnlyCurrencyValue() {
         val node = composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
             .onChildren()
             .onLast()
@@ -135,4 +144,104 @@ class TransactionScreenTest {
         node.assertTextContains("12345.67")
     }
 
+    @Test
+    fun noteTextField_isVisible() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_NOTE).assertIsDisplayed()
+    }
+
+    @Test
+    fun noteTextField_hasTextLabel() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_NOTE)
+            .onChildren()
+            .onFirst()
+            .assertTextContains(ctx.getString(R.string.note))
+    }
+
+    @Test
+    fun noteTextField_hasTextInput() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_NOTE)
+            .onChildren()
+            .onLast()
+            .assertTextContains(ctx.getString(R.string.please_input))
+    }
+
+    @Test
+    fun noteTextField_inputText() {
+        val test = "test"
+        val node = composeRule.onNodeWithTag(TestTags.TRANSACTION_NOTE)
+            .onChildren()
+            .onLast()
+
+        node.performTextInput(test)
+        node.assertTextContains(test)
+    }
+
+    @Test
+    fun category_isVisible() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_CATEGORY).assertIsDisplayed()
+    }
+
+    @Test
+    fun category_hasLabelAnd3ExpenseCategory() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_CATEGORY)
+            .onChildren()
+            .assertCountEquals(4)
+    }
+
+    @Test
+    fun category_hasLabelAnd2IncomeCategory() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_TABS)
+            .onChildren()
+            .onLast()
+            .performClick()
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_CATEGORY)
+            .onChildren()
+            .assertCountEquals(3)
+    }
+
+    @Test
+    fun button_isVisible() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_BUTTON).assertIsDisplayed()
+    }
+
+    @Test
+    fun button_defaultIsDisable() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_BUTTON).assertIsNotEnabled()
+    }
+
+    @Test
+    fun button_isDisable_ifInputOnlyAmount() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
+            .onChildren()
+            .onLast()
+            .performTextInput("100")
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_BUTTON).assertIsNotEnabled()
+    }
+
+    @Test
+    fun button_isDisable_ifSelectedOnlyCategory() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_CATEGORY)
+            .onChildren()
+            .onLast()
+            .performClick()
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_BUTTON).assertIsNotEnabled()
+    }
+
+    @Test
+    fun button_isEnable_ifInputAmountAndNote() {
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_AMOUNT)
+            .onChildren()
+            .onLast()
+            .performTextInput("100")
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_CATEGORY)
+            .onChildren()
+            .onLast()
+            .performClick()
+
+        composeRule.onNodeWithTag(TestTags.TRANSACTION_BUTTON).assertIsEnabled()
+    }
 }

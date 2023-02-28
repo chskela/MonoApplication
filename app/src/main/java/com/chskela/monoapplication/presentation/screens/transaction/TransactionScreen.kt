@@ -125,6 +125,7 @@ fun TransactionScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             MonoTextField(
+                modifier = Modifier.testTag(TestTags.TRANSACTION_NOTE),
                 label = stringResource(id = R.string.note),
                 value = note,
                 placeholder = {
@@ -142,6 +143,7 @@ fun TransactionScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             MonoCategorySurface(
+                modifier = Modifier.testTag(TestTags.TRANSACTION_CATEGORY),
                 listCategoryUi = listCategory,
                 title = stringResource(id = R.string.category),
                 selectedCategory = currentCategory,
@@ -156,6 +158,7 @@ fun TransactionScreen(
 
         MonoButton(
             modifier = Modifier
+                .testTag(TestTags.TRANSACTION_BUTTON)
                 .padding(horizontal = 16.dp)
                 .constrainAs(button) {
                     bottom.linkTo(parent.bottom, margin = 16.dp)
