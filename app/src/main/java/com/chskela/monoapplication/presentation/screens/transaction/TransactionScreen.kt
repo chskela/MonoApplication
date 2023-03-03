@@ -3,6 +3,7 @@ package com.chskela.monoapplication.presentation.screens.transaction
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -10,9 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +41,7 @@ fun TransactionScreen(
     onEvent: (TransitionEvent) -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
+    val localFocusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val titles = listOf(stringResource(id = R.string.expense), stringResource(id = R.string.income))
     val (currentTab,
@@ -118,7 +123,13 @@ fun TransactionScreen(
                         color = MaterialTheme.colorScheme.secondary
                     )
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Number
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { localFocusManager.moveFocus(FocusDirection.Down) }
+                ),
                 onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
             )
 
@@ -137,6 +148,13 @@ fun TransactionScreen(
                 },
                 singleLine = false,
                 maxLines = 5,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                        localFocusManager.clearFocus()
+                    }
+                ),
                 onValueChange = { onEvent(TransitionEvent.ChangeNote(it)) },
             )
 

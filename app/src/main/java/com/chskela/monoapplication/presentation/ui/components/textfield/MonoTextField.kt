@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +25,7 @@ fun MonoTextField(
     value: String = "",
     textStyle: TextStyle = MaterialTheme.typography.titleSmall,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = true,
     maxLines: Int = 5,
     onValueChange: (String) -> Unit = {},
@@ -33,7 +33,6 @@ fun MonoTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
     Column(modifier = modifier) {
         Text(
             text = label,
@@ -58,9 +57,7 @@ fun MonoTextField(
             value = value,
             onValueChange = { onValueChange(it) },
             keyboardOptions = keyboardOptions,
-            keyboardActions = KeyboardActions(
-                onDone = { keyboardController?.hide() }
-            ),
+            keyboardActions = keyboardActions
         )
     }
 }
