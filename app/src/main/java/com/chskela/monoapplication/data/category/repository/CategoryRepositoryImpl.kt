@@ -5,8 +5,8 @@ import com.chskela.monoapplication.domain.category.models.Category
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
-import com.chskela.monoapplication.mappers.mapToDomain
 import com.chskela.monoapplication.mappers.mapToData
+import com.chskela.monoapplication.mappers.mapToDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn

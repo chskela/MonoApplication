@@ -5,8 +5,8 @@ import com.chskela.monoapplication.data.currency.storage.store.CurrencyStore
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
-import com.chskela.monoapplication.mappers.mapToDomain
 import com.chskela.monoapplication.mappers.mapToData
+import com.chskela.monoapplication.mappers.mapToDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn

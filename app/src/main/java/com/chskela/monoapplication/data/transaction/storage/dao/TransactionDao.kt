@@ -1,8 +1,8 @@
 package com.chskela.monoapplication.data.transaction.storage.dao
 
 import androidx.room.*
-import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 import com.chskela.monoapplication.data.reports.storage.models.TransactionEntityWithCategory
+import com.chskela.monoapplication.data.transaction.storage.models.TransactionEntity
 
 @Dao
 interface TransactionDao {

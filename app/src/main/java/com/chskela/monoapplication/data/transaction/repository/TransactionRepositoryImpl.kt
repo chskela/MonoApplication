@@ -1,7 +1,7 @@
 package com.chskela.monoapplication.data.transaction.repository
 
-import com.chskela.monoapplication.data.transaction.storage.dao.TransactionDao
 import com.chskela.monoapplication.data.reports.storage.models.TransactionEntityWithCategory
+import com.chskela.monoapplication.data.transaction.storage.dao.TransactionDao
 import com.chskela.monoapplication.domain.common.repository.AbstractRepository
 import com.chskela.monoapplication.domain.transaction.models.Transaction
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository

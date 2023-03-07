@@ -10,13 +10,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
-import com.chskela.monoapplication.presentation.screens.reports.components.monthreport.components.BorderRow
-import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
-import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import com.chskela.monoapplication.presentation.screens.reports.ReportsEvent
+import com.chskela.monoapplication.presentation.screens.reports.components.monthreport.components.BorderRow
 import com.chskela.monoapplication.presentation.ui.components.datarange.MonoDateRange
 import com.chskela.monoapplication.presentation.ui.components.tabs.MonoTabs
 import com.chskela.monoapplication.presentation.ui.components.transactionList.MonoTransactionList
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TransactionListUi
+import com.chskela.monoapplication.presentation.ui.components.transactionList.model.TypeTransaction
 import com.chskela.monoapplication.presentation.ui.theme.Expense
 import com.chskela.monoapplication.presentation.ui.theme.Income
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme

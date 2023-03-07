@@ -6,7 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.currency.models.Currency
-import com.chskela.monoapplication.domain.currency.usecase.*
+import com.chskela.monoapplication.domain.currency.usecase.AddCurrencyUseCase
+import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
+import com.chskela.monoapplication.domain.currency.usecase.GetListCurrencyUseCase
+import com.chskela.monoapplication.domain.currency.usecase.SetDefaultCurrencyUseCase
 import com.chskela.monoapplication.presentation.screens.currency.models.CurrencyUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine

@@ -10,10 +10,9 @@ enum class MonoScreens {
 
     SettingRoot,
     Setting,
+    Currency,
 
     CategoryRoot,
     Category,
-    AddEditCategory,
-
-    Currency
+    AddEditCategory
 }

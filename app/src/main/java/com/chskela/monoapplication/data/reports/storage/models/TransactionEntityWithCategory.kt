@@ -3,7 +3,7 @@ package com.chskela.monoapplication.data.reports.storage.models
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import com.chskela.monoapplication.data.category.storage.models.Type
-import java.util.Date
+import java.util.*
 
 data class TransactionEntityWithCategory(
     @PrimaryKey(autoGenerate = true)
