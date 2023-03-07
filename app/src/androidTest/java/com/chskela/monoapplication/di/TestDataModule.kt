@@ -78,13 +78,7 @@ object TestDataModule {
 
     @Provides
     @Singleton
-    fun provideSettingsRepository(onBoardingStore: OnBoardingStore): OnBoardingRepository {
+    fun provideOnBoardingRepository(onBoardingStore: OnBoardingStore): OnBoardingRepository {
         return OnBoardingRepositoryImpl(onBoardingStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideOnBoardingIsSkipUseCase(repository: OnBoardingRepository) : OnBoardingIsSkipUseCase {
-        return OnBoardingIsSkipUseCase(repository)
     }
 }
