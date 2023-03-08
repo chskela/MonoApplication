@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object TransactionDomainModule {
+object TestTransactionDomainModule {
 
     @Provides
     fun provideAddTransactionUseCase(repository: TransactionRepository): AddTransactionUseCase {

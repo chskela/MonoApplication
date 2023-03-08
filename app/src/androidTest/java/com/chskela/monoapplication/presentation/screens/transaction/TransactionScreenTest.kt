@@ -14,7 +14,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.chskela.monoapplication.R
 import com.chskela.monoapplication.core.util.TestTags
 import com.chskela.monoapplication.di.TestDataModule
-import com.chskela.monoapplication.di.TestDomainModule
+import com.chskela.monoapplication.di.domain.*
 import com.chskela.monoapplication.presentation.MainActivity
 import com.chskela.monoapplication.presentation.navigation.MonoScreens
 import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
@@ -26,7 +26,15 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-@UninstallModules(TestDataModule::class, TestDomainModule::class)
+@UninstallModules(
+    TestDataModule::class,
+    TestCategoryDomainModule::class,
+    TestCommonDomainModule::class,
+    TestCurrencyDomainModule::class,
+    TestOnBoardingDomainModule::class,
+    TestReportsDomainModule::class,
+    TestTransactionDomainModule::class
+)
 class TransactionScreenTest {
 
     @get:Rule(order = 0)
