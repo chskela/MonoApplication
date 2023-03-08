@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
+import com.chskela.monoapplication.domain.common.usecase.DateFormatUseCase
 import com.chskela.monoapplication.domain.currency.models.Currency
 import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.transaction.models.Transaction
@@ -13,16 +14,18 @@ import com.chskela.monoapplication.presentation.screens.transaction.models.Trans
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class TransitionViewModel @Inject constructor(
+    dateFormatUseCase: DateFormatUseCase,
     private val addTransactionUseCase: AddTransactionUseCase,
-    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
-    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
+    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase
 ) : ViewModel() {
+
+    private val formatDate = dateFormatUseCase("dd MMMM yyyy (EEEE)")
 
     private var currentDate = Calendar.getInstance()
 
@@ -130,9 +133,6 @@ class TransitionViewModel @Inject constructor(
     private fun isEnabled() = with(uiState.value) {
         amount.isNotEmpty() && currentCategory != -1L
     }
-
-    private fun formatDate(date: Date) =
-        SimpleDateFormat("dd MMMM yyyy (EEEE)", Locale.getDefault()).format(date)
 
     private fun getListOfCategoryByType(type: TypeCategory) = getAllCategoryByTypeUseCase(type)
         .map { list -> list.map { it.mapToCategoryUi() } }

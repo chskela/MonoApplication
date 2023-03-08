@@ -9,6 +9,7 @@ import com.chskela.monoapplication.R
 import com.chskela.monoapplication.domain.category.models.TypeCategory
 import com.chskela.monoapplication.domain.category.usecase.GetAllCategoryByTypeUseCase
 import com.chskela.monoapplication.domain.common.usecase.CurrencyFormatUseCase
+import com.chskela.monoapplication.domain.common.usecase.DateFormatUseCase
 import com.chskela.monoapplication.domain.currency.usecase.GetDefaultCurrencyUseCase
 import com.chskela.monoapplication.domain.reports.models.TransactionWithCategory
 import com.chskela.monoapplication.domain.reports.usecase.GetAllTransactionsUseCase
@@ -21,19 +22,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class ReportsViewModels @Inject constructor(
+    dateFormatUseCase: DateFormatUseCase,
+    private val currencyFormatUseCase: CurrencyFormatUseCase,
     private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
     private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
-    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase,
-    private val currencyFormatUseCase: CurrencyFormatUseCase
+    private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase
 ) : ViewModel() {
 
+    private val formatDate = dateFormatUseCase("MMMM, yyyy")
     private var currentCalendar = Calendar.getInstance()
+
     private var allTransactionListUi: List<TransactionListUi> = emptyList()
     private var expenseTransactionListUi: List<TransactionListUi> = emptyList()
     private var incomeTransactionListUi: List<TransactionListUi> = emptyList()
@@ -153,9 +156,6 @@ class ReportsViewModels @Inject constructor(
             )
         }.launchIn(viewModelScope)
     }
-
-    private fun formatDate(date: Date) =
-        SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(date)
 
     private fun calculateBalance(transaction: TransactionWithCategory) =
         if (transaction.type == TypeCategory.Expense) {
