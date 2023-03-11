@@ -34,16 +34,20 @@ fun CategoryScreen(
     onEdit: (Long) -> Unit = {},
     onAddMore: () -> Unit = {}
 ) {
+    val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
+
+    val snackbarMessage = stringResource(R.string.category_deleted)
+    val snackbarLabel = stringResource(R.string.undo)
 
     fun onDeleteCategory(categoryId: Long) {
         onEvent(CategoryEvent.DeleteCategory(categoryId))
         scope.launch {
             val result = snackbarHostState.showSnackbar(
-                message = "Category deleted",
-                actionLabel = "Undo"
+                message = snackbarMessage,
+                actionLabel = snackbarLabel,
+                duration = SnackbarDuration.Long
             )
             if (result == SnackbarResult.ActionPerformed) {
                 onEvent(CategoryEvent.Restore)
@@ -125,84 +129,20 @@ fun PreviewCategoryScreen() {
     MonoApplicationTheme {
         CategoryScreen(
             uiState = CategoryUiState(
-                expenseList = listOf(
+                expenseList = List(12) {
                     CategoryUi(
-                        id = 0,
+                        id = it.toLong(),
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(id = 0, title = "Add more")
-                ),
-                incomeList = listOf(
+                    )
+                },
+                incomeList = List(12) {
                     CategoryUi(
-                        id = 0,
+                        id = it.toLong(),
                         icon = "bank",
                         title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(
-                        id = 0,
-                        icon = "bank",
-                        title = stringResource(id = R.string.category_bank)
-                    ), CategoryUi(id = 0, title = "Add more")
-                ),
+                    )
+                },
             )
         )
     }

@@ -112,5 +112,7 @@
     <string name="confirm">Confirm</string>
     <string name="dismiss">Dismiss</string>
     <string name="skip">Skip</string>
+    <string name="category_deleted">Category deleted</string>
+    <string name="undo">Undo</string>
 
 </resources>

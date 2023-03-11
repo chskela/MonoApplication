@@ -4,7 +4,7 @@
     <string name="expense">Расход</string>
     <string name="income">Доход</string>
     <string name="currency">Валюта</string>
-    <string name="category">Категория</string>
+    <string name="category">Категории</string>
     <string name="add_category">Добавить категорию</string>
     <string name="edit_category">Изменить категорию</string>
     <string name="delete_all_data">Удалить все данные</string>
@@ -20,7 +20,7 @@
     <string name="category_name">Название категории</string>
     <string name="icon">Иконка</string>
     <string name="add">Добавить</string>
-    <string name="save">Сохранить</string>
+    <string name="save">Сохранить</string>ффф
     <string name="add_more">Добавить еще</string>
     <string name="month">Месяц</string>
     <string name="week">Неделя</string>
@@ -48,4 +48,6 @@
     <string name="confirm">Подтверждить</string>
     <string name="dismiss">Отклонить</string>
     <string name="skip">Пропустить</string>
+    <string name="category_deleted">Категория удалена</string>
+    <string name="undo">Отменить</string>
 </resources>
