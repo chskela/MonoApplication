@@ -40,8 +40,8 @@
     <string name="on_boarding_title_step2">Track income and expenses</string>
     <string name="on_boarding_title_step3">Comprehensive Report</string>
 
-    <string name="on_boarding_body_step1">We always try to bring the best experience to users. Your transactions are recorded as quickly as possible. You will not have any difficulties when you first use MoNo.</string>
-    <string name="on_boarding_body_step2">details tracking transactions visually with the adding images features bills</string>
+    <string name="on_boarding_body_step1">We always try to bring the best experience to users. Your transactions are recorded as quickly as possible. You will not have any difficulties when you first use Mono.</string>
+    <string name="on_boarding_body_step2">Details tracking transactions visually with the adding images features bills</string>
     <string name="on_boarding_body_step3">Supports viewing your balance for monthly, income and expenses, debts, loans as well as reports with category.</string>
 
     <!--Bottom Navigation-->
@@ -51,62 +51,62 @@
     <string name="bottom_navigation_settings">Settings</string>
     
     <!--Category-->
-    <string name="category_baby">Baby</string>
-    <string name="category_bag">Bag</string>
-    <string name="category_bank">Bank</string>
-    <string name="category_bird">Bird</string>
-    <string name="category_birthday">Birthday</string>
-    <string name="category_boat">Boat</string>
-    <string name="category_books">Books</string>
-    <string name="category_brain">Brain</string>
-    <string name="category_building">Building</string>
-    <string name="category_camera">Camera</string>
-    <string name="category_car">Car</string>
-    <string name="category_cat">Cat</string>
-    <string name="category_chair">Chair</string>
-    <string name="category_challenge">Challenge</string>
-    <string name="category_clothes">Clothes</string>
-    <string name="category_coffer">Coffer</string>
-    <string name="category_coin">Coin</string>
-    <string name="category_cook">Cook</string>
-    <string name="category_cup">Cup</string>
-    <string name="category_currency">Currency</string>
-    <string name="category_cycles">Cycles</string>
-    <string name="category_dinner">Dinner</string>
-    <string name="category_dog">Dog</string>
-    <string name="category_face_mask">Face mask</string>
-    <string name="category_fix">Fix</string>
-    <string name="category_flower">Flower</string>
-    <string name="category_food">Food</string>
-    <string name="category_football">Football</string>
-    <string name="category_fun">Fun</string>
-    <string name="category_gas">Gas</string>
-    <string name="category_gift">Gift</string>
-    <string name="category_glass">Glass</string>
-    <string name="category_gym">Gym</string>
-    <string name="category_house">House</string>
-    <string name="category_lawyer">Lawyer</string>
-    <string name="category_map">Map</string>
-    <string name="category_market">Market</string>
-    <string name="category_medicine">Medicine</string>
-    <string name="category_money">Money</string>
-    <string name="category_music">Music</string>
-    <string name="category_package">Package</string>
-    <string name="category_party">Party</string>
-    <string name="category_pie">Pie</string>
-    <string name="category_pill">Pill</string>
-    <string name="category_plane">Plane</string>
-    <string name="category_receipt">Receipt</string>
-    <string name="category_run">Run</string>
-    <string name="category_sea">Sea</string>
-    <string name="category_shower">Shower</string>
-    <string name="category_study">Study</string>
-    <string name="category_tennis_ball">Tennis ball</string>
-    <string name="category_train">Train</string>
-    <string name="category_user">User</string>
-    <string name="category_wallet">Wallet</string>
-    <string name="category_wc">WC</string>
-    <string name="caret_down">caret down</string>
+    <string name="category_baby" translatable="false">Baby</string>
+    <string name="category_bag" translatable="false">Bag</string>
+    <string name="category_bank" translatable="false">Bank</string>
+    <string name="category_bird" translatable="false">Bird</string>
+    <string name="category_birthday" translatable="false">Birthday</string>
+    <string name="category_boat" translatable="false">Boat</string>
+    <string name="category_books" translatable="false">Books</string>
+    <string name="category_brain" translatable="false">Brain</string>
+    <string name="category_building" translatable="false">Building</string>
+    <string name="category_camera" translatable="false">Camera</string>
+    <string name="category_car" translatable="false">Car</string>
+    <string name="category_cat" translatable="false">Cat</string>
+    <string name="category_chair" translatable="false">Chair</string>
+    <string name="category_challenge" translatable="false">Challenge</string>
+    <string name="category_clothes" translatable="false">Clothes</string>
+    <string name="category_coffer" translatable="false">Coffer</string>
+    <string name="category_coin" translatable="false">Coin</string>
+    <string name="category_cook" translatable="false">Cook</string>
+    <string name="category_cup" translatable="false">Cup</string>
+    <string name="category_currency" translatable="false">Currency</string>
+    <string name="category_cycles" translatable="false">Cycles</string>
+    <string name="category_dinner" translatable="false">Dinner</string>
+    <string name="category_dog" translatable="false">Dog</string>
+    <string name="category_face_mask" translatable="false">Face mask</string>
+    <string name="category_fix" translatable="false">Fix</string>
+    <string name="category_flower" translatable="false">Flower</string>
+    <string name="category_food" translatable="false">Food</string>
+    <string name="category_football" translatable="false">Football</string>
+    <string name="category_fun" translatable="false">Fun</string>
+    <string name="category_gas" translatable="false">Gas</string>
+    <string name="category_gift" translatable="false">Gift</string>
+    <string name="category_glass" translatable="false">Glass</string>
+    <string name="category_gym" translatable="false">Gym</string>
+    <string name="category_house" translatable="false">House</string>
+    <string name="category_lawyer" translatable="false">Lawyer</string>
+    <string name="category_map" translatable="false">Map</string>
+    <string name="category_market" translatable="false">Market</string>
+    <string name="category_medicine" translatable="false">Medicine</string>
+    <string name="category_money" translatable="false">Money</string>
+    <string name="category_music" translatable="false">Music</string>
+    <string name="category_package" translatable="false">Package</string>
+    <string name="category_party" translatable="false">Party</string>
+    <string name="category_pie" translatable="false">Pie</string>
+    <string name="category_pill" translatable="false">Pill</string>
+    <string name="category_plane" translatable="false">Plane</string>
+    <string name="category_receipt" translatable="false">Receipt</string>
+    <string name="category_run" translatable="false">Run</string>
+    <string name="category_sea" translatable="false">Sea</string>
+    <string name="category_shower" translatable="false">Shower</string>
+    <string name="category_study" translatable="false">Study</string>
+    <string name="category_tennis_ball" translatable="false">Tennis ball</string>
+    <string name="category_train" translatable="false">Train</string>
+    <string name="category_user" translatable="false">User</string>
+    <string name="category_wallet" translatable="false">Wallet</string>
+    <string name="category_wc" translatable="false">WC</string>
+    <string name="caret_down">menu</string>
     <string name="attention">Attention:</string>
     <string name="all_data_will_be_deleted">All data will be deleted!</string>
     <string name="confirm">Confirm</string>
