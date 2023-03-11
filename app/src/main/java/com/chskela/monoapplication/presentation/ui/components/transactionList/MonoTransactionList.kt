@@ -41,7 +41,6 @@ fun MonoTransactionList(
                     .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // TODO настроить размер колонок
                 Column(modifier = Modifier.weight(0.7f)) {
                     Row(
                         modifier = Modifier.height(32.dp),
@@ -82,7 +81,6 @@ fun MonoTransactionList(
                         modifier = Modifier.height(32.dp),
                         contentAlignment = Alignment.Center,
                     ) {
-                        // TODO форматирование amount
                         Text(
                             text = amount,
                             style = MaterialTheme.typography.bodyLarge,
