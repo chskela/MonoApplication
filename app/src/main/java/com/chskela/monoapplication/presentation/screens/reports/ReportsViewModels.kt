@@ -34,7 +34,7 @@ class ReportsViewModels @Inject constructor(
     private val getAllCategoryByTypeUseCase: GetAllCategoryByTypeUseCase
 ) : ViewModel() {
 
-    private val formatDate = dateFormatUseCase("MMMM, yyyy")
+    private val formatDate = dateFormatUseCase("LLLL, yyyy")
     private var currentCalendar = Calendar.getInstance()
 
     private var allTransactionListUi: List<TransactionListUi> = emptyList()
