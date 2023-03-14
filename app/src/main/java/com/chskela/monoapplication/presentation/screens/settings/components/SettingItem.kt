@@ -23,6 +23,17 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 fun SettingItem(
     modifier: Modifier = Modifier,
     settingUiItem: SettingUiItem,
+    rightIcon: (@Composable () -> Unit)? = if (settingUiItem.rightIcon != null) {
+        {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = settingUiItem.rightIcon),
+                contentDescription = settingUiItem.title,
+                tint = settingUiItem.color
+            )
+        }
+    } else {
+        null
+    }
 ) {
     Row(
         modifier = modifier
@@ -45,7 +56,7 @@ fun SettingItem(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = settingUiItem.leftIcon),
-                contentDescription = "Category",
+                contentDescription = settingUiItem.title,
                 tint = settingUiItem.color
             )
             Text(
@@ -56,14 +67,9 @@ fun SettingItem(
             )
         }
 
-        if (settingUiItem.rightIcon != null) {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = settingUiItem.rightIcon),
-                contentDescription = "Category",
-                tint = settingUiItem.color
-            )
+        if (rightIcon != null) {
+            rightIcon()
         }
-
     }
 }
 

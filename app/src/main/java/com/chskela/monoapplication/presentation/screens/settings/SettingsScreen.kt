@@ -6,6 +6,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chskela.monoapplication.R
@@ -64,6 +66,25 @@ fun SettingsScreen(
                 ),
             )
             Spacer(modifier = Modifier.height(24.dp))
+            SettingItem(
+                settingUiItem = SettingUiItem(
+                    title = stringResource(id = R.string.dark_mode),
+                    leftIcon = R.drawable.settings_mode,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    onClick = { }
+                ),
+                rightIcon = {
+                    Switch(
+                        modifier = Modifier.semantics { contentDescription = "Demo" },
+                        checked = true,
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = MaterialTheme.colorScheme.primaryContainer,
+                            checkedTrackColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                        onCheckedChange = { })
+                }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             SettingItem(
                 settingUiItem = SettingUiItem(
                     title = stringResource(id = R.string.delete_all_data),
