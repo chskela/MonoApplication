@@ -10,11 +10,14 @@ import com.chskela.monoapplication.data.database.AppDatabase
 import com.chskela.monoapplication.data.onboarding.repository.OnBoardingRepositoryImpl
 import com.chskela.monoapplication.data.onboarding.storage.store.OnBoardingStore
 import com.chskela.monoapplication.data.reports.repository.ReportsRepositoryImpl
+import com.chskela.monoapplication.data.themeswitcher.repository.ThemeSwitcherImpl
+import com.chskela.monoapplication.data.themeswitcher.storage.store.ThemeSwitcherStore
 import com.chskela.monoapplication.data.transaction.repository.TransactionRepositoryImpl
 import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
 import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
+import com.chskela.monoapplication.domain.themeswitcher.repository.ThemeSwitcher
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import dagger.Module
 import dagger.Provides
@@ -82,5 +85,17 @@ object DataModule {
     @Singleton
     fun provideOnBoardingRepository(onBoardingStore: OnBoardingStore): OnBoardingRepository {
         return OnBoardingRepositoryImpl(onBoardingStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideThemeSwitcherStore(@ApplicationContext appContext: Context): ThemeSwitcherStore {
+        return ThemeSwitcherStore(appContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideThemeSwitcherRepository(themeSwitcherStore: ThemeSwitcherStore): ThemeSwitcher {
+        return ThemeSwitcherImpl(themeSwitcherStore)
     }
 }
