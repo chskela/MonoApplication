@@ -20,9 +20,11 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    isDarkTheme: Boolean,
     onCategory: () -> Unit = {},
     onCurrency: () -> Unit = {},
-    deleteAllData: () -> Unit = {}
+    deleteAllData: () -> Unit = {},
+    switchTheme: (Boolean) -> Unit = {},
 ) {
     var openDialog by remember { mutableStateOf(false) }
     DeleteDialog(openDialog,
@@ -71,17 +73,18 @@ fun SettingsScreen(
                     title = stringResource(id = R.string.dark_mode),
                     leftIcon = R.drawable.settings_mode,
                     color = MaterialTheme.colorScheme.onSurface,
-                    onClick = { }
+                    onClick = { switchTheme(!isDarkTheme) }
                 ),
                 rightIcon = {
                     Switch(
                         modifier = Modifier.semantics { contentDescription = "Demo" },
-                        checked = true,
+                        checked = isDarkTheme,
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = MaterialTheme.colorScheme.primaryContainer,
                             checkedTrackColor = MaterialTheme.colorScheme.onSurface,
                         ),
-                        onCheckedChange = { })
+                        onCheckedChange = { switchTheme(!isDarkTheme) }
+                    )
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -102,6 +105,6 @@ fun SettingsScreen(
 @Composable
 fun PreviewSettingsScreen() {
     MonoApplicationTheme {
-        SettingsScreen()
+        SettingsScreen(true)
     }
 }

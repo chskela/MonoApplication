@@ -25,7 +25,7 @@ fun NavGraphBuilder.settingGraph(navController: NavController) {
                 onCategory = { navController.navigate(MonoScreens.Category.name) },
                 onCurrency = { navController.navigate(MonoScreens.Currency.name) },
                 deleteAllData = settingsViewModel::deleteAllData,
-                setDarkTheme = settingsViewModel::setTheme
+                switchTheme = settingsViewModel::setTheme
             )
 
         }
