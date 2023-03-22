@@ -1,5 +1,6 @@
 package com.chskela.monoapplication.presentation.navigation.graphs
 
+import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,10 +21,13 @@ fun NavGraphBuilder.settingGraph(navController: NavController) {
         composable(MonoScreens.Setting.name) {
             val settingsViewModel: SettingsViewModel = hiltViewModel()
             SettingsScreen(
+                isDarkTheme = settingsViewModel.isDarkTheme.collectAsState().value,
                 onCategory = { navController.navigate(MonoScreens.Category.name) },
                 onCurrency = { navController.navigate(MonoScreens.Currency.name) },
-                deleteAllData = settingsViewModel::deleteAllData
+                deleteAllData = settingsViewModel::deleteAllData,
+                setDarkTheme = settingsViewModel::setTheme
             )
+
         }
 
         composable(MonoScreens.Currency.name) {
