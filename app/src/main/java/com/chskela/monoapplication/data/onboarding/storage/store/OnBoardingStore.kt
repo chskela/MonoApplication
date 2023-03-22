@@ -15,7 +15,7 @@ class OnBoardingStore(private val context: Context) {
     companion object {
         private const val ON_BOARDING_SKIP_DEFAULT = "ON_BOARDING_SKIP_DEFAULT"
         private val ON_BOARDING_DEFAULT_KEY = booleanPreferencesKey(ON_BOARDING_SKIP_DEFAULT)
-        private val Context.dataStore by preferencesDataStore("setting")
+        private val Context.dataStore by preferencesDataStore("on_boarding")
     }
 
     val onBoardingIsSkip: Flow<Boolean> = context.dataStore.data
