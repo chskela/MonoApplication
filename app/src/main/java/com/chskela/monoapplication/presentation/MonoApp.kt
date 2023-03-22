@@ -26,8 +26,8 @@ import com.chskela.monoapplication.presentation.ui.theme.MonoApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MonoApp(onBoardingIsSkip: Boolean) {
-    MonoApplicationTheme {
+fun MonoApp(onBoardingIsSkip: Boolean, darkTheme: Boolean) {
+    MonoApplicationTheme(darkTheme = darkTheme) {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
