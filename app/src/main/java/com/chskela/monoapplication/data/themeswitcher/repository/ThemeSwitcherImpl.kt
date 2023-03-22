@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 class ThemeSwitcherImpl(private val themeSwitcherStore: ThemeSwitcherStore) : ThemeSwitcher,
     AbstractRepository() {
 
-    override fun isDarkTheme(): Flow<Boolean?> {
+    override fun isDarkTheme(): Flow<Boolean> {
         return themeSwitcherStore.isDarkTheme.flowOn(coroutineContext)
     }
 

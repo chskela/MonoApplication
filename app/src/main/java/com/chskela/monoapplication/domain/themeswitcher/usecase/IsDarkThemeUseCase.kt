@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class IsDarkThemeUseCase @Inject constructor(private val themeSwitcher: ThemeSwitcher) {
 
-    operator fun invoke(): Flow<Boolean?> {
+    operator fun invoke(): Flow<Boolean> {
         return themeSwitcher.isDarkTheme()
     }
 }
