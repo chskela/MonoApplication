@@ -15,10 +15,10 @@ class ThemeSwitcherStore (private val context: Context) {
     companion object {
         private const val THEME_SWITCHER_DEFAULT = "THEME_SWITCHER_DEFAULT"
         private val THEME_SWITCHER_DEFAULT_KEY = booleanPreferencesKey(THEME_SWITCHER_DEFAULT)
-        private val Context.dataStore by preferencesDataStore("setting")
+        private val Context.dataStore by preferencesDataStore("theme_switcher")
     }
 
-    val isDarkTheme: Flow<Boolean?> = context.dataStore.data
+    val isDarkTheme: Flow<Boolean> = context.dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -27,7 +27,7 @@ class ThemeSwitcherStore (private val context: Context) {
             }
         }
         .map { preferences ->
-            preferences[THEME_SWITCHER_DEFAULT_KEY]
+            preferences[THEME_SWITCHER_DEFAULT_KEY] ?: true
         }
 
     suspend fun setDarkTheme(value: Boolean) {
