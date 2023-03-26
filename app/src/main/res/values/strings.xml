@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mono</string>
+    <string name="app_name">Chervonets</string>
 
     <!--Common-->
     <string name="expense">Expense</string>
@@ -40,7 +40,7 @@
     <string name="on_boarding_title_step2">Track income and expenses</string>
     <string name="on_boarding_title_step3">Comprehensive Report</string>
 
-    <string name="on_boarding_body_step1">We always try to bring the best experience to users. Your transactions are recorded as quickly as possible. You will not have any difficulties when you first use Mono.</string>
+    <string name="on_boarding_body_step1">We always try to bring the best experience to users. Your transactions are recorded as quickly as possible. You will not have any difficulties when you first use.</string>
     <string name="on_boarding_body_step2">Details tracking transactions visually with the adding images features bills</string>
     <string name="on_boarding_body_step3">Supports viewing your balance for monthly, income and expenses, debts, loans as well as reports with category.</string>
 

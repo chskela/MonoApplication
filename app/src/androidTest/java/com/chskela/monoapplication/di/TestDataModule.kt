@@ -15,7 +15,6 @@ import com.chskela.monoapplication.domain.category.repository.CategoryRepository
 import com.chskela.monoapplication.domain.currency.repository.CurrencyRepository
 import com.chskela.monoapplication.domain.reports.repository.ReportsRepository
 import com.chskela.monoapplication.domain.onboarding.repository.OnBoardingRepository
-import com.chskela.monoapplication.domain.onboarding.usecase.OnBoardingIsSkipUseCase
 import com.chskela.monoapplication.domain.transaction.repository.TransactionRepository
 import dagger.Module
 import dagger.Provides
@@ -35,7 +34,7 @@ object TestDataModule {
             app,
             AppDatabase::class.java,
         )
-            .createFromAsset("database/mono.db")
+            .createFromAsset("database/mono_dev.db")
             .build()
     }
 

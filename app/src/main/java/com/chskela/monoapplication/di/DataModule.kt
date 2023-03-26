@@ -38,7 +38,7 @@ object DataModule {
             AppDatabase::class.java,
             AppDatabase.DATABASE_NAME
         )
-            .createFromAsset("database/mono.db")
+            .createFromAsset("database/mono_dev.db")
             .build()
     }
 

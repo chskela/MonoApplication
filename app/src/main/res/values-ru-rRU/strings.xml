@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mono</string>
+    <string name="app_name">Черво́нец</string>
     <string name="expense">Расход</string>
     <string name="income">Доход</string>
     <string name="currency">Валюта</string>
@@ -35,7 +35,7 @@
     <string name="on_boarding_title_step1">Легко добавить новую транзакцию</string>
     <string name="on_boarding_title_step2">Отслеживайте доходы и расходы</string>
     <string name="on_boarding_title_step3">Комплексный отчет</string>
-    <string name="on_boarding_body_step1">Мы всегда стараемся предоставить лучший опыт пользователям. Ваши транзакции записываются максимально быстро. У вас не возникнет никаких трудностей при первом использовании Mono.</string>
+    <string name="on_boarding_body_step1">Мы всегда стараемся предоставить лучший опыт пользователям. Ваши транзакции записываются максимально быстро. У вас не возникнет никаких трудностей при первом использовании.</string>
     <string name="on_boarding_body_step2">Подробное отслеживание транзакций визуально с добавлением изображений особенности счетов</string>
     <string name="on_boarding_body_step3">Поддерживает просмотр вашего ежемесячного баланса, доходов и расходов, долгов, кредитов, а также отчетов по категориями.</string>
     <string name="bottom_navigation_input">Ввод</string>
