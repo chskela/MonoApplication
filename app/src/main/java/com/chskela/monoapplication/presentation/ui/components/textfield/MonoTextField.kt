@@ -31,6 +31,7 @@ fun MonoTextField(
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
+    supportingText: String = "",
 ) {
     Column(modifier = modifier) {
         Text(
@@ -56,7 +57,8 @@ fun MonoTextField(
             value = value,
             onValueChange = { onValueChange(it) },
             keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions
+            keyboardActions = keyboardActions,
+            supportingText = { Text(text = supportingText)}
         )
     }
 }
