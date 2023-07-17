@@ -51,4 +51,6 @@
     <string name="category_deleted">Категория удалена</string>
     <string name="undo">Отменить</string>
     <string name="dark_mode">Темная тема</string>
+    <string name="please_enter_a_value">Пожалуйста, введите значение</string>
+    <string name="here_you_can_enter_additional_comments">Здесь можно ввести дополнительные комментарии</string>
 </resources>

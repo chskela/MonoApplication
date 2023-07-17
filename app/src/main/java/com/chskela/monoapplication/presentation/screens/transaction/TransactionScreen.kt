@@ -130,10 +130,11 @@ fun TransactionScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { localFocusManager.moveFocus(FocusDirection.Down) }
                 ),
-                onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) }
+                onValueChange = { onEvent(TransitionEvent.ChangeAmount(it)) },
+                supportingText = stringResource(R.string.please_enter_a_value)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             MonoTextField(
                 modifier = Modifier.testTag(TestTags.TRANSACTION_NOTE),
@@ -156,9 +157,10 @@ fun TransactionScreen(
                     }
                 ),
                 onValueChange = { onEvent(TransitionEvent.ChangeNote(it)) },
+                supportingText = stringResource(R.string.here_you_can_enter_additional_comments)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             MonoCategorySurface(
                 modifier = Modifier.testTag(TestTags.TRANSACTION_CATEGORY),

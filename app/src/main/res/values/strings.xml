@@ -115,5 +115,7 @@
     <string name="category_deleted">Category deleted</string>
     <string name="undo">Undo</string>
     <string name="dark_mode">Dark mode</string>
+    <string name="please_enter_a_value">Please enter a value</string>
+    <string name="here_you_can_enter_additional_comments">Here you can enter additional comments</string>
 
 </resources>
